@@ -18,6 +18,22 @@ export default class Layout extends Component {
 
   handleContextRef = contextRef => this.setState({ contextRef })
 
+  renderHelmet(data) {
+    return (
+      <Helmet
+        title={`${data.site.siteMetadata.title} - ${this.props.subTitle}`}
+        meta={[
+          { name: 'description', content: 'Sample' },
+          { name: 'keywords', content: 'sample, something' },
+        ]}
+        link={[
+          { rel: 'icon', href: favicon192, sizes: '192x192' },
+          { rel: 'icon', href: favicon32, sizes: '32x32' },
+        ]}
+      />
+    )
+  }
+
   render() {
     const { contextRef } = this.state
 
@@ -34,17 +50,7 @@ export default class Layout extends Component {
         `}
         render={data => (
           <>
-            <Helmet
-              title={`${data.site.siteMetadata.title} - ${this.props.subTitle}`}
-              meta={[
-                { name: 'description', content: 'Sample' },
-                { name: 'keywords', content: 'sample, something' },
-              ]}
-              link={[
-                { rel: 'icon', href: favicon192, sizes: '192x192' },
-                { rel: 'icon', href: favicon32, sizes: '32x32' },
-              ]}
-            />
+            {this.renderHelmet(data)}
             <div ref={this.handleContextRef}>
               <Sticky context={contextRef}>
                 <Header siteTitle={data.site.siteMetadata.title} />
