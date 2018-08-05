@@ -5,12 +5,11 @@
   "author": "Zoltán Bedi <zoltan.bedi@gmail.com>",
   "dependencies": {
     "gatsby": "next",
+    "gatsby-plugin-less": "next",
     "gatsby-plugin-react-helmet": "next",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "less": "2.7.3",
     "react-helmet": "^5.2.0",
-    "semantic-ui-css": "^2.3.2",
-    "semantic-ui-react": "^0.81.3"
+    "semantic-ui-less": "^2.3.3",
   },
   "license": "MIT",
   "scripts": {
