@@ -4,17 +4,13 @@
   "version": "0.1.0",
   "author": "Zoltán Bedi <zoltan.bedi@gmail.com>",
   "dependencies": {
-    "gatsby": "next",
-    "gatsby-plugin-less": "next",
-    "gatsby-plugin-manifest": "next",
-    "gatsby-plugin-offline": "next",
-    "gatsby-plugin-react-helmet": "next",
-    "less": "2.7.3",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-helmet": "^5.2.0",
-    "semantic-ui-less": "^2.3.3",
-    "semantic-ui-react": "^0.82.1"
+    "gatsby": "^2.0.3",
+    "gatsby-plugin-manifest": "^2.0.2",
+    "gatsby-plugin-offline": "^2.0.5",
+    "gatsby-plugin-react-helmet": "^3.0.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-helmet": "^5.2.0"
   },
   "license": "MIT",
   "scripts": {
@@ -24,7 +20,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "prettier": "^1.14.0"
+    "prettier": "^1.14.2"
   },
   "repository": {
     "type": "git",
