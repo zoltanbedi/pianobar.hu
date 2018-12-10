@@ -1,9 +1,8 @@
 import React from 'react'
-import { Container, Header } from 'semantic-ui-react'
 
 const WelcomeText = () => (
-  <Container>
-    <Header as="h2">A zene közkatonája</Header>
+  <section>
+    <h2>A zene közkatonája</h2>
     <p>
       Fűzy Gábor vagyok, a zene közkatonája. Sokak Gabija -ma már olykor Gabi
       bácsija-, a bárzene utolsó mohikánja.
@@ -44,10 +43,9 @@ const WelcomeText = () => (
       felnőtt megőrző”.
     </p>
     <p>
-      Azt gondolom, hogy mi egy ma már ritkaság számba menő “<strong>
-        zeneklinika
-      </strong>” vagyunk, ahol balzsamos kezelést kap a szív, felüdül a lélek,
-      édes-bús emlékek szakadnak fel.
+      Azt gondolom, hogy mi egy ma már ritkaság számba menő “
+      <strong>zeneklinika</strong>” vagyunk, ahol balzsamos kezelést kap a szív,
+      felüdül a lélek, édes-bús emlékek szakadnak fel.
     </p>
     <p>
       Amikor leszáll az éj, a bárban kigyúl a fény, megszólal a zongora…és
@@ -59,7 +57,7 @@ const WelcomeText = () => (
       lokálvilágában, látogasson meg személyesen a{' '}
       <strong>Kis Pipacs Pianó Bárban</strong>!
     </p>
-  </Container>
+  </section>
 )
 
 export default WelcomeText
