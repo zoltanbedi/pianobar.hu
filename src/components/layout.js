@@ -19,8 +19,9 @@ export default class Layout extends Component {
         link={[
           { rel: 'icon', href: favicon192, sizes: '192x192' },
           { rel: 'icon', href: favicon32, sizes: '32x32' },
-        ]}
-      />
+        ]}>
+        <html lang="hu" />
+        </Helmet>
     )
   }
 
