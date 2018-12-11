@@ -26,7 +26,7 @@ const Footer = () => (
         </li>
       </ul>
       <p>
-        <a href="https://github.com/B3zo0">©Zoltán Bedi</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.
+        <a href="https://github.com/B3zo0">© Zoltán Bedi</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.
       </p>
     </div>
   </footer>
