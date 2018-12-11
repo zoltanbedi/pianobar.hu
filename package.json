@@ -4,12 +4,12 @@
   "version": "0.1.0",
   "author": "Zoltán Bedi <zoltan.bedi@gmail.com>",
   "dependencies": {
-    "gatsby": "^2.0.64",
+    "gatsby": "^2.0.65",
     "gatsby-plugin-manifest": "^2.0.11",
     "gatsby-plugin-offline": "^2.0.19",
     "gatsby-plugin-react-helmet": "^3.0.4",
-    "gatsby-plugin-sass":"^2.0.7",
-    "node-sass":"^4.11.0",
+    "gatsby-plugin-sass": "^2.0.7",
+    "node-sass": "^4.11.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-helmet": "^5.2.0"
@@ -21,6 +21,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.6.0",
     "prettier": "^1.15.3"
   },
   "repository": {
