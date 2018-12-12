@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "author": "Zoltán Bedi <zoltan.bedi@gmail.com>",
   "dependencies": {
-    "gatsby": "^2.0.65",
-    "gatsby-plugin-manifest": "^2.0.11",
+    "gatsby": "^2.0.66",
+    "gatsby-plugin-manifest": "^2.0.12",
     "gatsby-plugin-offline": "^2.0.19",
     "gatsby-plugin-react-helmet": "^3.0.4",
     "gatsby-plugin-sass": "^2.0.7",
@@ -21,7 +21,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.6.0",
+    "@fortawesome/fontawesome-free": "^5.6.1",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.10.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-standard": "^4.0.0",
     "prettier": "^1.15.3"
   },
   "repository": {
