@@ -1,6 +1,6 @@
 import React from 'react'
 
-const WelcomeText = () => (
+export default () => (
   <>
     <h2>A zene közkatonája</h2>
     <p>Fűzy Gábor vagyok, a zene közkatonája. Sokak Gabija -ma már olykor Gabi bácsija-, a bárzene utolsó mohikánja.</p>
@@ -45,5 +45,3 @@ const WelcomeText = () => (
     </p>
   </>
 )
-
-export default WelcomeText

@@ -1,13 +1,21 @@
 import React from 'react'
 import Layout from '../components/layout'
 import Banner from '../components/sections/banner'
-import * as image from '../assets/images/hero2.jpg'
+import { graphql } from 'gatsby'
+import Img from 'gatsby-image'
 
-const IndexPage = () => (
+export default props => (
   <Layout subTitle="Bárzongorista">
     <Banner
       bannerStyle={5}
-      image={{ src: image, alt: 'Fűzy Gábor énekel' }}
+      image={
+        <Img
+          fluid={props.data.imageOne.childImageSharp.fluid}
+          alt="Fűzy Gábor énekel"
+          className="image"
+          style={{ position: 'absolute' }}
+        />
+      }
       modifiers={['fullscreen', 'content-align-left', 'onload-image-fade-in']}
     >
       <header>
@@ -18,4 +26,20 @@ const IndexPage = () => (
   </Layout>
 )
 
-export default IndexPage
+export const fluidImage = graphql`
+  fragment fluidImage on File {
+    childImageSharp {
+      fluid(maxWidth: 1000) {
+        ...GatsbyImageSharpFluid
+      }
+    }
+  }
+`
+
+export const pageQuery = graphql`
+  query {
+    imageOne: file(relativePath: { eq: "hero2.jpg" }) {
+      ...fluidImage
+    }
+  }
+`

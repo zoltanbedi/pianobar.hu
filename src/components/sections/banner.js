@@ -9,13 +9,13 @@ const Banner = props => {
   return (
     <section className={bannerClasses}>
       <div className="content">{props.children}</div>
-      <div className="image">{props.image ? <img src={props.image.src} alt={props.image.alt} /> : ''}</div>
+      {props.image}
     </section>
   )
 }
 
 Banner.propTypes = {
-  image: PropTypes.object,
+  image: PropTypes.node,
   bannerStyle: PropTypes.number,
   modifiers: PropTypes.arrayOf(PropTypes.string),
 }
