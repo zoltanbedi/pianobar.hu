@@ -5,22 +5,31 @@ const Footer = () => (
     <div className="inner">
       <ul className="icons">
         <li>
-          <a href="tel:+36209839434" className="icon style2 fas fa-phone">
+          <a href="tel:+36209839434" title="Telefon" className="icon style2 fas fa-phone">
             <span className="label">Telefon</span>
           </a>
         </li>
         <li>
-          <a href="https://www.facebook.com/Fuzy.Gabor44" className="icon style2 fab fa-facebook">
+          <a href="https://www.facebook.com/Fuzy.Gabor44" title="Facebook" className="icon style2 fab fa-facebook">
             <span className="label">Facebook</span>
           </a>
         </li>
         <li>
-          <a href="https://www.instagram.com/fuzygabor/" className="icon style2 fab fa-instagram">
+          <a
+            href="https://www.youtube.com/channel/UC7j3MQnaL_EqtROv9kvtR_A"
+            title="YouTube"
+            className="icon style2 fab fa-youtube"
+          >
+            <span className="label">YouTube</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/fuzygabor/" title="Instagram" className="icon style2 fab fa-instagram">
             <span className="label">Instagram</span>
           </a>
         </li>
         <li>
-          <a href="mailto:zongoristagabibacsi@gmail.com" className="icon style2 fas fa-envelope">
+          <a href="mailto:zongoristagabibacsi@gmail.com" title="Email" className="icon style2 fas fa-envelope">
             <span className="label">Email</span>
           </a>
         </li>
