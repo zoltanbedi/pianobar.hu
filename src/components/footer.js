@@ -38,7 +38,7 @@ const Footer = () => (
         © {new Date().getFullYear()} Fűzy Gábor. Design: <a href="https://html5up.net">HTML5 UP</a>.
       </p>
       <p>
-        Built with ❤ by <a href="https://github.com/B3zo0">Zoltán Bedi</a>
+        Built with ❤ by <a href="https://github.com/B3zo0">Bedi Zoltán</a>
       </p>
     </div>
   </footer>
