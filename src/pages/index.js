@@ -1,9 +1,10 @@
 import React from 'react'
 import Layout from '../components/layout'
-import Banner from '../components/sections/banner'
+import Banner from '../components/sections/Banner'
 import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
-import ContactUs from '../components/sections/contact-us'
+import ContactUs from '../components/sections/ContactUs'
+import WelcomeText from '../components/sections/WelcomeText'
 
 export default props => (
   <Layout subTitle="Bárzongorista">
@@ -24,6 +25,21 @@ export default props => (
         <p>bárzongorista</p>
       </header>
     </Banner>
+    <Banner
+      bannerStyle={2}
+      isSpotlight={true}
+      modifiers={['orient-right', 'content-align-left', 'image-position-right']}
+      image={
+        <Img
+          fluid={props.data.imageTwo.childImageSharp.fluid}
+          alt="Fűzy Gábor zongora mellett"
+          className="image"
+          imgStyle={{ 'object-position': 'right' }}
+        />
+      }
+    >
+      <WelcomeText />
+    </Banner>
     <ContactUs />
   </Layout>
 )
@@ -41,6 +57,10 @@ export const fluidImage = graphql`
 export const pageQuery = graphql`
   query {
     imageOne: file(relativePath: { eq: "hero2.jpg" }) {
+      ...fluidImage
+    }
+
+    imageTwo: file(relativePath: { eq: "hero-img.jpg" }) {
       ...fluidImage
     }
   }

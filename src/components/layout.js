@@ -33,7 +33,7 @@ export default class Layout extends Component {
           }
         `}
         render={data => (
-          <div id="wrapper">
+          <div id="wrapper" className="divided">
             {this.renderHelmet(data)}
             {this.props.children}
             <Footer />
