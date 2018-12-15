@@ -28,7 +28,7 @@ export default class ContactUs extends Component {
             </ul>
           </form>
           <p>
-            Fellépés, koncert, magán rendezvény:{' '}
+            Fellépés, koncert, magánrendezvény:{' '}
             <a href="tel:+36209839434" title="Telefon">
               +36209839434
             </a>{' '}
