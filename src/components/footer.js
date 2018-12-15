@@ -35,7 +35,10 @@ const Footer = () => (
         </li>
       </ul>
       <p>
-        <a href="https://github.com/B3zo0">© Zoltán Bedi</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.
+        © {new Date().getFullYear()} Fűzy Gábor. Design: <a href="https://html5up.net">HTML5 UP</a>.
+      </p>
+      <p>
+        Built with ❤ by <a href="https://github.com/B3zo0">Zoltán Bedi</a>
       </p>
     </div>
   </footer>
