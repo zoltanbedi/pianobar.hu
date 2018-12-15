@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { CSSTransitionGroup } from 'react-transition-group'
+import { Transition } from 'react-transition-group'
 
 export default class WelcomeText extends Component {
   constructor(props) {
@@ -17,15 +17,32 @@ export default class WelcomeText extends Component {
 
   render() {
     const { isOpened } = this.state
+    const duration = 300
+    const defaultStyle = {
+      transition: `opacity ${duration}ms ease-in-out`,
+      opacity: 0,
+    }
+
+    const transitionStyles = {
+      entering: { opacity: 0 },
+      entered: { opacity: 1 },
+    }
     return (
       <>
         <h2>A zene közkatonája</h2>
         <p>
           Fűzy Gábor vagyok, a zene közkatonája. Sokak Gabija -ma már olykor Gabi bácsija-, a bárzene utolsó mohikánja.
         </p>
-        <CSSTransitionGroup transitionName="example" transitionEnterTimeout={1000} transitionLeaveTimeout={300}>
-          {isOpened && <Text key="ex" />}
-        </CSSTransitionGroup>
+        <Transition in={isOpened} timeout={duration} unmountOnExit>
+          {state => (
+            <Text
+              style={{
+                ...defaultStyle,
+                ...transitionStyles[state],
+              }}
+            />
+          )}
+        </Transition>
 
         <button onClick={this.toggleText}>{isOpened ? 'Bezár' : 'Tovább'}</button>
       </>
@@ -33,8 +50,8 @@ export default class WelcomeText extends Component {
   }
 }
 
-const Text = () => (
-  <div>
+const Text = props => (
+  <div style={props.style}>
     <p>
       Soha nem éreztem azt, hogy te jóságos ég, munkába kell mennem. Szerencsés embernek tartom magam, aki amellett,
       hogy szórakoztat, maga is szórakozik. Vendégeim szemeit fürkészve, érzem meg, hogy éppen szerelmes az ember, vagy
