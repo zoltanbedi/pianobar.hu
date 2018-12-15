@@ -3,6 +3,7 @@ import Layout from '../components/layout'
 import Banner from '../components/sections/banner'
 import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
+import ContactUs from '../components/sections/contact-us'
 
 export default props => (
   <Layout subTitle="Bárzongorista">
@@ -23,6 +24,7 @@ export default props => (
         <p>bárzongorista</p>
       </header>
     </Banner>
+    <ContactUs />
   </Layout>
 )
 
