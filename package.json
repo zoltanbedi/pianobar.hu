@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "author": "Zoltán Bedi <zoltan.bedi@gmail.com>",
   "dependencies": {
-    "gatsby": "^2.0.66",
-    "gatsby-image": "^2.0.24",
+    "gatsby": "^2.0.67",
+    "gatsby-image": "^2.0.25",
     "gatsby-plugin-google-analytics": "^2.0.8",
     "gatsby-plugin-manifest": "^2.0.12",
     "gatsby-plugin-offline": "^2.0.19",
@@ -18,6 +18,8 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-helmet": "^5.2.0",
+    "react-images": "^0.5.19",
+    "react-photo-gallery": "^6.2.2",
     "react-transition-group": "^2.5.1"
   },
   "scripts": {
