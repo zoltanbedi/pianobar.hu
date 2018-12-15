@@ -8,7 +8,7 @@
 
 	.wrapper.style1 {
 		> .inner {
-			@include padding(_size(padding, default), _size(padding, default) * 0.5);
+			@include padding(_size(padding, medium), _size(padding, medium) * 0.5);
 			margin: 0 auto;
 			max-width: 100%;
 			width: _size(inner);
