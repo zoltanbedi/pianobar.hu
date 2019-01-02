@@ -43,10 +43,10 @@ export default props => (
     </Banner>
     <ImgGallery
       photos={[
-        { ...props.data.galleryOne.childImageSharp.fixed },
-        { ...props.data.galleryTwo.childImageSharp.fixed },
-        { ...props.data.galleryThree.childImageSharp.fixed },
-        { ...props.data.galleryFour.childImageSharp.fixed },
+        { fluid: { ...props.data.galleryOne.childImageSharp.fluid }, alt: 'Fűzy Gábor fehér zongorán játszik' },
+        { fluid: { ...props.data.galleryTwo.childImageSharp.fluid }, alt: 'Fűzy Gábor egy szőke hölgy társaságában' },
+        { fluid: { ...props.data.galleryThree.childImageSharp.fluid }, alt: 'Gabi bácsi rajongókkal' },
+        { fluid: { ...props.data.galleryFour.childImageSharp.fluid }, alt: 'Gabi bácsi az indexes videóból' },
       ]}
     />
     <ContactUs />
@@ -66,8 +66,8 @@ export const fluidImage = graphql`
 export const fixedImage = graphql`
   fragment fixedImage on File {
     childImageSharp {
-      fixed(width: 640) {
-        ...GatsbyImageSharpFixed_noBase64
+      fixed(width: 400) {
+        ...GatsbyImageSharpFixed
       }
     }
   }
@@ -82,16 +82,16 @@ export const pageQuery = graphql`
       ...fluidImage
     }
     galleryOne: file(relativePath: { eq: "gallery1.jpg" }) {
-      ...fixedImage
+      ...fluidImage
     }
     galleryTwo: file(relativePath: { eq: "gallery2.jpg" }) {
-      ...fixedImage
+      ...fluidImage
     }
     galleryThree: file(relativePath: { eq: "gallery3.jpg" }) {
-      ...fixedImage
+      ...fluidImage
     }
     galleryFour: file(relativePath: { eq: "gallery4.jpg" }) {
-      ...fixedImage
+      ...fluidImage
     }
   }
 `
