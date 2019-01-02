@@ -5,9 +5,12 @@ import Carousel from 'nuka-carousel'
 export default class ImgGallery extends Component {
   constructor(props) {
     super(props)
-    this.state = this.getDimensons()
+    this.state = {
+      width: 0,
+    }
   }
   componentDidMount() {
+    this.handleResize()
     window.addEventListener('resize', this.handleResize)
   }
 
