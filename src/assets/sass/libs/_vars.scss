@@ -48,7 +48,7 @@
 
 // Palette.
 	$palette: (
-		color1:				#30363d,
+		color1:				#5e2e2d,
 		color2:				#db8992,
 		color3:				#ab7aad,
 		color4:				#897cad,
@@ -64,7 +64,7 @@
 		border:				rgba(0,0,0,0.2),
 		border-alt:			rgba(0,0,0,0.075),
 		border-bg:			rgba(0,0,0,0.05),
-		accent:				#5D0503,
+		accent:				#5d0503,
 
 		invert: (
 			bg:				#000000,
@@ -75,6 +75,6 @@
 			border:			rgba(255,255,255,1.0),
 			border-alt:		rgba(255,255,255,0.125),
 			border-bg:		rgba(255,255,255,0.125),
-			accent:			#47D3E5
+			accent:			rgb(182, 84, 83)
 		),
 	);
