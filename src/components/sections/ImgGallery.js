@@ -7,19 +7,39 @@ export default class ImgGallery extends Component {
     super(props)
     this.state = {
       width: 0,
+      height: 0,
+      isInViewport: false,
     }
   }
+
   componentDidMount() {
     this.handleResize()
     window.addEventListener('resize', this.handleResize)
+    window.addEventListener('scroll', this.handleScroll)
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener('scroll', this.handleScroll)
   }
 
   handleResize = () => {
     this.setState(this.getDimensons())
+  }
+
+  handleScroll = () => {
+    this.setState({ isInViewport: this.isInViewport() })
+  }
+
+  isInViewport() {
+    const elem = document.querySelector('.slider')
+    const bounding = elem.getBoundingClientRect()
+    return (
+      bounding.top >= -200 &&
+      bounding.left >= 0 &&
+      bounding.bottom <= this.state.height &&
+      bounding.right <= this.state.width
+    )
   }
 
   getDimensons() {
@@ -39,7 +59,8 @@ export default class ImgGallery extends Component {
         <Carousel
           className="inner"
           heightMode="current"
-          autoplay={true}
+          pauseOnHover={false}
+          autoplay={this.state.isInViewport}
           wrapAround={true}
           speed={1000}
           renderCenterLeftControls={({ previousSlide }) => <button onClick={previousSlide}>Előző</button>}
