@@ -60,6 +60,7 @@ export default class ImgGallery extends Component {
           className="inner"
           heightMode="current"
           pauseOnHover={false}
+          disableKeyboardControls={true}
           autoplay={this.state.isInViewport}
           wrapAround={true}
           speed={1000}

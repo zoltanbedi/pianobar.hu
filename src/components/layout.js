@@ -10,12 +10,17 @@ import * as favicon192 from '../assets/images/favicon-192x192.png'
 export default class Layout extends Component {
   renderHelmet(data) {
     return (
-      <Helmet
-        title={`${data.site.siteMetadata.title} - ${this.props.subTitle}`}
-        meta={[{ name: 'description', content: 'Sample' }, { name: 'keywords', content: 'sample, something' }]}
-        link={[{ rel: 'icon', href: favicon192, sizes: '192x192' }, { rel: 'icon', href: favicon32, sizes: '32x32' }]}
-      >
+      <Helmet>
         <html lang="hu" />
+        <title>{`${data.site.siteMetadata.title} - ${this.props.subTitle}`}</title>
+        <meta
+          name="description"
+          content="Fűzy Gábor vagyok, a zene közkatonája. Sokak Gabija -ma már olykor Gabi bácsija-, a bárzene utolsó mohikánja."
+        />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="canonical" href="https://wwww.pianobar.hu" />
+        <link rel="icon" href={favicon192} sizes="192x192" />
+        <link rel="icon" href={favicon32} sizes="32x32" />
       </Helmet>
     )
   }
