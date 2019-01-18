@@ -2,56 +2,77 @@ import React from 'react'
 import Layout from '../components/layout'
 import Banner from '../components/sections/Banner'
 import { graphql } from 'gatsby'
+import Helmet from 'react-helmet'
 import Img from 'gatsby-image'
 import ContactUs from '../components/sections/ContactUs'
+import AboutUs from '../components/sections/AboutUs'
 import WelcomeText from '../components/sections/WelcomeText'
 import ImgGallery from '../components/sections/ImgGallery'
 
-export default props => (
-  <Layout subTitle="Bárzongorista">
-    <Banner
-      bannerStyle={5}
-      image={
-        <Img
-          fluid={props.data.imageOne.childImageSharp.fluid}
-          alt="Fűzy Gábor énekel"
-          className="image"
-          style={{ position: 'absolute' }}
+export default props => {
+  if (typeof window !== 'undefined') {
+    window.initMap = function() {
+      // eslint-disable-next-line no-new
+      new window.google.maps.Map(document.getElementById('map'), {
+        center: { lat: 47.512585, lng: 19.030155 },
+        zoom: 18,
+      })
+    }
+  }
+  return (
+    <Layout subTitle="Bárzongorista">
+      <Helmet>
+        <script
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpbZnjo516lV2Oihjc8xSjkzS4pvcCMS4&callback=initMap"
+          async
+          defer
         />
-      }
-      modifiers={['fullscreen', 'content-align-left', 'onload-image-fade-in']}
-    >
-      <header>
-        <h1>Fűzy Gábor</h1>
-        <p>bárzongorista</p>
-      </header>
-    </Banner>
-    <Banner
-      bannerStyle={2}
-      isSpotlight={true}
-      modifiers={['orient-right', 'content-align-left', 'image-position-right']}
-      image={
-        <Img
-          fluid={props.data.imageTwo.childImageSharp.fluid}
-          alt="Fűzy Gábor zongora mellett"
-          className="image"
-          imgStyle={{ objectPosition: 'right' }}
-        />
-      }
-    >
-      <WelcomeText />
-    </Banner>
-    <ImgGallery
-      photos={[
-        { fluid: { ...props.data.galleryOne.childImageSharp.fluid }, alt: 'Fűzy Gábor fehér zongorán játszik' },
-        { fluid: { ...props.data.galleryTwo.childImageSharp.fluid }, alt: 'Fűzy Gábor egy szőke hölgy társaságában' },
-        { fluid: { ...props.data.galleryThree.childImageSharp.fluid }, alt: 'Gabi bácsi rajongókkal' },
-        { fluid: { ...props.data.galleryFour.childImageSharp.fluid }, alt: 'Gabi bácsi az indexes videóból' },
-      ]}
-    />
-    <ContactUs />
-  </Layout>
-)
+      </Helmet>
+      <Banner
+        bannerStyle={5}
+        image={
+          <Img
+            fluid={props.data.imageOne.childImageSharp.fluid}
+            alt="Fűzy Gábor énekel"
+            className="image"
+            style={{ position: 'absolute' }}
+          />
+        }
+        modifiers={['fullscreen', 'content-align-left', 'onload-image-fade-in']}
+      >
+        <header>
+          <h1>Fűzy Gábor</h1>
+          <p>bárzongorista</p>
+        </header>
+      </Banner>
+      <Banner
+        bannerStyle={2}
+        isSpotlight={true}
+        modifiers={['orient-right', 'content-align-left', 'image-position-right']}
+        image={
+          <Img
+            fluid={props.data.imageTwo.childImageSharp.fluid}
+            alt="Fűzy Gábor zongora mellett"
+            className="image"
+            imgStyle={{ objectPosition: 'right' }}
+          />
+        }
+      >
+        <WelcomeText />
+      </Banner>
+      <ImgGallery
+        photos={[
+          { fluid: { ...props.data.galleryOne.childImageSharp.fluid }, alt: 'Fűzy Gábor fehér zongorán játszik' },
+          { fluid: { ...props.data.galleryTwo.childImageSharp.fluid }, alt: 'Fűzy Gábor egy szőke hölgy társaságában' },
+          { fluid: { ...props.data.galleryThree.childImageSharp.fluid }, alt: 'Gabi bácsi rajongókkal' },
+          { fluid: { ...props.data.galleryFour.childImageSharp.fluid }, alt: 'Gabi bácsi az indexes videóból' },
+        ]}
+      />
+      <AboutUs />
+      <ContactUs />
+    </Layout>
+  )
+}
 
 export const fluidImage = graphql`
   fragment fluidImage on File {

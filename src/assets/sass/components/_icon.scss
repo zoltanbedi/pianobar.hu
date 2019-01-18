@@ -32,6 +32,14 @@
     }
   }
 
+  &.style1 {
+    svg {
+      width: 1.75rem;
+      height: 1.75rem;
+      margin-right: 0.5rem;
+    }
+  }
+
   &.major {
     display: block;
     margin: 0 0 (_size(element-margin) * 0.5) 0;

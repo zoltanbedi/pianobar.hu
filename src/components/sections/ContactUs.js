@@ -65,13 +65,6 @@ export default class ContactUs extends Component {
               </li>
             </ul>
           </form>
-          <p>
-            Fellépés, koncert, magánrendezvény:{' '}
-            <a href="tel:+36209839434" title="Telefon">
-              +36209839434
-            </a>{' '}
-            vagy <a href="mailto:zongoristagabibacsi@gmail.com">zongoristagabibacsi@gmail.com</a>
-          </p>
         </div>
       </section>
     )
