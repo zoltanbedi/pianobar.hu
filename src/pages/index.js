@@ -2,7 +2,6 @@ import React from 'react'
 import Layout from '../components/layout'
 import Banner from '../components/sections/Banner'
 import { graphql } from 'gatsby'
-import Helmet from 'react-helmet'
 import Img from 'gatsby-image'
 import ContactUs from '../components/sections/ContactUs'
 import AboutUs from '../components/sections/AboutUs'
@@ -10,24 +9,8 @@ import WelcomeText from '../components/sections/WelcomeText'
 import ImgGallery from '../components/sections/ImgGallery'
 
 export default props => {
-  if (typeof window !== 'undefined') {
-    window.initMap = function() {
-      // eslint-disable-next-line no-new
-      new window.google.maps.Map(document.getElementById('map'), {
-        center: { lat: 47.512585, lng: 19.030155 },
-        zoom: 18,
-      })
-    }
-  }
   return (
     <Layout subTitle="Bárzongorista">
-      <Helmet>
-        <script
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpbZnjo516lV2Oihjc8xSjkzS4pvcCMS4&callback=initMap"
-          async
-          defer
-        />
-      </Helmet>
       <Banner
         bannerStyle={5}
         image={
