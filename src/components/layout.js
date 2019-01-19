@@ -18,7 +18,7 @@ export default class Layout extends Component {
           content="Fűzy Gábor vagyok, a zene közkatonája. Sokak Gabija -ma már olykor Gabi bácsija-, a bárzene utolsó mohikánja."
         />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link rel="canonical" href="https://wwww.pianobar.hu" />
+        <link rel="canonical" href="https://pianobar.hu" />
         <link rel="icon" href={favicon192} sizes="192x192" />
         <link rel="icon" href={favicon32} sizes="32x32" />
       </Helmet>
