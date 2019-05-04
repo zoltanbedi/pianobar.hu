@@ -16,14 +16,14 @@ module.exports = {
         background_color: `#fff`,
         theme_color: `#5e2e2d`,
         display: `standalone`,
-        icon: `src/assets/images/favicon-192x192.png`,
+        icon: `assets/images/favicon-192x192.png`,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/assets/images`,
+        path: `${__dirname}/assets/images`,
       },
     },
     `gatsby-plugin-sharp`,

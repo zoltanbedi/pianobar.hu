@@ -1,5 +1,5 @@
 import React from 'react'
-import '../assets/icons.svg'
+import '../../assets/icons.svg'
 import { Icon } from './Icon'
 
 const Footer = () => (

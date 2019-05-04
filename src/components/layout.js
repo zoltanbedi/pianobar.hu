@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
-import '../assets/sass/main.scss'
+import '../../assets/sass/main.scss'
 import Footer from './footer'
-import * as favicon32 from '../assets/images/favicon-32x32.png'
-import * as favicon192 from '../assets/images/favicon-192x192.png'
+import * as favicon32 from '../../assets/images/favicon-32x32.png'
+import * as favicon192 from '../../assets/images/favicon-192x192.png'
 
 export default class Layout extends Component {
   renderHelmet(data) {
