@@ -11,10 +11,18 @@ export default class ContactUs extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault()
-    postData('https://submitform.azurewebsites.net/api/contact', this.state)
-      .then(response => response.ok && this.setState(this.initialState))
+    const form = event.target
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({
+        'form-name': form.getAttribute('name'),
+        ...this.state,
+      }),
+    })
+      .then(() => this.setState(this.initialState))
       .catch(error => console.error(error))
   }
 
@@ -23,7 +31,14 @@ export default class ContactUs extends Component {
       <section className="wrapper style1 align-center">
         <div className="inner medium">
           <h2>Kapcsolat</h2>
-          <form method="post" onSubmit={e => this.handleSubmit(e)}>
+          <form
+            name="contact"
+            method="post"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+            onSubmit={this.handleSubmit}
+          >
+            <input type="hidden" name="form-name" value="contact" />
             <div className="fields">
               <div className="field half">
                 <label htmlFor="name">Név</label>
@@ -71,13 +86,8 @@ export default class ContactUs extends Component {
   }
 }
 
-async function postData(url = ``, data = {}) {
-  const response = await window.fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-    },
-    body: JSON.stringify(data),
-  })
-  return response
+function encode(data) {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .join('&')
 }
