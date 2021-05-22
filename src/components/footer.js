@@ -1,6 +1,9 @@
 import React from 'react'
-import '../../assets/icons.svg'
-import { Icon } from './Icon'
+import Envelope from '../../assets/icons/envelope.svg'
+import Facebook from '../../assets/icons/facebook.svg'
+import Instagram from '../../assets/icons/instagram.svg'
+import Phone from '../../assets/icons/phone.svg'
+import Youtube from '../../assets/icons/youtube.svg'
 
 const Footer = () => (
   <footer className="wrapper style1 align-center">
@@ -8,27 +11,55 @@ const Footer = () => (
       <ul className="icons">
         <li>
           <a href="tel:+36209839434" title="Telefon" className="icon style2">
-            <Icon name="awesome-phone" />
+            <span>
+              <Phone />
+            </span>
           </a>
         </li>
         <li>
-          <a href="https://www.facebook.com/Fuzy.Gabor44" title="Facebook" className="icon style2">
-            <Icon name="awesome-facebook-official" />
+          <a
+            href="https://www.facebook.com/Fuzy.Gabor44"
+            rel="noopener"
+            target="_blank"
+            title="Facebook"
+            className="icon style2"
+          >
+            <span>
+              <Facebook />
+            </span>
           </a>
         </li>
         <li>
-          <a href="https://www.youtube.com/channel/UC7j3MQnaL_EqtROv9kvtR_A" title="YouTube" className="icon style2">
-            <Icon name="awesome-youtube-play" />
+          <a
+            href="https://www.youtube.com/channel/UC7j3MQnaL_EqtROv9kvtR_A"
+            target="_blank"
+            rel="noopener"
+            title="YouTube"
+            className="icon style2"
+          >
+            <span>
+              <Youtube />
+            </span>
           </a>
         </li>
         <li>
-          <a href="https://www.instagram.com/fuzygabor/" title="Instagram" className="icon style2">
-            <Icon name="awesome-instagram" />
+          <a
+            href="https://www.instagram.com/fuzygabor/"
+            target="_blank"
+            rel="noopener"
+            title="Instagram"
+            className="icon style2"
+          >
+            <span>
+              <Instagram />
+            </span>
           </a>
         </li>
         <li>
           <a href="mailto:zongoristagabibacsi@gmail.com" title="Email" className="icon style2">
-            <Icon name="awesome-envelope" />
+            <span>
+              <Envelope />
+            </span>
           </a>
         </li>
       </ul>
@@ -36,7 +67,7 @@ const Footer = () => (
         © {new Date().getFullYear()} Fűzy Gábor. Design: <a href="https://html5up.net">HTML5 UP</a>.
       </p>
       <p>
-        Az oldalt készítette <a href="https://github.com/B3zo0">Bedi Zoltán</a>
+        Az oldalt készítette <a href="https://github.com/zoltanBedi">Bedi Zoltán</a>
       </p>
     </div>
   </footer>

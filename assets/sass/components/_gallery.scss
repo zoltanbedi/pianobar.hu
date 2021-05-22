@@ -154,7 +154,7 @@
 
   @include breakpoint('<=large') {
     article {
-      width: (100% / 3);
+      width: math.div(100%, 3);
 
       .caption {
         padding: 1rem;
@@ -206,7 +206,7 @@
 
     @include breakpoint('<=medium') {
       article {
-        width: (100% / 3);
+        width: math.div(100%, 3);
 
         .caption {
           padding: 1rem;
@@ -225,13 +225,9 @@
     }
   }
 
-  &.medium {
-    // ...
-  }
-
   &.big {
     article {
-      width: (100% / 3);
+      width: math.div(100%, 3);
 
       .caption {
         padding: 3rem;
@@ -451,10 +447,6 @@
         }
       }
     }
-  }
-
-  &.medium {
-    // ...
   }
 
   &.big {

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Banner = props => {
+const Banner = (props) => {
   let bannerClasses = props.isSpotlight ? 'spotlight ' : 'banner '
   bannerClasses += `style${props.bannerStyle} `
   bannerClasses += props.modifiers.join(' ')
