@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import Img from 'gatsby-image'
+import { StaticImage } from 'gatsby-plugin-image'
 import Carousel from 'nuka-carousel'
+import React, { Component } from 'react'
 
 export default class ImgGallery extends Component {
   constructor(props) {
@@ -51,9 +51,7 @@ export default class ImgGallery extends Component {
 
   render() {
     const imageStyles = this.state.width > 700 ? { display: 'inline-block', width: '600px' } : undefined
-    const images = this.props.photos.map((img, index) => {
-      return <Img style={imageStyles} {...img} key={index} />
-    })
+
     return (
       <section className="wrapper style1 align-center color1 invert">
         <Carousel
@@ -68,7 +66,21 @@ export default class ImgGallery extends Component {
           renderCenterRightControls={({ nextSlide }) => <button onClick={nextSlide}>Következő</button>}
           renderBottomCenterControls={() => null}
         >
-          {images}
+          <StaticImage
+            style={imageStyles}
+            src="../../images/barban.jpeg"
+            alt="Gabi bácsi a Piros Pezsgő pianó bárban a zongora mögött"
+          />
+          <StaticImage style={imageStyles} src="../../images/profil.jpeg" alt="Közeli kép Gabi bácsiról" />
+          <StaticImage style={imageStyles} src="../../images/zongora-mogott.jpeg" alt="Rendezvényen a zongora mögött" />
+          <StaticImage style={imageStyles} src="../../images/gallery1.jpg" alt="Fűzy Gábor fehér zongorán játszik" />
+          <StaticImage
+            style={imageStyles}
+            src="../../images/gallery2.jpg"
+            alt="Fűzy Gábor egy szőke hölgy társaságában"
+          />
+          <StaticImage style={imageStyles} src="../../images/gallery3.jpg" alt="Gabi bácsi rajongókkal" />
+          <StaticImage style={imageStyles} src="../../images/gallery4.jpg" alt="Gabi bácsi az indexes videóból" />
         </Carousel>
       </section>
     )

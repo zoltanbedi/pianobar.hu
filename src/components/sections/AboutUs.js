@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from '../Icon'
+import Envelope from '../../../assets/icons/envelope.svg'
+import Phone from '../../../assets/icons/phone.svg'
 
 export default class AboutUs extends React.Component {
   render() {
@@ -9,18 +10,24 @@ export default class AboutUs extends React.Component {
           <h2>Elérhetőség</h2>
           <p>Fellépés, koncert, magánrendezvény:</p>
           <div className="icon style1">
-            <Icon name="awesome-phone" />
+            <span>
+              <Phone />
+            </span>
             <a href="tel:+36209839434" title="Telefon">
               +36209839434
             </a>
           </div>
           <div className="icon style1">
-            <Icon name="awesome-envelope" />
+            <span>
+              <Envelope />
+            </span>
             <a href="mailto:zongoristagabibacsi@gmail.com">zongoristagabibacsi@gmail.com</a>
           </div>
           <p>Asztalfoglalás a Piros Pezsgő Piano Bárba</p>
           <div className="icon style1">
-            <Icon name="awesome-phone" />
+            <span>
+              <Phone />
+            </span>
             <a href="tel:+36307350000" title="Telefon">
               +36307350000
             </a>

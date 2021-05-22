@@ -11,19 +11,20 @@ export default class ContactUs extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault()
     const form = event.target
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({
-        'form-name': form.getAttribute('name'),
-        ...this.state,
-      }),
-    })
+    window
+      .fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({
+          'form-name': form.getAttribute('name'),
+          ...this.state,
+        }),
+      })
       .then(() => this.setState(this.initialState))
-      .catch(error => console.error(error))
+      .catch((error) => console.error(error))
   }
 
   render() {
@@ -48,7 +49,7 @@ export default class ContactUs extends Component {
                   name="name"
                   id="name"
                   value={this.state.name}
-                  onChange={e => this.handleInputChange(e)}
+                  onChange={(e) => this.handleInputChange(e)}
                 />
               </div>
               <div className="field half">
@@ -59,7 +60,7 @@ export default class ContactUs extends Component {
                   name="email"
                   id="email"
                   value={this.state.email}
-                  onChange={e => this.handleInputChange(e)}
+                  onChange={(e) => this.handleInputChange(e)}
                 />
               </div>
               <div className="field">
@@ -70,7 +71,7 @@ export default class ContactUs extends Component {
                   id="message"
                   rows="6"
                   value={this.state.message}
-                  onChange={e => this.handleInputChange(e)}
+                  onChange={(e) => this.handleInputChange(e)}
                 />
               </div>
             </div>
@@ -88,6 +89,6 @@ export default class ContactUs extends Component {
 
 function encode(data) {
   return Object.keys(data)
-    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
     .join('&')
 }

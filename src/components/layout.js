@@ -4,8 +4,6 @@ import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
 import '../../assets/sass/main.scss'
 import Footer from './footer'
-import * as favicon32 from '../../assets/images/favicon-32x32.png'
-import * as favicon192 from '../../assets/images/favicon-192x192.png'
 
 export default class Layout extends Component {
   renderHelmet(data) {
@@ -19,8 +17,8 @@ export default class Layout extends Component {
         />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="canonical" href="https://pianobar.hu" />
-        <link rel="icon" href={favicon192} sizes="192x192" />
-        <link rel="icon" href={favicon32} sizes="32x32" />
+        <link rel="icon" href="../images/favicon-192x192.png" sizes="192x192" />
+        <link rel="icon" href="../images/favicon-32x32.png" sizes="32x32" />
       </Helmet>
     )
   }
@@ -37,7 +35,7 @@ export default class Layout extends Component {
             }
           }
         `}
-        render={data => (
+        render={(data) => (
           <div id="wrapper" className="divided">
             {this.renderHelmet(data)}
             {this.props.children}
