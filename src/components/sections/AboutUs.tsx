@@ -1,6 +1,6 @@
-import React from 'react';
-import Envelope from '../../../assets/icons/envelope.svg';
-import Phone from '../../../assets/icons/phone.svg';
+import React from 'react'
+import Envelope from '../../assets/icons/envelope.svg'
+import Phone from '../../assets/icons/phone.svg'
 
 export default function AboutUs() {
   return (
@@ -39,5 +39,5 @@ export default function AboutUs() {
         />
       </div>
     </section>
-  );
+  )
 }

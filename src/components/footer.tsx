@@ -1,11 +1,11 @@
-import React from 'react';
-import Envelope from '../../assets/icons/envelope.svg';
-import Facebook from '../../assets/icons/facebook.svg';
-import Instagram from '../../assets/icons/instagram.svg';
-import Phone from '../../assets/icons/phone.svg';
-import Youtube from '../../assets/icons/youtube.svg';
+import React from 'react'
+import Envelope from '../assets/icons/envelope.svg'
+import Facebook from '../assets/icons/facebook.svg'
+import Instagram from '../assets/icons/instagram.svg'
+import Phone from '../assets/icons/phone.svg'
+import Youtube from '../assets/icons/youtube.svg'
 
-function Footer() {
+export default function Footer() {
   return (
     <footer className="wrapper style1 align-center">
       <div className="inner">
@@ -65,22 +65,12 @@ function Footer() {
           </li>
         </ul>
         <p>
-          ©
-          {' '}
-          {new Date().getFullYear()}
-          {' '}
-          Fűzy Gábor. Design:
-          {' '}
-          <a href="https://html5up.net">HTML5 UP</a>
-          .
+          © {new Date().getFullYear()} Fűzy Gábor. Design: <a href="https://html5up.net">HTML5 UP</a>.
         </p>
         <p>
-          Az oldalt készítette
-          {' '}
-          <a href="https://github.com/zoltanBedi">Bedi Zoltán</a>
+          Az oldalt készítette <a href="https://github.com/zoltanBedi">Bedi Zoltán</a>
         </p>
       </div>
     </footer>
-  );
+  )
 }
-export default Footer;
