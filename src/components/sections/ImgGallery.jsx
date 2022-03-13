@@ -1,56 +1,56 @@
-import { StaticImage } from 'gatsby-plugin-image'
-import Carousel from 'nuka-carousel'
-import React, { Component } from 'react'
+import { StaticImage } from 'gatsby-plugin-image';
+import Carousel from 'nuka-carousel';
+import React, { Component } from 'react';
 
 export default class ImgGallery extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       width: 0,
       height: 0,
       isInViewport: false,
-    }
+    };
   }
 
   componentDidMount() {
-    this.handleResize()
-    window.addEventListener('resize', this.handleResize)
-    window.addEventListener('scroll', this.handleScroll)
+    this.handleResize();
+    window.addEventListener('resize', this.handleResize);
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize)
-    window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   handleResize = () => {
-    this.setState(this.getDimensons())
-  }
+    this.setState(this.getDimensons());
+  };
 
   handleScroll = () => {
-    this.setState({ isInViewport: this.isInViewport() })
+    this.setState({ isInViewport: this.isInViewport() });
+  };
+
+  getDimensons() {
+    const body = document.getElementsByTagName('body')[0];
+    const width = window.innerWidth || document.documentElement.clientWidth || body.clientWidth;
+    const height = window.innerHeight || document.documentElement.clientHeight || body.clientHeight;
+    return { width, height };
   }
 
   isInViewport() {
-    const elem = document.querySelector('.slider')
-    const bounding = elem.getBoundingClientRect()
+    const elem = document.querySelector('.slider');
+    const bounding = elem.getBoundingClientRect();
     return (
-      bounding.top >= -200 &&
-      bounding.left >= 0 &&
-      bounding.bottom <= this.state.height &&
-      bounding.right <= this.state.width
-    )
-  }
-
-  getDimensons() {
-    const body = document.getElementsByTagName('body')[0]
-    const width = window.innerWidth || document.documentElement.clientWidth || body.clientWidth
-    const height = window.innerHeight || document.documentElement.clientHeight || body.clientHeight
-    return { width, height }
+      bounding.top >= -200
+      && bounding.left >= 0
+      && bounding.bottom <= this.state.height
+      && bounding.right <= this.state.width
+    );
   }
 
   render() {
-    const imageStyles = this.state.width > 700 ? { display: 'inline-block', width: '600px' } : undefined
+    const imageStyles = this.state.width > 700 ? { display: 'inline-block', width: '600px' } : undefined;
 
     return (
       <section className="wrapper style1 align-center color1 invert">
@@ -58,9 +58,9 @@ export default class ImgGallery extends Component {
           className="inner"
           heightMode="current"
           pauseOnHover={false}
-          disableKeyboardControls={true}
+          disableKeyboardControls
           autoplay={this.state.isInViewport}
-          wrapAround={true}
+          wrapAround
           speed={1000}
           renderCenterLeftControls={({ previousSlide }) => <button onClick={previousSlide}>Előző</button>}
           renderCenterRightControls={({ nextSlide }) => <button onClick={nextSlide}>Következő</button>}
@@ -83,6 +83,6 @@ export default class ImgGallery extends Component {
           <StaticImage style={imageStyles} src="../../images/gallery4.jpg" alt="Gabi bácsi az indexes videóból" />
         </Carousel>
       </section>
-    )
+    );
   }
 }

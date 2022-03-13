@@ -1,19 +1,20 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export default class ContactUs extends Component {
-  initialState = { name: '', email: '', message: '' }
+  initialState = { name: '', email: '', message: '' };
+
   constructor(props) {
-    super(props)
-    this.state = this.initialState
+    super(props);
+    this.state = this.initialState;
   }
 
   handleInputChange(event) {
-    this.setState({ [event.target.name]: event.target.value })
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   handleSubmit = (event) => {
-    event.preventDefault()
-    const form = event.target
+    event.preventDefault();
+    const form = event.target;
     window
       .fetch('/', {
         method: 'POST',
@@ -24,8 +25,8 @@ export default class ContactUs extends Component {
         }),
       })
       .then(() => this.setState(this.initialState))
-      .catch((error) => console.error(error))
-  }
+      .catch((error) => console.error(error));
+  };
 
   render() {
     return (
@@ -83,12 +84,12 @@ export default class ContactUs extends Component {
           </form>
         </div>
       </section>
-    )
+    );
   }
 }
 
 function encode(data) {
   return Object.keys(data)
-    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-    .join('&')
+    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+    .join('&');
 }

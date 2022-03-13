@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import Helmet from 'react-helmet'
-import { StaticQuery, graphql } from 'gatsby'
-import '../../assets/sass/main.scss'
-import Footer from './footer'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
+import { StaticQuery, graphql } from 'gatsby';
+import '../../assets/sass/main.scss';
+import Footer from './footer';
 
 export default class Layout extends Component {
   renderHelmet(data) {
@@ -15,12 +15,12 @@ export default class Layout extends Component {
           name="description"
           content="Fűzy Gábor vagyok, a zene közkatonája. Sokak Gabija -ma már olykor Gabi bácsija-, a bárzene utolsó mohikánja."
         />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="canonical" href="https://pianobar.hu" />
         <link rel="icon" href="../images/favicon-192x192.png" sizes="192x192" />
         <link rel="icon" href="../images/favicon-32x32.png" sizes="32x32" />
       </Helmet>
-    )
+    );
   }
 
   render() {
@@ -43,11 +43,11 @@ export default class Layout extends Component {
           </div>
         )}
       />
-    )
+    );
   }
 }
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
   subTitle: PropTypes.string,
-}
+};
