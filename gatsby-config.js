@@ -20,6 +20,20 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-facebook-graphql`,
+      options: {
+        // Facebook account or page ID
+        pageId: 190825651114970,
+        params: {
+          fields: [
+            'posts.limit(3){attachments,permalink_url}'
+          ],
+        },
+        // Access Token from facebook
+        accessToken: process.env.GATSBY_FACEBOOK_GRAPH_TOKEN,
+      },
+    },
+    {
       resolve: 'gatsby-plugin-manifest',
       options: {
         name: 'Fűzy Gábor',

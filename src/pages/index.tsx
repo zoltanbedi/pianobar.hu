@@ -5,6 +5,7 @@ import AboutUs from '../components/sections/AboutUs'
 import Banner from '../components/sections/Banner'
 import ContactUs from '../components/sections/ContactUs'
 import ImgGallery from '../components/sections/ImgGallery'
+import News from '../components/sections/News'
 import WelcomeText from '../components/sections/WelcomeText'
 
 export default function HomePage() {
@@ -27,6 +28,7 @@ export default function HomePage() {
           <p>bárzongorista</p>
         </header>
       </Banner>
+      <News />
       <Banner
         bannerStyle={2}
         isSpotlight
