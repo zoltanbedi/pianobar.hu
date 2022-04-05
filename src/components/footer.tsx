@@ -70,6 +70,14 @@ export default function Footer() {
         <p>
           Az oldalt készítette <a href="https://github.com/zoltanBedi">Bedi Zoltán</a>
         </p>
+        <p>
+          <a
+            href="/PrivacyPolicy"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Privacy Policy"
+          >Privacy Policy</a>
+        </p>
       </div>
     </footer>
   )

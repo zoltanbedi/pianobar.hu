@@ -5,15 +5,10 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  /** The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID. */
   ID: string;
-  /** The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text. */
   String: string;
-  /** The `Boolean` scalar type represents `true` or `false`. */
   Boolean: boolean;
-  /** The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. */
   Int: number;
-  /** The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point). */
   Float: number;
   /** A date string, such as 2007-12-03, compliant with the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   Date: any;
@@ -592,6 +587,64 @@ export type ImageSharpResize = {
   originalName?: Maybe<Scalars['String']>;
 };
 
+export type Facebook = Node & {
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  posts?: Maybe<FacebookPosts>;
+};
+
+export type FacebookPosts = {
+  data?: Maybe<Array<Maybe<FacebookPostsData>>>;
+  paging?: Maybe<FacebookPostsPaging>;
+};
+
+export type FacebookPostsData = {
+  attachments?: Maybe<FacebookPostsDataAttachments>;
+  permalink_url?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+};
+
+export type FacebookPostsDataAttachments = {
+  data?: Maybe<Array<Maybe<FacebookPostsDataAttachmentsData>>>;
+};
+
+export type FacebookPostsDataAttachmentsData = {
+  media?: Maybe<FacebookPostsDataAttachmentsDataMedia>;
+  target?: Maybe<FacebookPostsDataAttachmentsDataTarget>;
+  type?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+export type FacebookPostsDataAttachmentsDataMedia = {
+  image?: Maybe<FacebookPostsDataAttachmentsDataMediaImage>;
+  source?: Maybe<Scalars['String']>;
+};
+
+export type FacebookPostsDataAttachmentsDataMediaImage = {
+  height?: Maybe<Scalars['Int']>;
+  src?: Maybe<Scalars['String']>;
+  width?: Maybe<Scalars['Int']>;
+};
+
+export type FacebookPostsDataAttachmentsDataTarget = {
+  id?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+export type FacebookPostsPaging = {
+  cursors?: Maybe<FacebookPostsPagingCursors>;
+  next?: Maybe<Scalars['String']>;
+};
+
+export type FacebookPostsPagingCursors = {
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
   file?: Maybe<File>;
   allFile: FileConnection;
@@ -609,6 +662,8 @@ export type Query = {
   allSiteBuildMetadata: SiteBuildMetadataConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
+  facebook?: Maybe<Facebook>;
+  allFacebook: FacebookConnection;
 };
 
 
@@ -836,6 +891,23 @@ export type QueryImageSharpArgs = {
 export type QueryAllImageSharpArgs = {
   filter?: InputMaybe<ImageSharpFilterInput>;
   sort?: InputMaybe<ImageSharpSortInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryFacebookArgs = {
+  id?: InputMaybe<StringQueryOperatorInput>;
+  parent?: InputMaybe<NodeFilterInput>;
+  children?: InputMaybe<NodeFilterListInput>;
+  internal?: InputMaybe<InternalFilterInput>;
+  posts?: InputMaybe<FacebookPostsFilterInput>;
+};
+
+
+export type QueryAllFacebookArgs = {
+  filter?: InputMaybe<FacebookFilterInput>;
+  sort?: InputMaybe<FacebookSortInput>;
   skip?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;
 };
@@ -2889,10 +2961,267 @@ export type ImageSharpSortInput = {
   order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
 };
 
+export type FacebookPostsFilterInput = {
+  data?: InputMaybe<FacebookPostsDataFilterListInput>;
+  paging?: InputMaybe<FacebookPostsPagingFilterInput>;
+};
+
+export type FacebookPostsDataFilterListInput = {
+  elemMatch?: InputMaybe<FacebookPostsDataFilterInput>;
+};
+
+export type FacebookPostsDataFilterInput = {
+  attachments?: InputMaybe<FacebookPostsDataAttachmentsFilterInput>;
+  permalink_url?: InputMaybe<StringQueryOperatorInput>;
+  id?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type FacebookPostsDataAttachmentsFilterInput = {
+  data?: InputMaybe<FacebookPostsDataAttachmentsDataFilterListInput>;
+};
+
+export type FacebookPostsDataAttachmentsDataFilterListInput = {
+  elemMatch?: InputMaybe<FacebookPostsDataAttachmentsDataFilterInput>;
+};
+
+export type FacebookPostsDataAttachmentsDataFilterInput = {
+  media?: InputMaybe<FacebookPostsDataAttachmentsDataMediaFilterInput>;
+  target?: InputMaybe<FacebookPostsDataAttachmentsDataTargetFilterInput>;
+  type?: InputMaybe<StringQueryOperatorInput>;
+  url?: InputMaybe<StringQueryOperatorInput>;
+  description?: InputMaybe<StringQueryOperatorInput>;
+  title?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type FacebookPostsDataAttachmentsDataMediaFilterInput = {
+  image?: InputMaybe<FacebookPostsDataAttachmentsDataMediaImageFilterInput>;
+  source?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type FacebookPostsDataAttachmentsDataMediaImageFilterInput = {
+  height?: InputMaybe<IntQueryOperatorInput>;
+  src?: InputMaybe<StringQueryOperatorInput>;
+  width?: InputMaybe<IntQueryOperatorInput>;
+};
+
+export type FacebookPostsDataAttachmentsDataTargetFilterInput = {
+  id?: InputMaybe<StringQueryOperatorInput>;
+  url?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type FacebookPostsPagingFilterInput = {
+  cursors?: InputMaybe<FacebookPostsPagingCursorsFilterInput>;
+  next?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type FacebookPostsPagingCursorsFilterInput = {
+  before?: InputMaybe<StringQueryOperatorInput>;
+  after?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type FacebookConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<FacebookEdge>;
+  nodes: Array<Facebook>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<FacebookGroupConnection>;
+};
+
+
+export type FacebookConnectionDistinctArgs = {
+  field: FacebookFieldsEnum;
+};
+
+
+export type FacebookConnectionMaxArgs = {
+  field: FacebookFieldsEnum;
+};
+
+
+export type FacebookConnectionMinArgs = {
+  field: FacebookFieldsEnum;
+};
+
+
+export type FacebookConnectionSumArgs = {
+  field: FacebookFieldsEnum;
+};
+
+
+export type FacebookConnectionGroupArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  field: FacebookFieldsEnum;
+};
+
+export type FacebookEdge = {
+  next?: Maybe<Facebook>;
+  node: Facebook;
+  previous?: Maybe<Facebook>;
+};
+
+export type FacebookFieldsEnum =
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'posts___data'
+  | 'posts___data___attachments___data'
+  | 'posts___data___permalink_url'
+  | 'posts___data___id'
+  | 'posts___paging___cursors___before'
+  | 'posts___paging___cursors___after'
+  | 'posts___paging___next';
+
+export type FacebookGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<FacebookEdge>;
+  nodes: Array<Facebook>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<FacebookGroupConnection>;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+
+export type FacebookGroupConnectionDistinctArgs = {
+  field: FacebookFieldsEnum;
+};
+
+
+export type FacebookGroupConnectionMaxArgs = {
+  field: FacebookFieldsEnum;
+};
+
+
+export type FacebookGroupConnectionMinArgs = {
+  field: FacebookFieldsEnum;
+};
+
+
+export type FacebookGroupConnectionSumArgs = {
+  field: FacebookFieldsEnum;
+};
+
+
+export type FacebookGroupConnectionGroupArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  field: FacebookFieldsEnum;
+};
+
+export type FacebookFilterInput = {
+  id?: InputMaybe<StringQueryOperatorInput>;
+  parent?: InputMaybe<NodeFilterInput>;
+  children?: InputMaybe<NodeFilterListInput>;
+  internal?: InputMaybe<InternalFilterInput>;
+  posts?: InputMaybe<FacebookPostsFilterInput>;
+};
+
+export type FacebookSortInput = {
+  fields?: InputMaybe<Array<InputMaybe<FacebookFieldsEnum>>>;
+  order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
+};
+
 export type SiteTitleQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SiteTitleQueryQuery = { site?: { siteMetadata?: { title?: string | null } | null } | null };
+
+export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Unnamed_1_Query = { facebook?: { id: string, posts?: { data?: Array<{ id?: string | null, permalink_url?: string | null, attachments?: { data?: Array<{ type?: string | null, title?: string | null, url?: string | null } | null> | null } | null } | null> | null } | null } | null };
 
 export type GatsbyImageSharpFixedFragment = { base64?: string | null, width: number, height: number, src: string, srcSet: string };
 
