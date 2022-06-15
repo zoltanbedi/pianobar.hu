@@ -12,8 +12,8 @@ export default function AboutUs() {
           <span>
             <Phone />
           </span>
-          <a href="tel:+36209839434" title="Telefon">
-            +36209839434
+          <a href="tel:+36301664017" title="Telefon">
+            +36301664017
           </a>
         </div>
         <div className="icon style1">
