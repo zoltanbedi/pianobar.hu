@@ -9,13 +9,6 @@ export default function News() {
         id
         posts {
           data {
-            attachments {
-              data {
-                type
-                title
-                url
-              }
-            }
             id
             permalink_url
           }
