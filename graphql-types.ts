@@ -616,7 +616,7 @@ export type FacebookPostsDataAttachmentsData = {
   type?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
+  description_tags?: Maybe<Array<Maybe<FacebookPostsDataAttachmentsDataDescription_Tags>>>;
 };
 
 export type FacebookPostsDataAttachmentsDataMedia = {
@@ -633,6 +633,14 @@ export type FacebookPostsDataAttachmentsDataMediaImage = {
 export type FacebookPostsDataAttachmentsDataTarget = {
   id?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
+};
+
+export type FacebookPostsDataAttachmentsDataDescription_Tags = {
+  id?: Maybe<Scalars['String']>;
+  length?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  offset?: Maybe<Scalars['Int']>;
+  type?: Maybe<Scalars['String']>;
 };
 
 export type FacebookPostsPaging = {
@@ -2990,7 +2998,7 @@ export type FacebookPostsDataAttachmentsDataFilterInput = {
   type?: InputMaybe<StringQueryOperatorInput>;
   url?: InputMaybe<StringQueryOperatorInput>;
   description?: InputMaybe<StringQueryOperatorInput>;
-  title?: InputMaybe<StringQueryOperatorInput>;
+  description_tags?: InputMaybe<FacebookPostsDataAttachmentsDataDescription_TagsFilterListInput>;
 };
 
 export type FacebookPostsDataAttachmentsDataMediaFilterInput = {
@@ -3007,6 +3015,18 @@ export type FacebookPostsDataAttachmentsDataMediaImageFilterInput = {
 export type FacebookPostsDataAttachmentsDataTargetFilterInput = {
   id?: InputMaybe<StringQueryOperatorInput>;
   url?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type FacebookPostsDataAttachmentsDataDescription_TagsFilterListInput = {
+  elemMatch?: InputMaybe<FacebookPostsDataAttachmentsDataDescription_TagsFilterInput>;
+};
+
+export type FacebookPostsDataAttachmentsDataDescription_TagsFilterInput = {
+  id?: InputMaybe<StringQueryOperatorInput>;
+  length?: InputMaybe<IntQueryOperatorInput>;
+  name?: InputMaybe<StringQueryOperatorInput>;
+  offset?: InputMaybe<IntQueryOperatorInput>;
+  type?: InputMaybe<StringQueryOperatorInput>;
 };
 
 export type FacebookPostsPagingFilterInput = {
@@ -3221,7 +3241,7 @@ export type SiteTitleQueryQuery = { site?: { siteMetadata?: { title?: string | n
 export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_1_Query = { facebook?: { id: string, posts?: { data?: Array<{ id?: string | null, permalink_url?: string | null, attachments?: { data?: Array<{ type?: string | null, title?: string | null, url?: string | null } | null> | null } | null } | null> | null } | null } | null };
+export type Unnamed_1_Query = { facebook?: { id: string, posts?: { data?: Array<{ id?: string | null, permalink_url?: string | null } | null> | null } | null } | null };
 
 export type GatsbyImageSharpFixedFragment = { base64?: string | null, width: number, height: number, src: string, srcSet: string };
 
