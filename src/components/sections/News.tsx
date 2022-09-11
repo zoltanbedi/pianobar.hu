@@ -1,16 +1,18 @@
 import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
-import { Query } from '../../../graphql-types'
+import { StaticImage } from 'gatsby-plugin-image'
+import { NewsQuery } from '../../../graphql-types'
+import Banner from './Banner'
 
 export default function News() {
-  const data = useStaticQuery<Query>(graphql`
-    {
-      facebook {
-        id
-        posts {
-          data {
+  const { allDataJson } = useStaticQuery<NewsQuery>(graphql`
+    query News {
+      allDataJson(sort: { order: DESC, fields: created_time }) {
+        edges {
+          node {
             id
-            permalink_url
+            message
+            created_time
           }
         }
       }
@@ -18,34 +20,20 @@ export default function News() {
   `)
 
   return (
-    <section className="wrapper style1 align-center">
-      <div className="inner" style={{ width: '100%' }}>
-        <h2>Aktuális</h2>
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', flexWrap: 'wrap' }}>
-          {data.facebook?.posts?.data?.map((post) => {
-            let src = `https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(
-              post?.permalink_url!
-            )}&show_text=true&width=500`
-            if (post?.attachments?.data?.[0]?.type === 'video_inline') {
-              src = `https://www.facebook.com/plugins/video.php?height=476&href=${encodeURIComponent(
-                post?.attachments.data?.[0]?.url!
-              )}&show_text=true&width=500`
-            }
-            return (
-              <iframe
-                key={post?.id!}
-                title={post?.id!}
-                src={src}
-                width="500"
-                height="600"
-                scrolling="no"
-                allowFullScreen
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-              />
-            )
-          })}
-        </div>
-      </div>
-    </section>
+    <>
+      {allDataJson.edges.map((edge, i) => (
+        <Banner
+          key={edge.node.id}
+          isSpotlight
+          modifiers={[i % 2 === 0 ? 'orient-right' : 'orient-left', 'content-align-left', 'image-position-right']}
+          image={<StaticImage src="../../images/barban.jpeg" alt="Közeli kép Gabi bácsiról" />}
+        >
+          <header>
+            <h3>{edge.node.message}</h3>
+            <p>{new Date(edge.node.created_time).toLocaleString()}</p>
+          </header>
+        </Banner>
+      ))}
+    </>
   )
 }

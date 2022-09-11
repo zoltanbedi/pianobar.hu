@@ -14,6 +14,7 @@ export type Scalars = {
   Date: any;
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
+  GatsbyImageData: any;
 };
 
 export type File = Node & {
@@ -50,10 +51,18 @@ export type File = Node & {
   birthtime?: Maybe<Scalars['Date']>;
   /** @deprecated Use `birthTime` instead */
   birthtimeMs?: Maybe<Scalars['Float']>;
+  blksize?: Maybe<Scalars['Int']>;
+  blocks?: Maybe<Scalars['Int']>;
+  /** Copy file to static directory and return public url to it */
+  publicURL?: Maybe<Scalars['String']>;
   /** Returns all children nodes filtered by type ImageSharp */
   childrenImageSharp?: Maybe<Array<Maybe<ImageSharp>>>;
   /** Returns the first child node of type ImageSharp or null if there are no children of given type on this node */
   childImageSharp?: Maybe<ImageSharp>;
+  /** Returns all children nodes filtered by type DataJson */
+  childrenDataJson?: Maybe<Array<Maybe<DataJson>>>;
+  /** Returns the first child node of type DataJson or null if there are no children of given type on this node */
+  childDataJson?: Maybe<DataJson>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -133,6 +142,7 @@ export type Internal = {
   mediaType?: Maybe<Scalars['String']>;
   owner: Scalars['String'];
   type: Scalars['String'];
+  contentFilePath?: Maybe<Scalars['String']>;
 };
 
 export type Directory = Node & {
@@ -240,6 +250,7 @@ export type Site = Node & {
   pathPrefix?: Maybe<Scalars['String']>;
   jsxRuntime?: Maybe<Scalars['String']>;
   trailingSlash?: Maybe<Scalars['String']>;
+  graphqlTypegen?: Maybe<Scalars['Boolean']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -400,7 +411,7 @@ export type Potrace = {
 export type ImageSharp = Node & {
   fixed?: Maybe<ImageSharpFixed>;
   fluid?: Maybe<ImageSharpFluid>;
-  gatsbyImageData: Scalars['JSON'];
+  gatsbyImageData: Scalars['GatsbyImageData'];
   original?: Maybe<ImageSharpOriginal>;
   resize?: Maybe<ImageSharpResize>;
   id: Scalars['ID'];
@@ -587,70 +598,86 @@ export type ImageSharpResize = {
   originalName?: Maybe<Scalars['String']>;
 };
 
-export type Facebook = Node & {
+export type DataJson = Node & {
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
   internal: Internal;
-  posts?: Maybe<FacebookPosts>;
-};
-
-export type FacebookPosts = {
-  data?: Maybe<Array<Maybe<FacebookPostsData>>>;
-  paging?: Maybe<FacebookPostsPaging>;
-};
-
-export type FacebookPostsData = {
-  attachments?: Maybe<FacebookPostsDataAttachments>;
-  permalink_url?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-};
-
-export type FacebookPostsDataAttachments = {
-  data?: Maybe<Array<Maybe<FacebookPostsDataAttachmentsData>>>;
-};
-
-export type FacebookPostsDataAttachmentsData = {
-  media?: Maybe<FacebookPostsDataAttachmentsDataMedia>;
-  target?: Maybe<FacebookPostsDataAttachmentsDataTarget>;
-  type?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
+  attachments?: Maybe<DataJsonAttachments>;
+  message?: Maybe<Scalars['String']>;
+  full_picture?: Maybe<Scalars['String']>;
+  picture?: Maybe<Scalars['String']>;
+  from?: Maybe<DataJsonFrom>;
+  actions?: Maybe<Array<Maybe<DataJsonActions>>>;
+  created_time?: Maybe<Scalars['Date']>;
+  status_type?: Maybe<Scalars['String']>;
+  updated_time?: Maybe<Scalars['Date']>;
+  icon?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
-  description_tags?: Maybe<Array<Maybe<FacebookPostsDataAttachmentsDataDescription_Tags>>>;
+  type?: Maybe<Scalars['String']>;
+  link?: Maybe<Scalars['String']>;
+  first_action?: Maybe<DataJsonFirst_Action>;
+  jsonId?: Maybe<Scalars['String']>;
 };
 
-export type FacebookPostsDataAttachmentsDataMedia = {
-  image?: Maybe<FacebookPostsDataAttachmentsDataMediaImage>;
+
+export type DataJsonCreated_TimeArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+export type DataJsonUpdated_TimeArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+export type DataJsonAttachments = {
+  data?: Maybe<Array<Maybe<DataJsonAttachmentsData>>>;
+};
+
+export type DataJsonAttachmentsData = {
+  description?: Maybe<Scalars['String']>;
+  media?: Maybe<DataJsonAttachmentsDataMedia>;
+  media_type?: Maybe<Scalars['String']>;
+  target?: Maybe<DataJsonAttachmentsDataTarget>;
+  title?: Maybe<Scalars['String']>;
+  unshimmed_url?: Maybe<Scalars['String']>;
+};
+
+export type DataJsonAttachmentsDataMedia = {
+  image?: Maybe<DataJsonAttachmentsDataMediaImage>;
   source?: Maybe<Scalars['String']>;
 };
 
-export type FacebookPostsDataAttachmentsDataMediaImage = {
+export type DataJsonAttachmentsDataMediaImage = {
   height?: Maybe<Scalars['Int']>;
   src?: Maybe<Scalars['String']>;
   width?: Maybe<Scalars['Int']>;
 };
 
-export type FacebookPostsDataAttachmentsDataTarget = {
-  id?: Maybe<Scalars['String']>;
+export type DataJsonAttachmentsDataTarget = {
   url?: Maybe<Scalars['String']>;
-};
-
-export type FacebookPostsDataAttachmentsDataDescription_Tags = {
   id?: Maybe<Scalars['String']>;
-  length?: Maybe<Scalars['Int']>;
+};
+
+export type DataJsonFrom = {
   name?: Maybe<Scalars['String']>;
-  offset?: Maybe<Scalars['Int']>;
-  type?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
 };
 
-export type FacebookPostsPaging = {
-  cursors?: Maybe<FacebookPostsPagingCursors>;
-  next?: Maybe<Scalars['String']>;
+export type DataJsonActions = {
+  name?: Maybe<Scalars['String']>;
+  link?: Maybe<Scalars['String']>;
 };
 
-export type FacebookPostsPagingCursors = {
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
+export type DataJsonFirst_Action = {
+  name?: Maybe<Scalars['String']>;
+  link?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -670,8 +697,8 @@ export type Query = {
   allSiteBuildMetadata: SiteBuildMetadataConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
-  facebook?: Maybe<Facebook>;
-  allFacebook: FacebookConnection;
+  dataJson?: Maybe<DataJson>;
+  allDataJson: DataJsonConnection;
 };
 
 
@@ -707,8 +734,13 @@ export type QueryFileArgs = {
   ctime?: InputMaybe<DateQueryOperatorInput>;
   birthtime?: InputMaybe<DateQueryOperatorInput>;
   birthtimeMs?: InputMaybe<FloatQueryOperatorInput>;
+  blksize?: InputMaybe<IntQueryOperatorInput>;
+  blocks?: InputMaybe<IntQueryOperatorInput>;
+  publicURL?: InputMaybe<StringQueryOperatorInput>;
   childrenImageSharp?: InputMaybe<ImageSharpFilterListInput>;
   childImageSharp?: InputMaybe<ImageSharpFilterInput>;
+  childrenDataJson?: InputMaybe<DataJsonFilterListInput>;
+  childDataJson?: InputMaybe<DataJsonFilterInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -780,6 +812,7 @@ export type QuerySiteArgs = {
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
   trailingSlash?: InputMaybe<StringQueryOperatorInput>;
+  graphqlTypegen?: InputMaybe<BooleanQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -886,7 +919,7 @@ export type QueryAllSiteBuildMetadataArgs = {
 export type QueryImageSharpArgs = {
   fixed?: InputMaybe<ImageSharpFixedFilterInput>;
   fluid?: InputMaybe<ImageSharpFluidFilterInput>;
-  gatsbyImageData?: InputMaybe<JsonQueryOperatorInput>;
+  gatsbyImageData?: InputMaybe<GatsbyImageDataQueryOperatorInput>;
   original?: InputMaybe<ImageSharpOriginalFilterInput>;
   resize?: InputMaybe<ImageSharpResizeFilterInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
@@ -904,18 +937,32 @@ export type QueryAllImageSharpArgs = {
 };
 
 
-export type QueryFacebookArgs = {
+export type QueryDataJsonArgs = {
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
   internal?: InputMaybe<InternalFilterInput>;
-  posts?: InputMaybe<FacebookPostsFilterInput>;
+  attachments?: InputMaybe<DataJsonAttachmentsFilterInput>;
+  message?: InputMaybe<StringQueryOperatorInput>;
+  full_picture?: InputMaybe<StringQueryOperatorInput>;
+  picture?: InputMaybe<StringQueryOperatorInput>;
+  from?: InputMaybe<DataJsonFromFilterInput>;
+  actions?: InputMaybe<DataJsonActionsFilterListInput>;
+  created_time?: InputMaybe<DateQueryOperatorInput>;
+  status_type?: InputMaybe<StringQueryOperatorInput>;
+  updated_time?: InputMaybe<DateQueryOperatorInput>;
+  icon?: InputMaybe<StringQueryOperatorInput>;
+  description?: InputMaybe<StringQueryOperatorInput>;
+  type?: InputMaybe<StringQueryOperatorInput>;
+  link?: InputMaybe<StringQueryOperatorInput>;
+  first_action?: InputMaybe<DataJsonFirst_ActionFilterInput>;
+  jsonId?: InputMaybe<StringQueryOperatorInput>;
 };
 
 
-export type QueryAllFacebookArgs = {
-  filter?: InputMaybe<FacebookFilterInput>;
-  sort?: InputMaybe<FacebookSortInput>;
+export type QueryAllDataJsonArgs = {
+  filter?: InputMaybe<DataJsonFilterInput>;
+  sort?: InputMaybe<DataJsonSortInput>;
   skip?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;
 };
@@ -969,7 +1016,7 @@ export type ImageSharpFilterListInput = {
 export type ImageSharpFilterInput = {
   fixed?: InputMaybe<ImageSharpFixedFilterInput>;
   fluid?: InputMaybe<ImageSharpFluidFilterInput>;
-  gatsbyImageData?: InputMaybe<JsonQueryOperatorInput>;
+  gatsbyImageData?: InputMaybe<GatsbyImageDataQueryOperatorInput>;
   original?: InputMaybe<ImageSharpOriginalFilterInput>;
   resize?: InputMaybe<ImageSharpResizeFilterInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
@@ -1006,13 +1053,11 @@ export type ImageSharpFluidFilterInput = {
   presentationHeight?: InputMaybe<IntQueryOperatorInput>;
 };
 
-export type JsonQueryOperatorInput = {
-  eq?: InputMaybe<Scalars['JSON']>;
-  ne?: InputMaybe<Scalars['JSON']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>;
-  nin?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>;
-  regex?: InputMaybe<Scalars['JSON']>;
-  glob?: InputMaybe<Scalars['JSON']>;
+export type GatsbyImageDataQueryOperatorInput = {
+  eq?: InputMaybe<Scalars['GatsbyImageData']>;
+  ne?: InputMaybe<Scalars['GatsbyImageData']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['GatsbyImageData']>>>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['GatsbyImageData']>>>;
 };
 
 export type ImageSharpOriginalFilterInput = {
@@ -1050,6 +1095,7 @@ export type InternalFilterInput = {
   mediaType?: InputMaybe<StringQueryOperatorInput>;
   owner?: InputMaybe<StringQueryOperatorInput>;
   type?: InputMaybe<StringQueryOperatorInput>;
+  contentFilePath?: InputMaybe<StringQueryOperatorInput>;
 };
 
 export type BooleanQueryOperatorInput = {
@@ -1057,6 +1103,84 @@ export type BooleanQueryOperatorInput = {
   ne?: InputMaybe<Scalars['Boolean']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['Boolean']>>>;
   nin?: InputMaybe<Array<InputMaybe<Scalars['Boolean']>>>;
+};
+
+export type DataJsonFilterListInput = {
+  elemMatch?: InputMaybe<DataJsonFilterInput>;
+};
+
+export type DataJsonFilterInput = {
+  id?: InputMaybe<StringQueryOperatorInput>;
+  parent?: InputMaybe<NodeFilterInput>;
+  children?: InputMaybe<NodeFilterListInput>;
+  internal?: InputMaybe<InternalFilterInput>;
+  attachments?: InputMaybe<DataJsonAttachmentsFilterInput>;
+  message?: InputMaybe<StringQueryOperatorInput>;
+  full_picture?: InputMaybe<StringQueryOperatorInput>;
+  picture?: InputMaybe<StringQueryOperatorInput>;
+  from?: InputMaybe<DataJsonFromFilterInput>;
+  actions?: InputMaybe<DataJsonActionsFilterListInput>;
+  created_time?: InputMaybe<DateQueryOperatorInput>;
+  status_type?: InputMaybe<StringQueryOperatorInput>;
+  updated_time?: InputMaybe<DateQueryOperatorInput>;
+  icon?: InputMaybe<StringQueryOperatorInput>;
+  description?: InputMaybe<StringQueryOperatorInput>;
+  type?: InputMaybe<StringQueryOperatorInput>;
+  link?: InputMaybe<StringQueryOperatorInput>;
+  first_action?: InputMaybe<DataJsonFirst_ActionFilterInput>;
+  jsonId?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type DataJsonAttachmentsFilterInput = {
+  data?: InputMaybe<DataJsonAttachmentsDataFilterListInput>;
+};
+
+export type DataJsonAttachmentsDataFilterListInput = {
+  elemMatch?: InputMaybe<DataJsonAttachmentsDataFilterInput>;
+};
+
+export type DataJsonAttachmentsDataFilterInput = {
+  description?: InputMaybe<StringQueryOperatorInput>;
+  media?: InputMaybe<DataJsonAttachmentsDataMediaFilterInput>;
+  media_type?: InputMaybe<StringQueryOperatorInput>;
+  target?: InputMaybe<DataJsonAttachmentsDataTargetFilterInput>;
+  title?: InputMaybe<StringQueryOperatorInput>;
+  unshimmed_url?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type DataJsonAttachmentsDataMediaFilterInput = {
+  image?: InputMaybe<DataJsonAttachmentsDataMediaImageFilterInput>;
+  source?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type DataJsonAttachmentsDataMediaImageFilterInput = {
+  height?: InputMaybe<IntQueryOperatorInput>;
+  src?: InputMaybe<StringQueryOperatorInput>;
+  width?: InputMaybe<IntQueryOperatorInput>;
+};
+
+export type DataJsonAttachmentsDataTargetFilterInput = {
+  url?: InputMaybe<StringQueryOperatorInput>;
+  id?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type DataJsonFromFilterInput = {
+  name?: InputMaybe<StringQueryOperatorInput>;
+  id?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type DataJsonActionsFilterListInput = {
+  elemMatch?: InputMaybe<DataJsonActionsFilterInput>;
+};
+
+export type DataJsonActionsFilterInput = {
+  name?: InputMaybe<StringQueryOperatorInput>;
+  link?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type DataJsonFirst_ActionFilterInput = {
+  name?: InputMaybe<StringQueryOperatorInput>;
+  link?: InputMaybe<StringQueryOperatorInput>;
 };
 
 export type FileConnection = {
@@ -1146,6 +1270,9 @@ export type FileFieldsEnum =
   | 'ctime'
   | 'birthtime'
   | 'birthtimeMs'
+  | 'blksize'
+  | 'blocks'
+  | 'publicURL'
   | 'childrenImageSharp'
   | 'childrenImageSharp___fixed___base64'
   | 'childrenImageSharp___fixed___tracedSVG'
@@ -1194,6 +1321,7 @@ export type FileFieldsEnum =
   | 'childrenImageSharp___parent___internal___mediaType'
   | 'childrenImageSharp___parent___internal___owner'
   | 'childrenImageSharp___parent___internal___type'
+  | 'childrenImageSharp___parent___internal___contentFilePath'
   | 'childrenImageSharp___children'
   | 'childrenImageSharp___children___id'
   | 'childrenImageSharp___children___parent___id'
@@ -1209,6 +1337,7 @@ export type FileFieldsEnum =
   | 'childrenImageSharp___children___internal___mediaType'
   | 'childrenImageSharp___children___internal___owner'
   | 'childrenImageSharp___children___internal___type'
+  | 'childrenImageSharp___children___internal___contentFilePath'
   | 'childrenImageSharp___internal___content'
   | 'childrenImageSharp___internal___contentDigest'
   | 'childrenImageSharp___internal___description'
@@ -1217,6 +1346,7 @@ export type FileFieldsEnum =
   | 'childrenImageSharp___internal___mediaType'
   | 'childrenImageSharp___internal___owner'
   | 'childrenImageSharp___internal___type'
+  | 'childrenImageSharp___internal___contentFilePath'
   | 'childImageSharp___fixed___base64'
   | 'childImageSharp___fixed___tracedSVG'
   | 'childImageSharp___fixed___aspectRatio'
@@ -1264,6 +1394,7 @@ export type FileFieldsEnum =
   | 'childImageSharp___parent___internal___mediaType'
   | 'childImageSharp___parent___internal___owner'
   | 'childImageSharp___parent___internal___type'
+  | 'childImageSharp___parent___internal___contentFilePath'
   | 'childImageSharp___children'
   | 'childImageSharp___children___id'
   | 'childImageSharp___children___parent___id'
@@ -1279,6 +1410,7 @@ export type FileFieldsEnum =
   | 'childImageSharp___children___internal___mediaType'
   | 'childImageSharp___children___internal___owner'
   | 'childImageSharp___children___internal___type'
+  | 'childImageSharp___children___internal___contentFilePath'
   | 'childImageSharp___internal___content'
   | 'childImageSharp___internal___contentDigest'
   | 'childImageSharp___internal___description'
@@ -1287,6 +1419,136 @@ export type FileFieldsEnum =
   | 'childImageSharp___internal___mediaType'
   | 'childImageSharp___internal___owner'
   | 'childImageSharp___internal___type'
+  | 'childImageSharp___internal___contentFilePath'
+  | 'childrenDataJson'
+  | 'childrenDataJson___id'
+  | 'childrenDataJson___parent___id'
+  | 'childrenDataJson___parent___parent___id'
+  | 'childrenDataJson___parent___parent___children'
+  | 'childrenDataJson___parent___children'
+  | 'childrenDataJson___parent___children___id'
+  | 'childrenDataJson___parent___children___children'
+  | 'childrenDataJson___parent___internal___content'
+  | 'childrenDataJson___parent___internal___contentDigest'
+  | 'childrenDataJson___parent___internal___description'
+  | 'childrenDataJson___parent___internal___fieldOwners'
+  | 'childrenDataJson___parent___internal___ignoreType'
+  | 'childrenDataJson___parent___internal___mediaType'
+  | 'childrenDataJson___parent___internal___owner'
+  | 'childrenDataJson___parent___internal___type'
+  | 'childrenDataJson___parent___internal___contentFilePath'
+  | 'childrenDataJson___children'
+  | 'childrenDataJson___children___id'
+  | 'childrenDataJson___children___parent___id'
+  | 'childrenDataJson___children___parent___children'
+  | 'childrenDataJson___children___children'
+  | 'childrenDataJson___children___children___id'
+  | 'childrenDataJson___children___children___children'
+  | 'childrenDataJson___children___internal___content'
+  | 'childrenDataJson___children___internal___contentDigest'
+  | 'childrenDataJson___children___internal___description'
+  | 'childrenDataJson___children___internal___fieldOwners'
+  | 'childrenDataJson___children___internal___ignoreType'
+  | 'childrenDataJson___children___internal___mediaType'
+  | 'childrenDataJson___children___internal___owner'
+  | 'childrenDataJson___children___internal___type'
+  | 'childrenDataJson___children___internal___contentFilePath'
+  | 'childrenDataJson___internal___content'
+  | 'childrenDataJson___internal___contentDigest'
+  | 'childrenDataJson___internal___description'
+  | 'childrenDataJson___internal___fieldOwners'
+  | 'childrenDataJson___internal___ignoreType'
+  | 'childrenDataJson___internal___mediaType'
+  | 'childrenDataJson___internal___owner'
+  | 'childrenDataJson___internal___type'
+  | 'childrenDataJson___internal___contentFilePath'
+  | 'childrenDataJson___attachments___data'
+  | 'childrenDataJson___attachments___data___description'
+  | 'childrenDataJson___attachments___data___media_type'
+  | 'childrenDataJson___attachments___data___title'
+  | 'childrenDataJson___attachments___data___unshimmed_url'
+  | 'childrenDataJson___message'
+  | 'childrenDataJson___full_picture'
+  | 'childrenDataJson___picture'
+  | 'childrenDataJson___from___name'
+  | 'childrenDataJson___from___id'
+  | 'childrenDataJson___actions'
+  | 'childrenDataJson___actions___name'
+  | 'childrenDataJson___actions___link'
+  | 'childrenDataJson___created_time'
+  | 'childrenDataJson___status_type'
+  | 'childrenDataJson___updated_time'
+  | 'childrenDataJson___icon'
+  | 'childrenDataJson___description'
+  | 'childrenDataJson___type'
+  | 'childrenDataJson___link'
+  | 'childrenDataJson___first_action___name'
+  | 'childrenDataJson___first_action___link'
+  | 'childrenDataJson___jsonId'
+  | 'childDataJson___id'
+  | 'childDataJson___parent___id'
+  | 'childDataJson___parent___parent___id'
+  | 'childDataJson___parent___parent___children'
+  | 'childDataJson___parent___children'
+  | 'childDataJson___parent___children___id'
+  | 'childDataJson___parent___children___children'
+  | 'childDataJson___parent___internal___content'
+  | 'childDataJson___parent___internal___contentDigest'
+  | 'childDataJson___parent___internal___description'
+  | 'childDataJson___parent___internal___fieldOwners'
+  | 'childDataJson___parent___internal___ignoreType'
+  | 'childDataJson___parent___internal___mediaType'
+  | 'childDataJson___parent___internal___owner'
+  | 'childDataJson___parent___internal___type'
+  | 'childDataJson___parent___internal___contentFilePath'
+  | 'childDataJson___children'
+  | 'childDataJson___children___id'
+  | 'childDataJson___children___parent___id'
+  | 'childDataJson___children___parent___children'
+  | 'childDataJson___children___children'
+  | 'childDataJson___children___children___id'
+  | 'childDataJson___children___children___children'
+  | 'childDataJson___children___internal___content'
+  | 'childDataJson___children___internal___contentDigest'
+  | 'childDataJson___children___internal___description'
+  | 'childDataJson___children___internal___fieldOwners'
+  | 'childDataJson___children___internal___ignoreType'
+  | 'childDataJson___children___internal___mediaType'
+  | 'childDataJson___children___internal___owner'
+  | 'childDataJson___children___internal___type'
+  | 'childDataJson___children___internal___contentFilePath'
+  | 'childDataJson___internal___content'
+  | 'childDataJson___internal___contentDigest'
+  | 'childDataJson___internal___description'
+  | 'childDataJson___internal___fieldOwners'
+  | 'childDataJson___internal___ignoreType'
+  | 'childDataJson___internal___mediaType'
+  | 'childDataJson___internal___owner'
+  | 'childDataJson___internal___type'
+  | 'childDataJson___internal___contentFilePath'
+  | 'childDataJson___attachments___data'
+  | 'childDataJson___attachments___data___description'
+  | 'childDataJson___attachments___data___media_type'
+  | 'childDataJson___attachments___data___title'
+  | 'childDataJson___attachments___data___unshimmed_url'
+  | 'childDataJson___message'
+  | 'childDataJson___full_picture'
+  | 'childDataJson___picture'
+  | 'childDataJson___from___name'
+  | 'childDataJson___from___id'
+  | 'childDataJson___actions'
+  | 'childDataJson___actions___name'
+  | 'childDataJson___actions___link'
+  | 'childDataJson___created_time'
+  | 'childDataJson___status_type'
+  | 'childDataJson___updated_time'
+  | 'childDataJson___icon'
+  | 'childDataJson___description'
+  | 'childDataJson___type'
+  | 'childDataJson___link'
+  | 'childDataJson___first_action___name'
+  | 'childDataJson___first_action___link'
+  | 'childDataJson___jsonId'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -1303,6 +1565,7 @@ export type FileFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -1318,6 +1581,7 @@ export type FileFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -1326,6 +1590,7 @@ export type FileFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -1342,6 +1607,7 @@ export type FileFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -1357,6 +1623,7 @@ export type FileFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -1365,6 +1632,7 @@ export type FileFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -1372,7 +1640,8 @@ export type FileFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'internal___contentFilePath';
 
 export type FileGroupConnection = {
   totalCount: Scalars['Int'];
@@ -1447,8 +1716,13 @@ export type FileFilterInput = {
   ctime?: InputMaybe<DateQueryOperatorInput>;
   birthtime?: InputMaybe<DateQueryOperatorInput>;
   birthtimeMs?: InputMaybe<FloatQueryOperatorInput>;
+  blksize?: InputMaybe<IntQueryOperatorInput>;
+  blocks?: InputMaybe<IntQueryOperatorInput>;
+  publicURL?: InputMaybe<StringQueryOperatorInput>;
   childrenImageSharp?: InputMaybe<ImageSharpFilterListInput>;
   childImageSharp?: InputMaybe<ImageSharpFilterInput>;
+  childrenDataJson?: InputMaybe<DataJsonFilterListInput>;
+  childDataJson?: InputMaybe<DataJsonFilterInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -1557,6 +1831,7 @@ export type DirectoryFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -1572,6 +1847,7 @@ export type DirectoryFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -1580,6 +1856,7 @@ export type DirectoryFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -1596,6 +1873,7 @@ export type DirectoryFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -1611,6 +1889,7 @@ export type DirectoryFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -1619,6 +1898,7 @@ export type DirectoryFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -1626,7 +1906,8 @@ export type DirectoryFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'internal___contentFilePath';
 
 export type DirectoryGroupConnection = {
   totalCount: Scalars['Int'];
@@ -1772,6 +2053,7 @@ export type SiteFieldsEnum =
   | 'pathPrefix'
   | 'jsxRuntime'
   | 'trailingSlash'
+  | 'graphqlTypegen'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -1788,6 +2070,7 @@ export type SiteFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -1803,6 +2086,7 @@ export type SiteFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -1811,6 +2095,7 @@ export type SiteFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -1827,6 +2112,7 @@ export type SiteFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -1842,6 +2128,7 @@ export type SiteFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -1850,6 +2137,7 @@ export type SiteFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -1857,7 +2145,8 @@ export type SiteFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'internal___contentFilePath';
 
 export type SiteGroupConnection = {
   totalCount: Scalars['Int'];
@@ -1909,6 +2198,7 @@ export type SiteFilterInput = {
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
   trailingSlash?: InputMaybe<StringQueryOperatorInput>;
+  graphqlTypegen?: InputMaybe<BooleanQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -1989,6 +2279,7 @@ export type SiteFunctionFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -2004,6 +2295,7 @@ export type SiteFunctionFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -2012,6 +2304,7 @@ export type SiteFunctionFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -2028,6 +2321,7 @@ export type SiteFunctionFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -2043,6 +2337,7 @@ export type SiteFunctionFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -2051,6 +2346,7 @@ export type SiteFunctionFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -2058,7 +2354,8 @@ export type SiteFunctionFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'internal___contentFilePath';
 
 export type SiteFunctionGroupConnection = {
   totalCount: Scalars['Int'];
@@ -2118,6 +2415,15 @@ export type SiteFunctionFilterInput = {
 export type SiteFunctionSortInput = {
   fields?: InputMaybe<Array<InputMaybe<SiteFunctionFieldsEnum>>>;
   order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
+};
+
+export type JsonQueryOperatorInput = {
+  eq?: InputMaybe<Scalars['JSON']>;
+  ne?: InputMaybe<Scalars['JSON']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>;
+  regex?: InputMaybe<Scalars['JSON']>;
+  glob?: InputMaybe<Scalars['JSON']>;
 };
 
 export type SitePluginFilterInput = {
@@ -2212,6 +2518,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___parent___internal___mediaType'
   | 'pluginCreator___parent___internal___owner'
   | 'pluginCreator___parent___internal___type'
+  | 'pluginCreator___parent___internal___contentFilePath'
   | 'pluginCreator___children'
   | 'pluginCreator___children___id'
   | 'pluginCreator___children___parent___id'
@@ -2227,6 +2534,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___children___internal___mediaType'
   | 'pluginCreator___children___internal___owner'
   | 'pluginCreator___children___internal___type'
+  | 'pluginCreator___children___internal___contentFilePath'
   | 'pluginCreator___internal___content'
   | 'pluginCreator___internal___contentDigest'
   | 'pluginCreator___internal___description'
@@ -2235,6 +2543,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___internal___mediaType'
   | 'pluginCreator___internal___owner'
   | 'pluginCreator___internal___type'
+  | 'pluginCreator___internal___contentFilePath'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -2251,6 +2560,7 @@ export type SitePageFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -2266,6 +2576,7 @@ export type SitePageFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -2274,6 +2585,7 @@ export type SitePageFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -2290,6 +2602,7 @@ export type SitePageFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -2305,6 +2618,7 @@ export type SitePageFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -2313,6 +2627,7 @@ export type SitePageFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -2320,7 +2635,8 @@ export type SitePageFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'internal___contentFilePath';
 
 export type SitePageGroupConnection = {
   totalCount: Scalars['Int'];
@@ -2453,6 +2769,7 @@ export type SitePluginFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -2468,6 +2785,7 @@ export type SitePluginFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -2476,6 +2794,7 @@ export type SitePluginFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -2492,6 +2811,7 @@ export type SitePluginFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -2507,6 +2827,7 @@ export type SitePluginFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -2515,6 +2836,7 @@ export type SitePluginFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -2522,7 +2844,8 @@ export type SitePluginFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'internal___contentFilePath';
 
 export type SitePluginGroupConnection = {
   totalCount: Scalars['Int'];
@@ -2633,6 +2956,7 @@ export type SiteBuildMetadataFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -2648,6 +2972,7 @@ export type SiteBuildMetadataFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -2656,6 +2981,7 @@ export type SiteBuildMetadataFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -2672,6 +2998,7 @@ export type SiteBuildMetadataFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -2687,6 +3014,7 @@ export type SiteBuildMetadataFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -2695,6 +3023,7 @@ export type SiteBuildMetadataFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -2702,7 +3031,8 @@ export type SiteBuildMetadataFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'internal___contentFilePath';
 
 export type SiteBuildMetadataGroupConnection = {
   totalCount: Scalars['Int'];
@@ -2852,6 +3182,7 @@ export type ImageSharpFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -2867,6 +3198,7 @@ export type ImageSharpFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -2875,6 +3207,7 @@ export type ImageSharpFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -2891,6 +3224,7 @@ export type ImageSharpFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -2906,6 +3240,7 @@ export type ImageSharpFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -2914,6 +3249,7 @@ export type ImageSharpFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -2921,7 +3257,8 @@ export type ImageSharpFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'internal___contentFilePath';
 
 export type ImageSharpGroupConnection = {
   totalCount: Scalars['Int'];
@@ -2969,122 +3306,52 @@ export type ImageSharpSortInput = {
   order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
 };
 
-export type FacebookPostsFilterInput = {
-  data?: InputMaybe<FacebookPostsDataFilterListInput>;
-  paging?: InputMaybe<FacebookPostsPagingFilterInput>;
-};
-
-export type FacebookPostsDataFilterListInput = {
-  elemMatch?: InputMaybe<FacebookPostsDataFilterInput>;
-};
-
-export type FacebookPostsDataFilterInput = {
-  attachments?: InputMaybe<FacebookPostsDataAttachmentsFilterInput>;
-  permalink_url?: InputMaybe<StringQueryOperatorInput>;
-  id?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type FacebookPostsDataAttachmentsFilterInput = {
-  data?: InputMaybe<FacebookPostsDataAttachmentsDataFilterListInput>;
-};
-
-export type FacebookPostsDataAttachmentsDataFilterListInput = {
-  elemMatch?: InputMaybe<FacebookPostsDataAttachmentsDataFilterInput>;
-};
-
-export type FacebookPostsDataAttachmentsDataFilterInput = {
-  media?: InputMaybe<FacebookPostsDataAttachmentsDataMediaFilterInput>;
-  target?: InputMaybe<FacebookPostsDataAttachmentsDataTargetFilterInput>;
-  type?: InputMaybe<StringQueryOperatorInput>;
-  url?: InputMaybe<StringQueryOperatorInput>;
-  description?: InputMaybe<StringQueryOperatorInput>;
-  description_tags?: InputMaybe<FacebookPostsDataAttachmentsDataDescription_TagsFilterListInput>;
-};
-
-export type FacebookPostsDataAttachmentsDataMediaFilterInput = {
-  image?: InputMaybe<FacebookPostsDataAttachmentsDataMediaImageFilterInput>;
-  source?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type FacebookPostsDataAttachmentsDataMediaImageFilterInput = {
-  height?: InputMaybe<IntQueryOperatorInput>;
-  src?: InputMaybe<StringQueryOperatorInput>;
-  width?: InputMaybe<IntQueryOperatorInput>;
-};
-
-export type FacebookPostsDataAttachmentsDataTargetFilterInput = {
-  id?: InputMaybe<StringQueryOperatorInput>;
-  url?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type FacebookPostsDataAttachmentsDataDescription_TagsFilterListInput = {
-  elemMatch?: InputMaybe<FacebookPostsDataAttachmentsDataDescription_TagsFilterInput>;
-};
-
-export type FacebookPostsDataAttachmentsDataDescription_TagsFilterInput = {
-  id?: InputMaybe<StringQueryOperatorInput>;
-  length?: InputMaybe<IntQueryOperatorInput>;
-  name?: InputMaybe<StringQueryOperatorInput>;
-  offset?: InputMaybe<IntQueryOperatorInput>;
-  type?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type FacebookPostsPagingFilterInput = {
-  cursors?: InputMaybe<FacebookPostsPagingCursorsFilterInput>;
-  next?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type FacebookPostsPagingCursorsFilterInput = {
-  before?: InputMaybe<StringQueryOperatorInput>;
-  after?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type FacebookConnection = {
+export type DataJsonConnection = {
   totalCount: Scalars['Int'];
-  edges: Array<FacebookEdge>;
-  nodes: Array<Facebook>;
+  edges: Array<DataJsonEdge>;
+  nodes: Array<DataJson>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
   max?: Maybe<Scalars['Float']>;
   min?: Maybe<Scalars['Float']>;
   sum?: Maybe<Scalars['Float']>;
-  group: Array<FacebookGroupConnection>;
+  group: Array<DataJsonGroupConnection>;
 };
 
 
-export type FacebookConnectionDistinctArgs = {
-  field: FacebookFieldsEnum;
+export type DataJsonConnectionDistinctArgs = {
+  field: DataJsonFieldsEnum;
 };
 
 
-export type FacebookConnectionMaxArgs = {
-  field: FacebookFieldsEnum;
+export type DataJsonConnectionMaxArgs = {
+  field: DataJsonFieldsEnum;
 };
 
 
-export type FacebookConnectionMinArgs = {
-  field: FacebookFieldsEnum;
+export type DataJsonConnectionMinArgs = {
+  field: DataJsonFieldsEnum;
 };
 
 
-export type FacebookConnectionSumArgs = {
-  field: FacebookFieldsEnum;
+export type DataJsonConnectionSumArgs = {
+  field: DataJsonFieldsEnum;
 };
 
 
-export type FacebookConnectionGroupArgs = {
+export type DataJsonConnectionGroupArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;
-  field: FacebookFieldsEnum;
+  field: DataJsonFieldsEnum;
 };
 
-export type FacebookEdge = {
-  next?: Maybe<Facebook>;
-  node: Facebook;
-  previous?: Maybe<Facebook>;
+export type DataJsonEdge = {
+  next?: Maybe<DataJson>;
+  node: DataJson;
+  previous?: Maybe<DataJson>;
 };
 
-export type FacebookFieldsEnum =
+export type DataJsonFieldsEnum =
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -3101,6 +3368,7 @@ export type FacebookFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -3116,6 +3384,7 @@ export type FacebookFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -3124,6 +3393,7 @@ export type FacebookFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -3140,6 +3410,7 @@ export type FacebookFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -3155,6 +3426,7 @@ export type FacebookFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -3163,6 +3435,7 @@ export type FacebookFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -3171,65 +3444,77 @@ export type FacebookFieldsEnum =
   | 'internal___mediaType'
   | 'internal___owner'
   | 'internal___type'
-  | 'posts___data'
-  | 'posts___data___attachments___data'
-  | 'posts___data___permalink_url'
-  | 'posts___data___id'
-  | 'posts___paging___cursors___before'
-  | 'posts___paging___cursors___after'
-  | 'posts___paging___next';
+  | 'internal___contentFilePath'
+  | 'attachments___data'
+  | 'attachments___data___description'
+  | 'attachments___data___media___source'
+  | 'attachments___data___media_type'
+  | 'attachments___data___target___url'
+  | 'attachments___data___target___id'
+  | 'attachments___data___title'
+  | 'attachments___data___unshimmed_url'
+  | 'message'
+  | 'full_picture'
+  | 'picture'
+  | 'from___name'
+  | 'from___id'
+  | 'actions'
+  | 'actions___name'
+  | 'actions___link'
+  | 'created_time'
+  | 'status_type'
+  | 'updated_time'
+  | 'icon'
+  | 'description'
+  | 'type'
+  | 'link'
+  | 'first_action___name'
+  | 'first_action___link'
+  | 'jsonId';
 
-export type FacebookGroupConnection = {
+export type DataJsonGroupConnection = {
   totalCount: Scalars['Int'];
-  edges: Array<FacebookEdge>;
-  nodes: Array<Facebook>;
+  edges: Array<DataJsonEdge>;
+  nodes: Array<DataJson>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
   max?: Maybe<Scalars['Float']>;
   min?: Maybe<Scalars['Float']>;
   sum?: Maybe<Scalars['Float']>;
-  group: Array<FacebookGroupConnection>;
+  group: Array<DataJsonGroupConnection>;
   field: Scalars['String'];
   fieldValue?: Maybe<Scalars['String']>;
 };
 
 
-export type FacebookGroupConnectionDistinctArgs = {
-  field: FacebookFieldsEnum;
+export type DataJsonGroupConnectionDistinctArgs = {
+  field: DataJsonFieldsEnum;
 };
 
 
-export type FacebookGroupConnectionMaxArgs = {
-  field: FacebookFieldsEnum;
+export type DataJsonGroupConnectionMaxArgs = {
+  field: DataJsonFieldsEnum;
 };
 
 
-export type FacebookGroupConnectionMinArgs = {
-  field: FacebookFieldsEnum;
+export type DataJsonGroupConnectionMinArgs = {
+  field: DataJsonFieldsEnum;
 };
 
 
-export type FacebookGroupConnectionSumArgs = {
-  field: FacebookFieldsEnum;
+export type DataJsonGroupConnectionSumArgs = {
+  field: DataJsonFieldsEnum;
 };
 
 
-export type FacebookGroupConnectionGroupArgs = {
+export type DataJsonGroupConnectionGroupArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;
-  field: FacebookFieldsEnum;
+  field: DataJsonFieldsEnum;
 };
 
-export type FacebookFilterInput = {
-  id?: InputMaybe<StringQueryOperatorInput>;
-  parent?: InputMaybe<NodeFilterInput>;
-  children?: InputMaybe<NodeFilterListInput>;
-  internal?: InputMaybe<InternalFilterInput>;
-  posts?: InputMaybe<FacebookPostsFilterInput>;
-};
-
-export type FacebookSortInput = {
-  fields?: InputMaybe<Array<InputMaybe<FacebookFieldsEnum>>>;
+export type DataJsonSortInput = {
+  fields?: InputMaybe<Array<InputMaybe<DataJsonFieldsEnum>>>;
   order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
 };
 
@@ -3238,10 +3523,10 @@ export type SiteTitleQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type SiteTitleQueryQuery = { site?: { siteMetadata?: { title?: string | null } | null } | null };
 
-export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
+export type NewsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_1_Query = { facebook?: { id: string, posts?: { data?: Array<{ id?: string | null, permalink_url?: string | null } | null> | null } | null } | null };
+export type NewsQuery = { allDataJson: { edges: Array<{ node: { id: string, message?: string | null, created_time?: any | null } }> } };
 
 export type GatsbyImageSharpFixedFragment = { base64?: string | null, width: number, height: number, src: string, srcSet: string };
 
