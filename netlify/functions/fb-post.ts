@@ -16,6 +16,7 @@ const handler: Handler = async (event) => {
       repo: 'pianobar.hu',
       path,
     })
+    console.log('getResponse', getResponse)
     sha = Array.isArray(getResponse.data) ? getResponse.data[0].sha : getResponse.data.sha
   } catch {
     sha = undefined
@@ -33,6 +34,7 @@ const handler: Handler = async (event) => {
     content: event.isBase64Encoded ? event.body! : Buffer.from(event.body || '').toString('base64'),
     sha,
   })
+  console.log('putResponse', putResponse)
 
   return {
     statusCode: putResponse.status,
