@@ -10,17 +10,21 @@ const handler: Handler = async (event) => {
   const path = `src/data/${data.id}.json`
   let sha
 
+  console.log('JSON parsed. data: ', data)
   try {
     const getResponse = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
       owner: 'zoltanbedi',
       repo: 'pianobar.hu',
       path,
     })
-    console.log('getResponse', getResponse)
+    console.log('getResponse success', getResponse)
     sha = Array.isArray(getResponse.data) ? getResponse.data[0].sha : getResponse.data.sha
   } catch {
+    console.log('getResponse failed')
     sha = undefined
   }
+
+  console.log('Creating new file')
 
   const putResponse = await octokit.request(`PUT /repos/{owner}/{repo}/contents/{path}`, {
     owner: 'zoltanbedi',
