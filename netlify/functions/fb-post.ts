@@ -8,12 +8,18 @@ const handler: Handler = async (event) => {
 
   const data = JSON.parse(event.body || '')
   const path = `src/data/${data.id}.json`
+  let sha
 
-  const getResponse = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
-    owner: 'zoltanbedi',
-    repo: 'pianobar.hu',
-    path,
-  })
+  try {
+    const getResponse = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
+      owner: 'zoltanbedi',
+      repo: 'pianobar.hu',
+      path,
+    })
+    sha = Array.isArray(getResponse.data) ? getResponse.data[0].sha : getResponse.data.sha
+  } catch {
+    sha = undefined
+  }
 
   const putResponse = await octokit.request(`PUT /repos/{owner}/{repo}/contents/{path}`, {
     owner: 'zoltanbedi',
@@ -25,7 +31,7 @@ const handler: Handler = async (event) => {
       email: 'zoltan.bedi@gmail.com',
     },
     content: event.isBase64Encoded ? event.body! : Buffer.from(event.body || '').toString('base64'),
-    sha: Array.isArray(getResponse.data) ? getResponse.data[0].sha : getResponse.data.sha,
+    sha,
   })
 
   return {
