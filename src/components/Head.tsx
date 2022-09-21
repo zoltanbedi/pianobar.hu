@@ -16,12 +16,6 @@ export function Head({ title }: Props) {
       <link rel="canonical" href="https://pianobar.hu" />
       <link rel="icon" href="../images/favicon-192x192.png" sizes="192x192" />
       <link rel="icon" href="../images/favicon-32x32.png" sizes="32x32" />
-      <script
-        type="text/javascript"
-        src="https://app.termly.io/embed.min.js"
-        data-auto-block="on"
-        data-website-uuid="66a72150-19e9-4173-b9a6-d34f51cef75d"
-      />
     </>
   )
 }
