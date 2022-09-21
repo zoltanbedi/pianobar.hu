@@ -9,7 +9,13 @@ const handler: Handler = async (event) => {
   const data = JSON.parse(event.body || '')
   const path = `src/data/${data.id}.json`
 
-  const response = await octokit.request(`PUT /repos/zoltanbedi/pianobar.hu/contents/${path}`, {
+  const getResponse = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
+    owner: 'zoltanbedi',
+    repo: 'pianobar.hu',
+    path,
+  })
+
+  const putResponse = await octokit.request(`PUT /repos/{owner}/{repo}/contents/{path}`, {
     owner: 'zoltanbedi',
     repo: 'pianobar.hu',
     path,
@@ -18,12 +24,13 @@ const handler: Handler = async (event) => {
       name: 'Zoltan Bedi',
       email: 'zoltan.bedi@gmail.com',
     },
-    content: event.isBase64Encoded ? event.body : Buffer.from(event.body || '').toString('base64'),
+    content: event.isBase64Encoded ? event.body! : Buffer.from(event.body || '').toString('base64'),
+    sha: Array.isArray(getResponse.data) ? getResponse.data[0].sha : getResponse.data.sha,
   })
 
   return {
-    statusCode: response.status,
-    body: response.data,
+    statusCode: putResponse.status,
+    body: JSON.stringify(putResponse.data),
   }
 }
 
