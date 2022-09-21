@@ -9,6 +9,7 @@ module.exports = {
     'gatsby-plugin-image',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
+    'gatsby-plugin-netlify',
     'gatsby-plugin-graphql-codegen',
     {
       resolve: 'gatsby-plugin-react-svg',
