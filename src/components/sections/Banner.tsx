@@ -21,7 +21,7 @@ export default function Banner({
   return (
     <section className={bannerClasses}>
       <div className="content">{children}</div>
-      {image}
+      {image && <div className="image">{image}</div>}
     </section>
   )
 }

@@ -49,8 +49,7 @@ export default function ImgGallery() {
   return (
     <section className="wrapper style1 align-center color1 invert">
       <Carousel
-        className="inner"
-        heightMode="current"
+        adaptiveHeight
         pauseOnHover={false}
         enableKeyboardControls={false}
         autoplay={isInViewport}

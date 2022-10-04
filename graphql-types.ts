@@ -14,6 +14,7 @@ export type Scalars = {
   Date: any;
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
+  GatsbyImageData: any;
 };
 
 export type File = Node & {
@@ -50,10 +51,19 @@ export type File = Node & {
   birthtime?: Maybe<Scalars['Date']>;
   /** @deprecated Use `birthTime` instead */
   birthtimeMs?: Maybe<Scalars['Float']>;
+  blksize?: Maybe<Scalars['Int']>;
+  blocks?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
+  /** Copy file to static directory and return public url to it */
+  publicURL?: Maybe<Scalars['String']>;
   /** Returns all children nodes filtered by type ImageSharp */
   childrenImageSharp?: Maybe<Array<Maybe<ImageSharp>>>;
   /** Returns the first child node of type ImageSharp or null if there are no children of given type on this node */
   childImageSharp?: Maybe<ImageSharp>;
+  /** Returns all children nodes filtered by type DataJson */
+  childrenDataJson?: Maybe<Array<Maybe<DataJson>>>;
+  /** Returns the first child node of type DataJson or null if there are no children of given type on this node */
+  childDataJson?: Maybe<DataJson>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -133,6 +143,7 @@ export type Internal = {
   mediaType?: Maybe<Scalars['String']>;
   owner: Scalars['String'];
   type: Scalars['String'];
+  contentFilePath?: Maybe<Scalars['String']>;
 };
 
 export type Directory = Node & {
@@ -240,6 +251,7 @@ export type Site = Node & {
   pathPrefix?: Maybe<Scalars['String']>;
   jsxRuntime?: Maybe<Scalars['String']>;
   trailingSlash?: Maybe<Scalars['String']>;
+  graphqlTypegen?: Maybe<Scalars['Boolean']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -400,7 +412,7 @@ export type Potrace = {
 export type ImageSharp = Node & {
   fixed?: Maybe<ImageSharpFixed>;
   fluid?: Maybe<ImageSharpFluid>;
-  gatsbyImageData: Scalars['JSON'];
+  gatsbyImageData: Scalars['GatsbyImageData'];
   original?: Maybe<ImageSharpOriginal>;
   resize?: Maybe<ImageSharpResize>;
   id: Scalars['ID'];
@@ -587,70 +599,95 @@ export type ImageSharpResize = {
   originalName?: Maybe<Scalars['String']>;
 };
 
-export type Facebook = Node & {
+export type DataJson = Node & {
+  data?: Maybe<DataJson>;
+  featuredImg?: Maybe<File>;
+  attachments?: Maybe<DataJsonAttachments>;
+  message?: Maybe<Scalars['String']>;
+  full_picture?: Maybe<Scalars['String']>;
+  picture?: Maybe<Scalars['String']>;
+  from?: Maybe<DataJsonFrom>;
+  actions?: Maybe<Array<Maybe<DataJsonActions>>>;
+  created_time?: Maybe<Scalars['Date']>;
+  status_type?: Maybe<Scalars['String']>;
+  updated_time?: Maybe<Scalars['Date']>;
+  icon?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  link?: Maybe<Scalars['String']>;
+  full_res_picture?: Maybe<Scalars['String']>;
+  first_action?: Maybe<DataJsonFirst_Action>;
+  jsonId?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  story?: Maybe<Scalars['String']>;
+  fields?: Maybe<DataJsonFields>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
   internal: Internal;
-  posts?: Maybe<FacebookPosts>;
 };
 
-export type FacebookPosts = {
-  data?: Maybe<Array<Maybe<FacebookPostsData>>>;
-  paging?: Maybe<FacebookPostsPaging>;
+
+export type DataJsonCreated_TimeArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
 };
 
-export type FacebookPostsData = {
-  attachments?: Maybe<FacebookPostsDataAttachments>;
-  permalink_url?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
+
+export type DataJsonUpdated_TimeArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
 };
 
-export type FacebookPostsDataAttachments = {
-  data?: Maybe<Array<Maybe<FacebookPostsDataAttachmentsData>>>;
+export type DataJsonAttachments = {
+  data?: Maybe<Array<Maybe<DataJsonAttachmentsData>>>;
 };
 
-export type FacebookPostsDataAttachmentsData = {
-  media?: Maybe<FacebookPostsDataAttachmentsDataMedia>;
-  target?: Maybe<FacebookPostsDataAttachmentsDataTarget>;
-  type?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
+export type DataJsonAttachmentsData = {
+  media?: Maybe<DataJsonAttachmentsDataMedia>;
+  media_type?: Maybe<Scalars['String']>;
+  target?: Maybe<DataJsonAttachmentsDataTarget>;
+  unshimmed_url?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
-  description_tags?: Maybe<Array<Maybe<FacebookPostsDataAttachmentsDataDescription_Tags>>>;
+  title?: Maybe<Scalars['String']>;
 };
 
-export type FacebookPostsDataAttachmentsDataMedia = {
-  image?: Maybe<FacebookPostsDataAttachmentsDataMediaImage>;
+export type DataJsonAttachmentsDataMedia = {
+  image?: Maybe<DataJsonAttachmentsDataMediaImage>;
   source?: Maybe<Scalars['String']>;
 };
 
-export type FacebookPostsDataAttachmentsDataMediaImage = {
+export type DataJsonAttachmentsDataMediaImage = {
   height?: Maybe<Scalars['Int']>;
   src?: Maybe<Scalars['String']>;
   width?: Maybe<Scalars['Int']>;
 };
 
-export type FacebookPostsDataAttachmentsDataTarget = {
+export type DataJsonAttachmentsDataTarget = {
   id?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
 };
 
-export type FacebookPostsDataAttachmentsDataDescription_Tags = {
-  id?: Maybe<Scalars['String']>;
-  length?: Maybe<Scalars['Int']>;
+export type DataJsonFrom = {
   name?: Maybe<Scalars['String']>;
-  offset?: Maybe<Scalars['Int']>;
-  type?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
 };
 
-export type FacebookPostsPaging = {
-  cursors?: Maybe<FacebookPostsPagingCursors>;
-  next?: Maybe<Scalars['String']>;
+export type DataJsonActions = {
+  name?: Maybe<Scalars['String']>;
+  link?: Maybe<Scalars['String']>;
 };
 
-export type FacebookPostsPagingCursors = {
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
+export type DataJsonFirst_Action = {
+  name?: Maybe<Scalars['String']>;
+  link?: Maybe<Scalars['String']>;
+};
+
+export type DataJsonFields = {
+  localFile?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -670,8 +707,8 @@ export type Query = {
   allSiteBuildMetadata: SiteBuildMetadataConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
-  facebook?: Maybe<Facebook>;
-  allFacebook: FacebookConnection;
+  dataJson?: Maybe<DataJson>;
+  allDataJson: DataJsonConnection;
 };
 
 
@@ -707,8 +744,14 @@ export type QueryFileArgs = {
   ctime?: InputMaybe<DateQueryOperatorInput>;
   birthtime?: InputMaybe<DateQueryOperatorInput>;
   birthtimeMs?: InputMaybe<FloatQueryOperatorInput>;
+  blksize?: InputMaybe<IntQueryOperatorInput>;
+  blocks?: InputMaybe<IntQueryOperatorInput>;
+  url?: InputMaybe<StringQueryOperatorInput>;
+  publicURL?: InputMaybe<StringQueryOperatorInput>;
   childrenImageSharp?: InputMaybe<ImageSharpFilterListInput>;
   childImageSharp?: InputMaybe<ImageSharpFilterInput>;
+  childrenDataJson?: InputMaybe<DataJsonFilterListInput>;
+  childDataJson?: InputMaybe<DataJsonFilterInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -780,6 +823,7 @@ export type QuerySiteArgs = {
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
   trailingSlash?: InputMaybe<StringQueryOperatorInput>;
+  graphqlTypegen?: InputMaybe<BooleanQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -886,7 +930,7 @@ export type QueryAllSiteBuildMetadataArgs = {
 export type QueryImageSharpArgs = {
   fixed?: InputMaybe<ImageSharpFixedFilterInput>;
   fluid?: InputMaybe<ImageSharpFluidFilterInput>;
-  gatsbyImageData?: InputMaybe<JsonQueryOperatorInput>;
+  gatsbyImageData?: InputMaybe<GatsbyImageDataQueryOperatorInput>;
   original?: InputMaybe<ImageSharpOriginalFilterInput>;
   resize?: InputMaybe<ImageSharpResizeFilterInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
@@ -904,18 +948,37 @@ export type QueryAllImageSharpArgs = {
 };
 
 
-export type QueryFacebookArgs = {
+export type QueryDataJsonArgs = {
+  data?: InputMaybe<DataJsonFilterInput>;
+  featuredImg?: InputMaybe<FileFilterInput>;
+  attachments?: InputMaybe<DataJsonAttachmentsFilterInput>;
+  message?: InputMaybe<StringQueryOperatorInput>;
+  full_picture?: InputMaybe<StringQueryOperatorInput>;
+  picture?: InputMaybe<StringQueryOperatorInput>;
+  from?: InputMaybe<DataJsonFromFilterInput>;
+  actions?: InputMaybe<DataJsonActionsFilterListInput>;
+  created_time?: InputMaybe<DateQueryOperatorInput>;
+  status_type?: InputMaybe<StringQueryOperatorInput>;
+  updated_time?: InputMaybe<DateQueryOperatorInput>;
+  icon?: InputMaybe<StringQueryOperatorInput>;
+  type?: InputMaybe<StringQueryOperatorInput>;
+  link?: InputMaybe<StringQueryOperatorInput>;
+  full_res_picture?: InputMaybe<StringQueryOperatorInput>;
+  first_action?: InputMaybe<DataJsonFirst_ActionFilterInput>;
+  jsonId?: InputMaybe<StringQueryOperatorInput>;
+  description?: InputMaybe<StringQueryOperatorInput>;
+  story?: InputMaybe<StringQueryOperatorInput>;
+  fields?: InputMaybe<DataJsonFieldsFilterInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
   internal?: InputMaybe<InternalFilterInput>;
-  posts?: InputMaybe<FacebookPostsFilterInput>;
 };
 
 
-export type QueryAllFacebookArgs = {
-  filter?: InputMaybe<FacebookFilterInput>;
-  sort?: InputMaybe<FacebookSortInput>;
+export type QueryAllDataJsonArgs = {
+  filter?: InputMaybe<DataJsonFilterInput>;
+  sort?: InputMaybe<DataJsonSortInput>;
   skip?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;
 };
@@ -969,7 +1032,7 @@ export type ImageSharpFilterListInput = {
 export type ImageSharpFilterInput = {
   fixed?: InputMaybe<ImageSharpFixedFilterInput>;
   fluid?: InputMaybe<ImageSharpFluidFilterInput>;
-  gatsbyImageData?: InputMaybe<JsonQueryOperatorInput>;
+  gatsbyImageData?: InputMaybe<GatsbyImageDataQueryOperatorInput>;
   original?: InputMaybe<ImageSharpOriginalFilterInput>;
   resize?: InputMaybe<ImageSharpResizeFilterInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
@@ -1006,13 +1069,11 @@ export type ImageSharpFluidFilterInput = {
   presentationHeight?: InputMaybe<IntQueryOperatorInput>;
 };
 
-export type JsonQueryOperatorInput = {
-  eq?: InputMaybe<Scalars['JSON']>;
-  ne?: InputMaybe<Scalars['JSON']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>;
-  nin?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>;
-  regex?: InputMaybe<Scalars['JSON']>;
-  glob?: InputMaybe<Scalars['JSON']>;
+export type GatsbyImageDataQueryOperatorInput = {
+  eq?: InputMaybe<Scalars['GatsbyImageData']>;
+  ne?: InputMaybe<Scalars['GatsbyImageData']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['GatsbyImageData']>>>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['GatsbyImageData']>>>;
 };
 
 export type ImageSharpOriginalFilterInput = {
@@ -1050,6 +1111,7 @@ export type InternalFilterInput = {
   mediaType?: InputMaybe<StringQueryOperatorInput>;
   owner?: InputMaybe<StringQueryOperatorInput>;
   type?: InputMaybe<StringQueryOperatorInput>;
+  contentFilePath?: InputMaybe<StringQueryOperatorInput>;
 };
 
 export type BooleanQueryOperatorInput = {
@@ -1057,6 +1119,139 @@ export type BooleanQueryOperatorInput = {
   ne?: InputMaybe<Scalars['Boolean']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['Boolean']>>>;
   nin?: InputMaybe<Array<InputMaybe<Scalars['Boolean']>>>;
+};
+
+export type DataJsonFilterListInput = {
+  elemMatch?: InputMaybe<DataJsonFilterInput>;
+};
+
+export type DataJsonFilterInput = {
+  data?: InputMaybe<DataJsonFilterInput>;
+  featuredImg?: InputMaybe<FileFilterInput>;
+  attachments?: InputMaybe<DataJsonAttachmentsFilterInput>;
+  message?: InputMaybe<StringQueryOperatorInput>;
+  full_picture?: InputMaybe<StringQueryOperatorInput>;
+  picture?: InputMaybe<StringQueryOperatorInput>;
+  from?: InputMaybe<DataJsonFromFilterInput>;
+  actions?: InputMaybe<DataJsonActionsFilterListInput>;
+  created_time?: InputMaybe<DateQueryOperatorInput>;
+  status_type?: InputMaybe<StringQueryOperatorInput>;
+  updated_time?: InputMaybe<DateQueryOperatorInput>;
+  icon?: InputMaybe<StringQueryOperatorInput>;
+  type?: InputMaybe<StringQueryOperatorInput>;
+  link?: InputMaybe<StringQueryOperatorInput>;
+  full_res_picture?: InputMaybe<StringQueryOperatorInput>;
+  first_action?: InputMaybe<DataJsonFirst_ActionFilterInput>;
+  jsonId?: InputMaybe<StringQueryOperatorInput>;
+  description?: InputMaybe<StringQueryOperatorInput>;
+  story?: InputMaybe<StringQueryOperatorInput>;
+  fields?: InputMaybe<DataJsonFieldsFilterInput>;
+  id?: InputMaybe<StringQueryOperatorInput>;
+  parent?: InputMaybe<NodeFilterInput>;
+  children?: InputMaybe<NodeFilterListInput>;
+  internal?: InputMaybe<InternalFilterInput>;
+};
+
+export type FileFilterInput = {
+  sourceInstanceName?: InputMaybe<StringQueryOperatorInput>;
+  absolutePath?: InputMaybe<StringQueryOperatorInput>;
+  relativePath?: InputMaybe<StringQueryOperatorInput>;
+  extension?: InputMaybe<StringQueryOperatorInput>;
+  size?: InputMaybe<IntQueryOperatorInput>;
+  prettySize?: InputMaybe<StringQueryOperatorInput>;
+  modifiedTime?: InputMaybe<DateQueryOperatorInput>;
+  accessTime?: InputMaybe<DateQueryOperatorInput>;
+  changeTime?: InputMaybe<DateQueryOperatorInput>;
+  birthTime?: InputMaybe<DateQueryOperatorInput>;
+  root?: InputMaybe<StringQueryOperatorInput>;
+  dir?: InputMaybe<StringQueryOperatorInput>;
+  base?: InputMaybe<StringQueryOperatorInput>;
+  ext?: InputMaybe<StringQueryOperatorInput>;
+  name?: InputMaybe<StringQueryOperatorInput>;
+  relativeDirectory?: InputMaybe<StringQueryOperatorInput>;
+  dev?: InputMaybe<IntQueryOperatorInput>;
+  mode?: InputMaybe<IntQueryOperatorInput>;
+  nlink?: InputMaybe<IntQueryOperatorInput>;
+  uid?: InputMaybe<IntQueryOperatorInput>;
+  gid?: InputMaybe<IntQueryOperatorInput>;
+  rdev?: InputMaybe<IntQueryOperatorInput>;
+  ino?: InputMaybe<FloatQueryOperatorInput>;
+  atimeMs?: InputMaybe<FloatQueryOperatorInput>;
+  mtimeMs?: InputMaybe<FloatQueryOperatorInput>;
+  ctimeMs?: InputMaybe<FloatQueryOperatorInput>;
+  atime?: InputMaybe<DateQueryOperatorInput>;
+  mtime?: InputMaybe<DateQueryOperatorInput>;
+  ctime?: InputMaybe<DateQueryOperatorInput>;
+  birthtime?: InputMaybe<DateQueryOperatorInput>;
+  birthtimeMs?: InputMaybe<FloatQueryOperatorInput>;
+  blksize?: InputMaybe<IntQueryOperatorInput>;
+  blocks?: InputMaybe<IntQueryOperatorInput>;
+  url?: InputMaybe<StringQueryOperatorInput>;
+  publicURL?: InputMaybe<StringQueryOperatorInput>;
+  childrenImageSharp?: InputMaybe<ImageSharpFilterListInput>;
+  childImageSharp?: InputMaybe<ImageSharpFilterInput>;
+  childrenDataJson?: InputMaybe<DataJsonFilterListInput>;
+  childDataJson?: InputMaybe<DataJsonFilterInput>;
+  id?: InputMaybe<StringQueryOperatorInput>;
+  parent?: InputMaybe<NodeFilterInput>;
+  children?: InputMaybe<NodeFilterListInput>;
+  internal?: InputMaybe<InternalFilterInput>;
+};
+
+export type DataJsonAttachmentsFilterInput = {
+  data?: InputMaybe<DataJsonAttachmentsDataFilterListInput>;
+};
+
+export type DataJsonAttachmentsDataFilterListInput = {
+  elemMatch?: InputMaybe<DataJsonAttachmentsDataFilterInput>;
+};
+
+export type DataJsonAttachmentsDataFilterInput = {
+  media?: InputMaybe<DataJsonAttachmentsDataMediaFilterInput>;
+  media_type?: InputMaybe<StringQueryOperatorInput>;
+  target?: InputMaybe<DataJsonAttachmentsDataTargetFilterInput>;
+  unshimmed_url?: InputMaybe<StringQueryOperatorInput>;
+  description?: InputMaybe<StringQueryOperatorInput>;
+  title?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type DataJsonAttachmentsDataMediaFilterInput = {
+  image?: InputMaybe<DataJsonAttachmentsDataMediaImageFilterInput>;
+  source?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type DataJsonAttachmentsDataMediaImageFilterInput = {
+  height?: InputMaybe<IntQueryOperatorInput>;
+  src?: InputMaybe<StringQueryOperatorInput>;
+  width?: InputMaybe<IntQueryOperatorInput>;
+};
+
+export type DataJsonAttachmentsDataTargetFilterInput = {
+  id?: InputMaybe<StringQueryOperatorInput>;
+  url?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type DataJsonFromFilterInput = {
+  name?: InputMaybe<StringQueryOperatorInput>;
+  id?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type DataJsonActionsFilterListInput = {
+  elemMatch?: InputMaybe<DataJsonActionsFilterInput>;
+};
+
+export type DataJsonActionsFilterInput = {
+  name?: InputMaybe<StringQueryOperatorInput>;
+  link?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type DataJsonFirst_ActionFilterInput = {
+  name?: InputMaybe<StringQueryOperatorInput>;
+  link?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type DataJsonFieldsFilterInput = {
+  localFile?: InputMaybe<StringQueryOperatorInput>;
 };
 
 export type FileConnection = {
@@ -1146,6 +1341,10 @@ export type FileFieldsEnum =
   | 'ctime'
   | 'birthtime'
   | 'birthtimeMs'
+  | 'blksize'
+  | 'blocks'
+  | 'url'
+  | 'publicURL'
   | 'childrenImageSharp'
   | 'childrenImageSharp___fixed___base64'
   | 'childrenImageSharp___fixed___tracedSVG'
@@ -1194,6 +1393,7 @@ export type FileFieldsEnum =
   | 'childrenImageSharp___parent___internal___mediaType'
   | 'childrenImageSharp___parent___internal___owner'
   | 'childrenImageSharp___parent___internal___type'
+  | 'childrenImageSharp___parent___internal___contentFilePath'
   | 'childrenImageSharp___children'
   | 'childrenImageSharp___children___id'
   | 'childrenImageSharp___children___parent___id'
@@ -1209,6 +1409,7 @@ export type FileFieldsEnum =
   | 'childrenImageSharp___children___internal___mediaType'
   | 'childrenImageSharp___children___internal___owner'
   | 'childrenImageSharp___children___internal___type'
+  | 'childrenImageSharp___children___internal___contentFilePath'
   | 'childrenImageSharp___internal___content'
   | 'childrenImageSharp___internal___contentDigest'
   | 'childrenImageSharp___internal___description'
@@ -1217,6 +1418,7 @@ export type FileFieldsEnum =
   | 'childrenImageSharp___internal___mediaType'
   | 'childrenImageSharp___internal___owner'
   | 'childrenImageSharp___internal___type'
+  | 'childrenImageSharp___internal___contentFilePath'
   | 'childImageSharp___fixed___base64'
   | 'childImageSharp___fixed___tracedSVG'
   | 'childImageSharp___fixed___aspectRatio'
@@ -1264,6 +1466,7 @@ export type FileFieldsEnum =
   | 'childImageSharp___parent___internal___mediaType'
   | 'childImageSharp___parent___internal___owner'
   | 'childImageSharp___parent___internal___type'
+  | 'childImageSharp___parent___internal___contentFilePath'
   | 'childImageSharp___children'
   | 'childImageSharp___children___id'
   | 'childImageSharp___children___parent___id'
@@ -1279,6 +1482,7 @@ export type FileFieldsEnum =
   | 'childImageSharp___children___internal___mediaType'
   | 'childImageSharp___children___internal___owner'
   | 'childImageSharp___children___internal___type'
+  | 'childImageSharp___children___internal___contentFilePath'
   | 'childImageSharp___internal___content'
   | 'childImageSharp___internal___contentDigest'
   | 'childImageSharp___internal___description'
@@ -1287,6 +1491,506 @@ export type FileFieldsEnum =
   | 'childImageSharp___internal___mediaType'
   | 'childImageSharp___internal___owner'
   | 'childImageSharp___internal___type'
+  | 'childImageSharp___internal___contentFilePath'
+  | 'childrenDataJson'
+  | 'childrenDataJson___data___data___message'
+  | 'childrenDataJson___data___data___full_picture'
+  | 'childrenDataJson___data___data___picture'
+  | 'childrenDataJson___data___data___actions'
+  | 'childrenDataJson___data___data___created_time'
+  | 'childrenDataJson___data___data___status_type'
+  | 'childrenDataJson___data___data___updated_time'
+  | 'childrenDataJson___data___data___icon'
+  | 'childrenDataJson___data___data___type'
+  | 'childrenDataJson___data___data___link'
+  | 'childrenDataJson___data___data___full_res_picture'
+  | 'childrenDataJson___data___data___jsonId'
+  | 'childrenDataJson___data___data___description'
+  | 'childrenDataJson___data___data___story'
+  | 'childrenDataJson___data___data___id'
+  | 'childrenDataJson___data___data___children'
+  | 'childrenDataJson___data___featuredImg___sourceInstanceName'
+  | 'childrenDataJson___data___featuredImg___absolutePath'
+  | 'childrenDataJson___data___featuredImg___relativePath'
+  | 'childrenDataJson___data___featuredImg___extension'
+  | 'childrenDataJson___data___featuredImg___size'
+  | 'childrenDataJson___data___featuredImg___prettySize'
+  | 'childrenDataJson___data___featuredImg___modifiedTime'
+  | 'childrenDataJson___data___featuredImg___accessTime'
+  | 'childrenDataJson___data___featuredImg___changeTime'
+  | 'childrenDataJson___data___featuredImg___birthTime'
+  | 'childrenDataJson___data___featuredImg___root'
+  | 'childrenDataJson___data___featuredImg___dir'
+  | 'childrenDataJson___data___featuredImg___base'
+  | 'childrenDataJson___data___featuredImg___ext'
+  | 'childrenDataJson___data___featuredImg___name'
+  | 'childrenDataJson___data___featuredImg___relativeDirectory'
+  | 'childrenDataJson___data___featuredImg___dev'
+  | 'childrenDataJson___data___featuredImg___mode'
+  | 'childrenDataJson___data___featuredImg___nlink'
+  | 'childrenDataJson___data___featuredImg___uid'
+  | 'childrenDataJson___data___featuredImg___gid'
+  | 'childrenDataJson___data___featuredImg___rdev'
+  | 'childrenDataJson___data___featuredImg___ino'
+  | 'childrenDataJson___data___featuredImg___atimeMs'
+  | 'childrenDataJson___data___featuredImg___mtimeMs'
+  | 'childrenDataJson___data___featuredImg___ctimeMs'
+  | 'childrenDataJson___data___featuredImg___atime'
+  | 'childrenDataJson___data___featuredImg___mtime'
+  | 'childrenDataJson___data___featuredImg___ctime'
+  | 'childrenDataJson___data___featuredImg___birthtime'
+  | 'childrenDataJson___data___featuredImg___birthtimeMs'
+  | 'childrenDataJson___data___featuredImg___blksize'
+  | 'childrenDataJson___data___featuredImg___blocks'
+  | 'childrenDataJson___data___featuredImg___url'
+  | 'childrenDataJson___data___featuredImg___publicURL'
+  | 'childrenDataJson___data___featuredImg___childrenImageSharp'
+  | 'childrenDataJson___data___featuredImg___childrenDataJson'
+  | 'childrenDataJson___data___featuredImg___id'
+  | 'childrenDataJson___data___featuredImg___children'
+  | 'childrenDataJson___data___attachments___data'
+  | 'childrenDataJson___data___message'
+  | 'childrenDataJson___data___full_picture'
+  | 'childrenDataJson___data___picture'
+  | 'childrenDataJson___data___from___name'
+  | 'childrenDataJson___data___from___id'
+  | 'childrenDataJson___data___actions'
+  | 'childrenDataJson___data___actions___name'
+  | 'childrenDataJson___data___actions___link'
+  | 'childrenDataJson___data___created_time'
+  | 'childrenDataJson___data___status_type'
+  | 'childrenDataJson___data___updated_time'
+  | 'childrenDataJson___data___icon'
+  | 'childrenDataJson___data___type'
+  | 'childrenDataJson___data___link'
+  | 'childrenDataJson___data___full_res_picture'
+  | 'childrenDataJson___data___first_action___name'
+  | 'childrenDataJson___data___first_action___link'
+  | 'childrenDataJson___data___jsonId'
+  | 'childrenDataJson___data___description'
+  | 'childrenDataJson___data___story'
+  | 'childrenDataJson___data___fields___localFile'
+  | 'childrenDataJson___data___id'
+  | 'childrenDataJson___data___parent___id'
+  | 'childrenDataJson___data___parent___children'
+  | 'childrenDataJson___data___children'
+  | 'childrenDataJson___data___children___id'
+  | 'childrenDataJson___data___children___children'
+  | 'childrenDataJson___data___internal___content'
+  | 'childrenDataJson___data___internal___contentDigest'
+  | 'childrenDataJson___data___internal___description'
+  | 'childrenDataJson___data___internal___fieldOwners'
+  | 'childrenDataJson___data___internal___ignoreType'
+  | 'childrenDataJson___data___internal___mediaType'
+  | 'childrenDataJson___data___internal___owner'
+  | 'childrenDataJson___data___internal___type'
+  | 'childrenDataJson___data___internal___contentFilePath'
+  | 'childrenDataJson___featuredImg___sourceInstanceName'
+  | 'childrenDataJson___featuredImg___absolutePath'
+  | 'childrenDataJson___featuredImg___relativePath'
+  | 'childrenDataJson___featuredImg___extension'
+  | 'childrenDataJson___featuredImg___size'
+  | 'childrenDataJson___featuredImg___prettySize'
+  | 'childrenDataJson___featuredImg___modifiedTime'
+  | 'childrenDataJson___featuredImg___accessTime'
+  | 'childrenDataJson___featuredImg___changeTime'
+  | 'childrenDataJson___featuredImg___birthTime'
+  | 'childrenDataJson___featuredImg___root'
+  | 'childrenDataJson___featuredImg___dir'
+  | 'childrenDataJson___featuredImg___base'
+  | 'childrenDataJson___featuredImg___ext'
+  | 'childrenDataJson___featuredImg___name'
+  | 'childrenDataJson___featuredImg___relativeDirectory'
+  | 'childrenDataJson___featuredImg___dev'
+  | 'childrenDataJson___featuredImg___mode'
+  | 'childrenDataJson___featuredImg___nlink'
+  | 'childrenDataJson___featuredImg___uid'
+  | 'childrenDataJson___featuredImg___gid'
+  | 'childrenDataJson___featuredImg___rdev'
+  | 'childrenDataJson___featuredImg___ino'
+  | 'childrenDataJson___featuredImg___atimeMs'
+  | 'childrenDataJson___featuredImg___mtimeMs'
+  | 'childrenDataJson___featuredImg___ctimeMs'
+  | 'childrenDataJson___featuredImg___atime'
+  | 'childrenDataJson___featuredImg___mtime'
+  | 'childrenDataJson___featuredImg___ctime'
+  | 'childrenDataJson___featuredImg___birthtime'
+  | 'childrenDataJson___featuredImg___birthtimeMs'
+  | 'childrenDataJson___featuredImg___blksize'
+  | 'childrenDataJson___featuredImg___blocks'
+  | 'childrenDataJson___featuredImg___url'
+  | 'childrenDataJson___featuredImg___publicURL'
+  | 'childrenDataJson___featuredImg___childrenImageSharp'
+  | 'childrenDataJson___featuredImg___childrenImageSharp___gatsbyImageData'
+  | 'childrenDataJson___featuredImg___childrenImageSharp___id'
+  | 'childrenDataJson___featuredImg___childrenImageSharp___children'
+  | 'childrenDataJson___featuredImg___childImageSharp___gatsbyImageData'
+  | 'childrenDataJson___featuredImg___childImageSharp___id'
+  | 'childrenDataJson___featuredImg___childImageSharp___children'
+  | 'childrenDataJson___featuredImg___childrenDataJson'
+  | 'childrenDataJson___featuredImg___childrenDataJson___message'
+  | 'childrenDataJson___featuredImg___childrenDataJson___full_picture'
+  | 'childrenDataJson___featuredImg___childrenDataJson___picture'
+  | 'childrenDataJson___featuredImg___childrenDataJson___actions'
+  | 'childrenDataJson___featuredImg___childrenDataJson___created_time'
+  | 'childrenDataJson___featuredImg___childrenDataJson___status_type'
+  | 'childrenDataJson___featuredImg___childrenDataJson___updated_time'
+  | 'childrenDataJson___featuredImg___childrenDataJson___icon'
+  | 'childrenDataJson___featuredImg___childrenDataJson___type'
+  | 'childrenDataJson___featuredImg___childrenDataJson___link'
+  | 'childrenDataJson___featuredImg___childrenDataJson___full_res_picture'
+  | 'childrenDataJson___featuredImg___childrenDataJson___jsonId'
+  | 'childrenDataJson___featuredImg___childrenDataJson___description'
+  | 'childrenDataJson___featuredImg___childrenDataJson___story'
+  | 'childrenDataJson___featuredImg___childrenDataJson___id'
+  | 'childrenDataJson___featuredImg___childrenDataJson___children'
+  | 'childrenDataJson___featuredImg___childDataJson___message'
+  | 'childrenDataJson___featuredImg___childDataJson___full_picture'
+  | 'childrenDataJson___featuredImg___childDataJson___picture'
+  | 'childrenDataJson___featuredImg___childDataJson___actions'
+  | 'childrenDataJson___featuredImg___childDataJson___created_time'
+  | 'childrenDataJson___featuredImg___childDataJson___status_type'
+  | 'childrenDataJson___featuredImg___childDataJson___updated_time'
+  | 'childrenDataJson___featuredImg___childDataJson___icon'
+  | 'childrenDataJson___featuredImg___childDataJson___type'
+  | 'childrenDataJson___featuredImg___childDataJson___link'
+  | 'childrenDataJson___featuredImg___childDataJson___full_res_picture'
+  | 'childrenDataJson___featuredImg___childDataJson___jsonId'
+  | 'childrenDataJson___featuredImg___childDataJson___description'
+  | 'childrenDataJson___featuredImg___childDataJson___story'
+  | 'childrenDataJson___featuredImg___childDataJson___id'
+  | 'childrenDataJson___featuredImg___childDataJson___children'
+  | 'childrenDataJson___featuredImg___id'
+  | 'childrenDataJson___featuredImg___parent___id'
+  | 'childrenDataJson___featuredImg___parent___children'
+  | 'childrenDataJson___featuredImg___children'
+  | 'childrenDataJson___featuredImg___children___id'
+  | 'childrenDataJson___featuredImg___children___children'
+  | 'childrenDataJson___featuredImg___internal___content'
+  | 'childrenDataJson___featuredImg___internal___contentDigest'
+  | 'childrenDataJson___featuredImg___internal___description'
+  | 'childrenDataJson___featuredImg___internal___fieldOwners'
+  | 'childrenDataJson___featuredImg___internal___ignoreType'
+  | 'childrenDataJson___featuredImg___internal___mediaType'
+  | 'childrenDataJson___featuredImg___internal___owner'
+  | 'childrenDataJson___featuredImg___internal___type'
+  | 'childrenDataJson___featuredImg___internal___contentFilePath'
+  | 'childrenDataJson___attachments___data'
+  | 'childrenDataJson___attachments___data___media_type'
+  | 'childrenDataJson___attachments___data___unshimmed_url'
+  | 'childrenDataJson___attachments___data___description'
+  | 'childrenDataJson___attachments___data___title'
+  | 'childrenDataJson___message'
+  | 'childrenDataJson___full_picture'
+  | 'childrenDataJson___picture'
+  | 'childrenDataJson___from___name'
+  | 'childrenDataJson___from___id'
+  | 'childrenDataJson___actions'
+  | 'childrenDataJson___actions___name'
+  | 'childrenDataJson___actions___link'
+  | 'childrenDataJson___created_time'
+  | 'childrenDataJson___status_type'
+  | 'childrenDataJson___updated_time'
+  | 'childrenDataJson___icon'
+  | 'childrenDataJson___type'
+  | 'childrenDataJson___link'
+  | 'childrenDataJson___full_res_picture'
+  | 'childrenDataJson___first_action___name'
+  | 'childrenDataJson___first_action___link'
+  | 'childrenDataJson___jsonId'
+  | 'childrenDataJson___description'
+  | 'childrenDataJson___story'
+  | 'childrenDataJson___fields___localFile'
+  | 'childrenDataJson___id'
+  | 'childrenDataJson___parent___id'
+  | 'childrenDataJson___parent___parent___id'
+  | 'childrenDataJson___parent___parent___children'
+  | 'childrenDataJson___parent___children'
+  | 'childrenDataJson___parent___children___id'
+  | 'childrenDataJson___parent___children___children'
+  | 'childrenDataJson___parent___internal___content'
+  | 'childrenDataJson___parent___internal___contentDigest'
+  | 'childrenDataJson___parent___internal___description'
+  | 'childrenDataJson___parent___internal___fieldOwners'
+  | 'childrenDataJson___parent___internal___ignoreType'
+  | 'childrenDataJson___parent___internal___mediaType'
+  | 'childrenDataJson___parent___internal___owner'
+  | 'childrenDataJson___parent___internal___type'
+  | 'childrenDataJson___parent___internal___contentFilePath'
+  | 'childrenDataJson___children'
+  | 'childrenDataJson___children___id'
+  | 'childrenDataJson___children___parent___id'
+  | 'childrenDataJson___children___parent___children'
+  | 'childrenDataJson___children___children'
+  | 'childrenDataJson___children___children___id'
+  | 'childrenDataJson___children___children___children'
+  | 'childrenDataJson___children___internal___content'
+  | 'childrenDataJson___children___internal___contentDigest'
+  | 'childrenDataJson___children___internal___description'
+  | 'childrenDataJson___children___internal___fieldOwners'
+  | 'childrenDataJson___children___internal___ignoreType'
+  | 'childrenDataJson___children___internal___mediaType'
+  | 'childrenDataJson___children___internal___owner'
+  | 'childrenDataJson___children___internal___type'
+  | 'childrenDataJson___children___internal___contentFilePath'
+  | 'childrenDataJson___internal___content'
+  | 'childrenDataJson___internal___contentDigest'
+  | 'childrenDataJson___internal___description'
+  | 'childrenDataJson___internal___fieldOwners'
+  | 'childrenDataJson___internal___ignoreType'
+  | 'childrenDataJson___internal___mediaType'
+  | 'childrenDataJson___internal___owner'
+  | 'childrenDataJson___internal___type'
+  | 'childrenDataJson___internal___contentFilePath'
+  | 'childDataJson___data___data___message'
+  | 'childDataJson___data___data___full_picture'
+  | 'childDataJson___data___data___picture'
+  | 'childDataJson___data___data___actions'
+  | 'childDataJson___data___data___created_time'
+  | 'childDataJson___data___data___status_type'
+  | 'childDataJson___data___data___updated_time'
+  | 'childDataJson___data___data___icon'
+  | 'childDataJson___data___data___type'
+  | 'childDataJson___data___data___link'
+  | 'childDataJson___data___data___full_res_picture'
+  | 'childDataJson___data___data___jsonId'
+  | 'childDataJson___data___data___description'
+  | 'childDataJson___data___data___story'
+  | 'childDataJson___data___data___id'
+  | 'childDataJson___data___data___children'
+  | 'childDataJson___data___featuredImg___sourceInstanceName'
+  | 'childDataJson___data___featuredImg___absolutePath'
+  | 'childDataJson___data___featuredImg___relativePath'
+  | 'childDataJson___data___featuredImg___extension'
+  | 'childDataJson___data___featuredImg___size'
+  | 'childDataJson___data___featuredImg___prettySize'
+  | 'childDataJson___data___featuredImg___modifiedTime'
+  | 'childDataJson___data___featuredImg___accessTime'
+  | 'childDataJson___data___featuredImg___changeTime'
+  | 'childDataJson___data___featuredImg___birthTime'
+  | 'childDataJson___data___featuredImg___root'
+  | 'childDataJson___data___featuredImg___dir'
+  | 'childDataJson___data___featuredImg___base'
+  | 'childDataJson___data___featuredImg___ext'
+  | 'childDataJson___data___featuredImg___name'
+  | 'childDataJson___data___featuredImg___relativeDirectory'
+  | 'childDataJson___data___featuredImg___dev'
+  | 'childDataJson___data___featuredImg___mode'
+  | 'childDataJson___data___featuredImg___nlink'
+  | 'childDataJson___data___featuredImg___uid'
+  | 'childDataJson___data___featuredImg___gid'
+  | 'childDataJson___data___featuredImg___rdev'
+  | 'childDataJson___data___featuredImg___ino'
+  | 'childDataJson___data___featuredImg___atimeMs'
+  | 'childDataJson___data___featuredImg___mtimeMs'
+  | 'childDataJson___data___featuredImg___ctimeMs'
+  | 'childDataJson___data___featuredImg___atime'
+  | 'childDataJson___data___featuredImg___mtime'
+  | 'childDataJson___data___featuredImg___ctime'
+  | 'childDataJson___data___featuredImg___birthtime'
+  | 'childDataJson___data___featuredImg___birthtimeMs'
+  | 'childDataJson___data___featuredImg___blksize'
+  | 'childDataJson___data___featuredImg___blocks'
+  | 'childDataJson___data___featuredImg___url'
+  | 'childDataJson___data___featuredImg___publicURL'
+  | 'childDataJson___data___featuredImg___childrenImageSharp'
+  | 'childDataJson___data___featuredImg___childrenDataJson'
+  | 'childDataJson___data___featuredImg___id'
+  | 'childDataJson___data___featuredImg___children'
+  | 'childDataJson___data___attachments___data'
+  | 'childDataJson___data___message'
+  | 'childDataJson___data___full_picture'
+  | 'childDataJson___data___picture'
+  | 'childDataJson___data___from___name'
+  | 'childDataJson___data___from___id'
+  | 'childDataJson___data___actions'
+  | 'childDataJson___data___actions___name'
+  | 'childDataJson___data___actions___link'
+  | 'childDataJson___data___created_time'
+  | 'childDataJson___data___status_type'
+  | 'childDataJson___data___updated_time'
+  | 'childDataJson___data___icon'
+  | 'childDataJson___data___type'
+  | 'childDataJson___data___link'
+  | 'childDataJson___data___full_res_picture'
+  | 'childDataJson___data___first_action___name'
+  | 'childDataJson___data___first_action___link'
+  | 'childDataJson___data___jsonId'
+  | 'childDataJson___data___description'
+  | 'childDataJson___data___story'
+  | 'childDataJson___data___fields___localFile'
+  | 'childDataJson___data___id'
+  | 'childDataJson___data___parent___id'
+  | 'childDataJson___data___parent___children'
+  | 'childDataJson___data___children'
+  | 'childDataJson___data___children___id'
+  | 'childDataJson___data___children___children'
+  | 'childDataJson___data___internal___content'
+  | 'childDataJson___data___internal___contentDigest'
+  | 'childDataJson___data___internal___description'
+  | 'childDataJson___data___internal___fieldOwners'
+  | 'childDataJson___data___internal___ignoreType'
+  | 'childDataJson___data___internal___mediaType'
+  | 'childDataJson___data___internal___owner'
+  | 'childDataJson___data___internal___type'
+  | 'childDataJson___data___internal___contentFilePath'
+  | 'childDataJson___featuredImg___sourceInstanceName'
+  | 'childDataJson___featuredImg___absolutePath'
+  | 'childDataJson___featuredImg___relativePath'
+  | 'childDataJson___featuredImg___extension'
+  | 'childDataJson___featuredImg___size'
+  | 'childDataJson___featuredImg___prettySize'
+  | 'childDataJson___featuredImg___modifiedTime'
+  | 'childDataJson___featuredImg___accessTime'
+  | 'childDataJson___featuredImg___changeTime'
+  | 'childDataJson___featuredImg___birthTime'
+  | 'childDataJson___featuredImg___root'
+  | 'childDataJson___featuredImg___dir'
+  | 'childDataJson___featuredImg___base'
+  | 'childDataJson___featuredImg___ext'
+  | 'childDataJson___featuredImg___name'
+  | 'childDataJson___featuredImg___relativeDirectory'
+  | 'childDataJson___featuredImg___dev'
+  | 'childDataJson___featuredImg___mode'
+  | 'childDataJson___featuredImg___nlink'
+  | 'childDataJson___featuredImg___uid'
+  | 'childDataJson___featuredImg___gid'
+  | 'childDataJson___featuredImg___rdev'
+  | 'childDataJson___featuredImg___ino'
+  | 'childDataJson___featuredImg___atimeMs'
+  | 'childDataJson___featuredImg___mtimeMs'
+  | 'childDataJson___featuredImg___ctimeMs'
+  | 'childDataJson___featuredImg___atime'
+  | 'childDataJson___featuredImg___mtime'
+  | 'childDataJson___featuredImg___ctime'
+  | 'childDataJson___featuredImg___birthtime'
+  | 'childDataJson___featuredImg___birthtimeMs'
+  | 'childDataJson___featuredImg___blksize'
+  | 'childDataJson___featuredImg___blocks'
+  | 'childDataJson___featuredImg___url'
+  | 'childDataJson___featuredImg___publicURL'
+  | 'childDataJson___featuredImg___childrenImageSharp'
+  | 'childDataJson___featuredImg___childrenImageSharp___gatsbyImageData'
+  | 'childDataJson___featuredImg___childrenImageSharp___id'
+  | 'childDataJson___featuredImg___childrenImageSharp___children'
+  | 'childDataJson___featuredImg___childImageSharp___gatsbyImageData'
+  | 'childDataJson___featuredImg___childImageSharp___id'
+  | 'childDataJson___featuredImg___childImageSharp___children'
+  | 'childDataJson___featuredImg___childrenDataJson'
+  | 'childDataJson___featuredImg___childrenDataJson___message'
+  | 'childDataJson___featuredImg___childrenDataJson___full_picture'
+  | 'childDataJson___featuredImg___childrenDataJson___picture'
+  | 'childDataJson___featuredImg___childrenDataJson___actions'
+  | 'childDataJson___featuredImg___childrenDataJson___created_time'
+  | 'childDataJson___featuredImg___childrenDataJson___status_type'
+  | 'childDataJson___featuredImg___childrenDataJson___updated_time'
+  | 'childDataJson___featuredImg___childrenDataJson___icon'
+  | 'childDataJson___featuredImg___childrenDataJson___type'
+  | 'childDataJson___featuredImg___childrenDataJson___link'
+  | 'childDataJson___featuredImg___childrenDataJson___full_res_picture'
+  | 'childDataJson___featuredImg___childrenDataJson___jsonId'
+  | 'childDataJson___featuredImg___childrenDataJson___description'
+  | 'childDataJson___featuredImg___childrenDataJson___story'
+  | 'childDataJson___featuredImg___childrenDataJson___id'
+  | 'childDataJson___featuredImg___childrenDataJson___children'
+  | 'childDataJson___featuredImg___childDataJson___message'
+  | 'childDataJson___featuredImg___childDataJson___full_picture'
+  | 'childDataJson___featuredImg___childDataJson___picture'
+  | 'childDataJson___featuredImg___childDataJson___actions'
+  | 'childDataJson___featuredImg___childDataJson___created_time'
+  | 'childDataJson___featuredImg___childDataJson___status_type'
+  | 'childDataJson___featuredImg___childDataJson___updated_time'
+  | 'childDataJson___featuredImg___childDataJson___icon'
+  | 'childDataJson___featuredImg___childDataJson___type'
+  | 'childDataJson___featuredImg___childDataJson___link'
+  | 'childDataJson___featuredImg___childDataJson___full_res_picture'
+  | 'childDataJson___featuredImg___childDataJson___jsonId'
+  | 'childDataJson___featuredImg___childDataJson___description'
+  | 'childDataJson___featuredImg___childDataJson___story'
+  | 'childDataJson___featuredImg___childDataJson___id'
+  | 'childDataJson___featuredImg___childDataJson___children'
+  | 'childDataJson___featuredImg___id'
+  | 'childDataJson___featuredImg___parent___id'
+  | 'childDataJson___featuredImg___parent___children'
+  | 'childDataJson___featuredImg___children'
+  | 'childDataJson___featuredImg___children___id'
+  | 'childDataJson___featuredImg___children___children'
+  | 'childDataJson___featuredImg___internal___content'
+  | 'childDataJson___featuredImg___internal___contentDigest'
+  | 'childDataJson___featuredImg___internal___description'
+  | 'childDataJson___featuredImg___internal___fieldOwners'
+  | 'childDataJson___featuredImg___internal___ignoreType'
+  | 'childDataJson___featuredImg___internal___mediaType'
+  | 'childDataJson___featuredImg___internal___owner'
+  | 'childDataJson___featuredImg___internal___type'
+  | 'childDataJson___featuredImg___internal___contentFilePath'
+  | 'childDataJson___attachments___data'
+  | 'childDataJson___attachments___data___media_type'
+  | 'childDataJson___attachments___data___unshimmed_url'
+  | 'childDataJson___attachments___data___description'
+  | 'childDataJson___attachments___data___title'
+  | 'childDataJson___message'
+  | 'childDataJson___full_picture'
+  | 'childDataJson___picture'
+  | 'childDataJson___from___name'
+  | 'childDataJson___from___id'
+  | 'childDataJson___actions'
+  | 'childDataJson___actions___name'
+  | 'childDataJson___actions___link'
+  | 'childDataJson___created_time'
+  | 'childDataJson___status_type'
+  | 'childDataJson___updated_time'
+  | 'childDataJson___icon'
+  | 'childDataJson___type'
+  | 'childDataJson___link'
+  | 'childDataJson___full_res_picture'
+  | 'childDataJson___first_action___name'
+  | 'childDataJson___first_action___link'
+  | 'childDataJson___jsonId'
+  | 'childDataJson___description'
+  | 'childDataJson___story'
+  | 'childDataJson___fields___localFile'
+  | 'childDataJson___id'
+  | 'childDataJson___parent___id'
+  | 'childDataJson___parent___parent___id'
+  | 'childDataJson___parent___parent___children'
+  | 'childDataJson___parent___children'
+  | 'childDataJson___parent___children___id'
+  | 'childDataJson___parent___children___children'
+  | 'childDataJson___parent___internal___content'
+  | 'childDataJson___parent___internal___contentDigest'
+  | 'childDataJson___parent___internal___description'
+  | 'childDataJson___parent___internal___fieldOwners'
+  | 'childDataJson___parent___internal___ignoreType'
+  | 'childDataJson___parent___internal___mediaType'
+  | 'childDataJson___parent___internal___owner'
+  | 'childDataJson___parent___internal___type'
+  | 'childDataJson___parent___internal___contentFilePath'
+  | 'childDataJson___children'
+  | 'childDataJson___children___id'
+  | 'childDataJson___children___parent___id'
+  | 'childDataJson___children___parent___children'
+  | 'childDataJson___children___children'
+  | 'childDataJson___children___children___id'
+  | 'childDataJson___children___children___children'
+  | 'childDataJson___children___internal___content'
+  | 'childDataJson___children___internal___contentDigest'
+  | 'childDataJson___children___internal___description'
+  | 'childDataJson___children___internal___fieldOwners'
+  | 'childDataJson___children___internal___ignoreType'
+  | 'childDataJson___children___internal___mediaType'
+  | 'childDataJson___children___internal___owner'
+  | 'childDataJson___children___internal___type'
+  | 'childDataJson___children___internal___contentFilePath'
+  | 'childDataJson___internal___content'
+  | 'childDataJson___internal___contentDigest'
+  | 'childDataJson___internal___description'
+  | 'childDataJson___internal___fieldOwners'
+  | 'childDataJson___internal___ignoreType'
+  | 'childDataJson___internal___mediaType'
+  | 'childDataJson___internal___owner'
+  | 'childDataJson___internal___type'
+  | 'childDataJson___internal___contentFilePath'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -1303,6 +2007,7 @@ export type FileFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -1318,6 +2023,7 @@ export type FileFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -1326,6 +2032,7 @@ export type FileFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -1342,6 +2049,7 @@ export type FileFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -1357,6 +2065,7 @@ export type FileFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -1365,6 +2074,7 @@ export type FileFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -1372,7 +2082,8 @@ export type FileFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'internal___contentFilePath';
 
 export type FileGroupConnection = {
   totalCount: Scalars['Int'];
@@ -1413,46 +2124,6 @@ export type FileGroupConnectionGroupArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;
   field: FileFieldsEnum;
-};
-
-export type FileFilterInput = {
-  sourceInstanceName?: InputMaybe<StringQueryOperatorInput>;
-  absolutePath?: InputMaybe<StringQueryOperatorInput>;
-  relativePath?: InputMaybe<StringQueryOperatorInput>;
-  extension?: InputMaybe<StringQueryOperatorInput>;
-  size?: InputMaybe<IntQueryOperatorInput>;
-  prettySize?: InputMaybe<StringQueryOperatorInput>;
-  modifiedTime?: InputMaybe<DateQueryOperatorInput>;
-  accessTime?: InputMaybe<DateQueryOperatorInput>;
-  changeTime?: InputMaybe<DateQueryOperatorInput>;
-  birthTime?: InputMaybe<DateQueryOperatorInput>;
-  root?: InputMaybe<StringQueryOperatorInput>;
-  dir?: InputMaybe<StringQueryOperatorInput>;
-  base?: InputMaybe<StringQueryOperatorInput>;
-  ext?: InputMaybe<StringQueryOperatorInput>;
-  name?: InputMaybe<StringQueryOperatorInput>;
-  relativeDirectory?: InputMaybe<StringQueryOperatorInput>;
-  dev?: InputMaybe<IntQueryOperatorInput>;
-  mode?: InputMaybe<IntQueryOperatorInput>;
-  nlink?: InputMaybe<IntQueryOperatorInput>;
-  uid?: InputMaybe<IntQueryOperatorInput>;
-  gid?: InputMaybe<IntQueryOperatorInput>;
-  rdev?: InputMaybe<IntQueryOperatorInput>;
-  ino?: InputMaybe<FloatQueryOperatorInput>;
-  atimeMs?: InputMaybe<FloatQueryOperatorInput>;
-  mtimeMs?: InputMaybe<FloatQueryOperatorInput>;
-  ctimeMs?: InputMaybe<FloatQueryOperatorInput>;
-  atime?: InputMaybe<DateQueryOperatorInput>;
-  mtime?: InputMaybe<DateQueryOperatorInput>;
-  ctime?: InputMaybe<DateQueryOperatorInput>;
-  birthtime?: InputMaybe<DateQueryOperatorInput>;
-  birthtimeMs?: InputMaybe<FloatQueryOperatorInput>;
-  childrenImageSharp?: InputMaybe<ImageSharpFilterListInput>;
-  childImageSharp?: InputMaybe<ImageSharpFilterInput>;
-  id?: InputMaybe<StringQueryOperatorInput>;
-  parent?: InputMaybe<NodeFilterInput>;
-  children?: InputMaybe<NodeFilterListInput>;
-  internal?: InputMaybe<InternalFilterInput>;
 };
 
 export type FileSortInput = {
@@ -1557,6 +2228,7 @@ export type DirectoryFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -1572,6 +2244,7 @@ export type DirectoryFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -1580,6 +2253,7 @@ export type DirectoryFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -1596,6 +2270,7 @@ export type DirectoryFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -1611,6 +2286,7 @@ export type DirectoryFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -1619,6 +2295,7 @@ export type DirectoryFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -1626,7 +2303,8 @@ export type DirectoryFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'internal___contentFilePath';
 
 export type DirectoryGroupConnection = {
   totalCount: Scalars['Int'];
@@ -1772,6 +2450,7 @@ export type SiteFieldsEnum =
   | 'pathPrefix'
   | 'jsxRuntime'
   | 'trailingSlash'
+  | 'graphqlTypegen'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -1788,6 +2467,7 @@ export type SiteFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -1803,6 +2483,7 @@ export type SiteFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -1811,6 +2492,7 @@ export type SiteFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -1827,6 +2509,7 @@ export type SiteFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -1842,6 +2525,7 @@ export type SiteFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -1850,6 +2534,7 @@ export type SiteFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -1857,7 +2542,8 @@ export type SiteFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'internal___contentFilePath';
 
 export type SiteGroupConnection = {
   totalCount: Scalars['Int'];
@@ -1909,6 +2595,7 @@ export type SiteFilterInput = {
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
   trailingSlash?: InputMaybe<StringQueryOperatorInput>;
+  graphqlTypegen?: InputMaybe<BooleanQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -1989,6 +2676,7 @@ export type SiteFunctionFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -2004,6 +2692,7 @@ export type SiteFunctionFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -2012,6 +2701,7 @@ export type SiteFunctionFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -2028,6 +2718,7 @@ export type SiteFunctionFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -2043,6 +2734,7 @@ export type SiteFunctionFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -2051,6 +2743,7 @@ export type SiteFunctionFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -2058,7 +2751,8 @@ export type SiteFunctionFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'internal___contentFilePath';
 
 export type SiteFunctionGroupConnection = {
   totalCount: Scalars['Int'];
@@ -2118,6 +2812,15 @@ export type SiteFunctionFilterInput = {
 export type SiteFunctionSortInput = {
   fields?: InputMaybe<Array<InputMaybe<SiteFunctionFieldsEnum>>>;
   order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
+};
+
+export type JsonQueryOperatorInput = {
+  eq?: InputMaybe<Scalars['JSON']>;
+  ne?: InputMaybe<Scalars['JSON']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['JSON']>>>;
+  regex?: InputMaybe<Scalars['JSON']>;
+  glob?: InputMaybe<Scalars['JSON']>;
 };
 
 export type SitePluginFilterInput = {
@@ -2212,6 +2915,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___parent___internal___mediaType'
   | 'pluginCreator___parent___internal___owner'
   | 'pluginCreator___parent___internal___type'
+  | 'pluginCreator___parent___internal___contentFilePath'
   | 'pluginCreator___children'
   | 'pluginCreator___children___id'
   | 'pluginCreator___children___parent___id'
@@ -2227,6 +2931,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___children___internal___mediaType'
   | 'pluginCreator___children___internal___owner'
   | 'pluginCreator___children___internal___type'
+  | 'pluginCreator___children___internal___contentFilePath'
   | 'pluginCreator___internal___content'
   | 'pluginCreator___internal___contentDigest'
   | 'pluginCreator___internal___description'
@@ -2235,6 +2940,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___internal___mediaType'
   | 'pluginCreator___internal___owner'
   | 'pluginCreator___internal___type'
+  | 'pluginCreator___internal___contentFilePath'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -2251,6 +2957,7 @@ export type SitePageFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -2266,6 +2973,7 @@ export type SitePageFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -2274,6 +2982,7 @@ export type SitePageFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -2290,6 +2999,7 @@ export type SitePageFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -2305,6 +3015,7 @@ export type SitePageFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -2313,6 +3024,7 @@ export type SitePageFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -2320,7 +3032,8 @@ export type SitePageFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'internal___contentFilePath';
 
 export type SitePageGroupConnection = {
   totalCount: Scalars['Int'];
@@ -2453,6 +3166,7 @@ export type SitePluginFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -2468,6 +3182,7 @@ export type SitePluginFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -2476,6 +3191,7 @@ export type SitePluginFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -2492,6 +3208,7 @@ export type SitePluginFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -2507,6 +3224,7 @@ export type SitePluginFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -2515,6 +3233,7 @@ export type SitePluginFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -2522,7 +3241,8 @@ export type SitePluginFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'internal___contentFilePath';
 
 export type SitePluginGroupConnection = {
   totalCount: Scalars['Int'];
@@ -2633,6 +3353,7 @@ export type SiteBuildMetadataFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -2648,6 +3369,7 @@ export type SiteBuildMetadataFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -2656,6 +3378,7 @@ export type SiteBuildMetadataFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -2672,6 +3395,7 @@ export type SiteBuildMetadataFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -2687,6 +3411,7 @@ export type SiteBuildMetadataFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -2695,6 +3420,7 @@ export type SiteBuildMetadataFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -2702,7 +3428,8 @@ export type SiteBuildMetadataFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'internal___contentFilePath';
 
 export type SiteBuildMetadataGroupConnection = {
   totalCount: Scalars['Int'];
@@ -2852,6 +3579,7 @@ export type ImageSharpFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -2867,6 +3595,7 @@ export type ImageSharpFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -2875,6 +3604,7 @@ export type ImageSharpFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -2891,6 +3621,7 @@ export type ImageSharpFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -2906,6 +3637,7 @@ export type ImageSharpFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -2914,6 +3646,7 @@ export type ImageSharpFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -2921,7 +3654,8 @@ export type ImageSharpFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'internal___contentFilePath';
 
 export type ImageSharpGroupConnection = {
   totalCount: Scalars['Int'];
@@ -2969,122 +3703,686 @@ export type ImageSharpSortInput = {
   order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
 };
 
-export type FacebookPostsFilterInput = {
-  data?: InputMaybe<FacebookPostsDataFilterListInput>;
-  paging?: InputMaybe<FacebookPostsPagingFilterInput>;
-};
-
-export type FacebookPostsDataFilterListInput = {
-  elemMatch?: InputMaybe<FacebookPostsDataFilterInput>;
-};
-
-export type FacebookPostsDataFilterInput = {
-  attachments?: InputMaybe<FacebookPostsDataAttachmentsFilterInput>;
-  permalink_url?: InputMaybe<StringQueryOperatorInput>;
-  id?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type FacebookPostsDataAttachmentsFilterInput = {
-  data?: InputMaybe<FacebookPostsDataAttachmentsDataFilterListInput>;
-};
-
-export type FacebookPostsDataAttachmentsDataFilterListInput = {
-  elemMatch?: InputMaybe<FacebookPostsDataAttachmentsDataFilterInput>;
-};
-
-export type FacebookPostsDataAttachmentsDataFilterInput = {
-  media?: InputMaybe<FacebookPostsDataAttachmentsDataMediaFilterInput>;
-  target?: InputMaybe<FacebookPostsDataAttachmentsDataTargetFilterInput>;
-  type?: InputMaybe<StringQueryOperatorInput>;
-  url?: InputMaybe<StringQueryOperatorInput>;
-  description?: InputMaybe<StringQueryOperatorInput>;
-  description_tags?: InputMaybe<FacebookPostsDataAttachmentsDataDescription_TagsFilterListInput>;
-};
-
-export type FacebookPostsDataAttachmentsDataMediaFilterInput = {
-  image?: InputMaybe<FacebookPostsDataAttachmentsDataMediaImageFilterInput>;
-  source?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type FacebookPostsDataAttachmentsDataMediaImageFilterInput = {
-  height?: InputMaybe<IntQueryOperatorInput>;
-  src?: InputMaybe<StringQueryOperatorInput>;
-  width?: InputMaybe<IntQueryOperatorInput>;
-};
-
-export type FacebookPostsDataAttachmentsDataTargetFilterInput = {
-  id?: InputMaybe<StringQueryOperatorInput>;
-  url?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type FacebookPostsDataAttachmentsDataDescription_TagsFilterListInput = {
-  elemMatch?: InputMaybe<FacebookPostsDataAttachmentsDataDescription_TagsFilterInput>;
-};
-
-export type FacebookPostsDataAttachmentsDataDescription_TagsFilterInput = {
-  id?: InputMaybe<StringQueryOperatorInput>;
-  length?: InputMaybe<IntQueryOperatorInput>;
-  name?: InputMaybe<StringQueryOperatorInput>;
-  offset?: InputMaybe<IntQueryOperatorInput>;
-  type?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type FacebookPostsPagingFilterInput = {
-  cursors?: InputMaybe<FacebookPostsPagingCursorsFilterInput>;
-  next?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type FacebookPostsPagingCursorsFilterInput = {
-  before?: InputMaybe<StringQueryOperatorInput>;
-  after?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type FacebookConnection = {
+export type DataJsonConnection = {
   totalCount: Scalars['Int'];
-  edges: Array<FacebookEdge>;
-  nodes: Array<Facebook>;
+  edges: Array<DataJsonEdge>;
+  nodes: Array<DataJson>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
   max?: Maybe<Scalars['Float']>;
   min?: Maybe<Scalars['Float']>;
   sum?: Maybe<Scalars['Float']>;
-  group: Array<FacebookGroupConnection>;
+  group: Array<DataJsonGroupConnection>;
 };
 
 
-export type FacebookConnectionDistinctArgs = {
-  field: FacebookFieldsEnum;
+export type DataJsonConnectionDistinctArgs = {
+  field: DataJsonFieldsEnum;
 };
 
 
-export type FacebookConnectionMaxArgs = {
-  field: FacebookFieldsEnum;
+export type DataJsonConnectionMaxArgs = {
+  field: DataJsonFieldsEnum;
 };
 
 
-export type FacebookConnectionMinArgs = {
-  field: FacebookFieldsEnum;
+export type DataJsonConnectionMinArgs = {
+  field: DataJsonFieldsEnum;
 };
 
 
-export type FacebookConnectionSumArgs = {
-  field: FacebookFieldsEnum;
+export type DataJsonConnectionSumArgs = {
+  field: DataJsonFieldsEnum;
 };
 
 
-export type FacebookConnectionGroupArgs = {
+export type DataJsonConnectionGroupArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;
-  field: FacebookFieldsEnum;
+  field: DataJsonFieldsEnum;
 };
 
-export type FacebookEdge = {
-  next?: Maybe<Facebook>;
-  node: Facebook;
-  previous?: Maybe<Facebook>;
+export type DataJsonEdge = {
+  next?: Maybe<DataJson>;
+  node: DataJson;
+  previous?: Maybe<DataJson>;
 };
 
-export type FacebookFieldsEnum =
+export type DataJsonFieldsEnum =
+  | 'data___data___data___message'
+  | 'data___data___data___full_picture'
+  | 'data___data___data___picture'
+  | 'data___data___data___actions'
+  | 'data___data___data___created_time'
+  | 'data___data___data___status_type'
+  | 'data___data___data___updated_time'
+  | 'data___data___data___icon'
+  | 'data___data___data___type'
+  | 'data___data___data___link'
+  | 'data___data___data___full_res_picture'
+  | 'data___data___data___jsonId'
+  | 'data___data___data___description'
+  | 'data___data___data___story'
+  | 'data___data___data___id'
+  | 'data___data___data___children'
+  | 'data___data___featuredImg___sourceInstanceName'
+  | 'data___data___featuredImg___absolutePath'
+  | 'data___data___featuredImg___relativePath'
+  | 'data___data___featuredImg___extension'
+  | 'data___data___featuredImg___size'
+  | 'data___data___featuredImg___prettySize'
+  | 'data___data___featuredImg___modifiedTime'
+  | 'data___data___featuredImg___accessTime'
+  | 'data___data___featuredImg___changeTime'
+  | 'data___data___featuredImg___birthTime'
+  | 'data___data___featuredImg___root'
+  | 'data___data___featuredImg___dir'
+  | 'data___data___featuredImg___base'
+  | 'data___data___featuredImg___ext'
+  | 'data___data___featuredImg___name'
+  | 'data___data___featuredImg___relativeDirectory'
+  | 'data___data___featuredImg___dev'
+  | 'data___data___featuredImg___mode'
+  | 'data___data___featuredImg___nlink'
+  | 'data___data___featuredImg___uid'
+  | 'data___data___featuredImg___gid'
+  | 'data___data___featuredImg___rdev'
+  | 'data___data___featuredImg___ino'
+  | 'data___data___featuredImg___atimeMs'
+  | 'data___data___featuredImg___mtimeMs'
+  | 'data___data___featuredImg___ctimeMs'
+  | 'data___data___featuredImg___atime'
+  | 'data___data___featuredImg___mtime'
+  | 'data___data___featuredImg___ctime'
+  | 'data___data___featuredImg___birthtime'
+  | 'data___data___featuredImg___birthtimeMs'
+  | 'data___data___featuredImg___blksize'
+  | 'data___data___featuredImg___blocks'
+  | 'data___data___featuredImg___url'
+  | 'data___data___featuredImg___publicURL'
+  | 'data___data___featuredImg___childrenImageSharp'
+  | 'data___data___featuredImg___childrenDataJson'
+  | 'data___data___featuredImg___id'
+  | 'data___data___featuredImg___children'
+  | 'data___data___attachments___data'
+  | 'data___data___message'
+  | 'data___data___full_picture'
+  | 'data___data___picture'
+  | 'data___data___from___name'
+  | 'data___data___from___id'
+  | 'data___data___actions'
+  | 'data___data___actions___name'
+  | 'data___data___actions___link'
+  | 'data___data___created_time'
+  | 'data___data___status_type'
+  | 'data___data___updated_time'
+  | 'data___data___icon'
+  | 'data___data___type'
+  | 'data___data___link'
+  | 'data___data___full_res_picture'
+  | 'data___data___first_action___name'
+  | 'data___data___first_action___link'
+  | 'data___data___jsonId'
+  | 'data___data___description'
+  | 'data___data___story'
+  | 'data___data___fields___localFile'
+  | 'data___data___id'
+  | 'data___data___parent___id'
+  | 'data___data___parent___children'
+  | 'data___data___children'
+  | 'data___data___children___id'
+  | 'data___data___children___children'
+  | 'data___data___internal___content'
+  | 'data___data___internal___contentDigest'
+  | 'data___data___internal___description'
+  | 'data___data___internal___fieldOwners'
+  | 'data___data___internal___ignoreType'
+  | 'data___data___internal___mediaType'
+  | 'data___data___internal___owner'
+  | 'data___data___internal___type'
+  | 'data___data___internal___contentFilePath'
+  | 'data___featuredImg___sourceInstanceName'
+  | 'data___featuredImg___absolutePath'
+  | 'data___featuredImg___relativePath'
+  | 'data___featuredImg___extension'
+  | 'data___featuredImg___size'
+  | 'data___featuredImg___prettySize'
+  | 'data___featuredImg___modifiedTime'
+  | 'data___featuredImg___accessTime'
+  | 'data___featuredImg___changeTime'
+  | 'data___featuredImg___birthTime'
+  | 'data___featuredImg___root'
+  | 'data___featuredImg___dir'
+  | 'data___featuredImg___base'
+  | 'data___featuredImg___ext'
+  | 'data___featuredImg___name'
+  | 'data___featuredImg___relativeDirectory'
+  | 'data___featuredImg___dev'
+  | 'data___featuredImg___mode'
+  | 'data___featuredImg___nlink'
+  | 'data___featuredImg___uid'
+  | 'data___featuredImg___gid'
+  | 'data___featuredImg___rdev'
+  | 'data___featuredImg___ino'
+  | 'data___featuredImg___atimeMs'
+  | 'data___featuredImg___mtimeMs'
+  | 'data___featuredImg___ctimeMs'
+  | 'data___featuredImg___atime'
+  | 'data___featuredImg___mtime'
+  | 'data___featuredImg___ctime'
+  | 'data___featuredImg___birthtime'
+  | 'data___featuredImg___birthtimeMs'
+  | 'data___featuredImg___blksize'
+  | 'data___featuredImg___blocks'
+  | 'data___featuredImg___url'
+  | 'data___featuredImg___publicURL'
+  | 'data___featuredImg___childrenImageSharp'
+  | 'data___featuredImg___childrenImageSharp___gatsbyImageData'
+  | 'data___featuredImg___childrenImageSharp___id'
+  | 'data___featuredImg___childrenImageSharp___children'
+  | 'data___featuredImg___childImageSharp___gatsbyImageData'
+  | 'data___featuredImg___childImageSharp___id'
+  | 'data___featuredImg___childImageSharp___children'
+  | 'data___featuredImg___childrenDataJson'
+  | 'data___featuredImg___childrenDataJson___message'
+  | 'data___featuredImg___childrenDataJson___full_picture'
+  | 'data___featuredImg___childrenDataJson___picture'
+  | 'data___featuredImg___childrenDataJson___actions'
+  | 'data___featuredImg___childrenDataJson___created_time'
+  | 'data___featuredImg___childrenDataJson___status_type'
+  | 'data___featuredImg___childrenDataJson___updated_time'
+  | 'data___featuredImg___childrenDataJson___icon'
+  | 'data___featuredImg___childrenDataJson___type'
+  | 'data___featuredImg___childrenDataJson___link'
+  | 'data___featuredImg___childrenDataJson___full_res_picture'
+  | 'data___featuredImg___childrenDataJson___jsonId'
+  | 'data___featuredImg___childrenDataJson___description'
+  | 'data___featuredImg___childrenDataJson___story'
+  | 'data___featuredImg___childrenDataJson___id'
+  | 'data___featuredImg___childrenDataJson___children'
+  | 'data___featuredImg___childDataJson___message'
+  | 'data___featuredImg___childDataJson___full_picture'
+  | 'data___featuredImg___childDataJson___picture'
+  | 'data___featuredImg___childDataJson___actions'
+  | 'data___featuredImg___childDataJson___created_time'
+  | 'data___featuredImg___childDataJson___status_type'
+  | 'data___featuredImg___childDataJson___updated_time'
+  | 'data___featuredImg___childDataJson___icon'
+  | 'data___featuredImg___childDataJson___type'
+  | 'data___featuredImg___childDataJson___link'
+  | 'data___featuredImg___childDataJson___full_res_picture'
+  | 'data___featuredImg___childDataJson___jsonId'
+  | 'data___featuredImg___childDataJson___description'
+  | 'data___featuredImg___childDataJson___story'
+  | 'data___featuredImg___childDataJson___id'
+  | 'data___featuredImg___childDataJson___children'
+  | 'data___featuredImg___id'
+  | 'data___featuredImg___parent___id'
+  | 'data___featuredImg___parent___children'
+  | 'data___featuredImg___children'
+  | 'data___featuredImg___children___id'
+  | 'data___featuredImg___children___children'
+  | 'data___featuredImg___internal___content'
+  | 'data___featuredImg___internal___contentDigest'
+  | 'data___featuredImg___internal___description'
+  | 'data___featuredImg___internal___fieldOwners'
+  | 'data___featuredImg___internal___ignoreType'
+  | 'data___featuredImg___internal___mediaType'
+  | 'data___featuredImg___internal___owner'
+  | 'data___featuredImg___internal___type'
+  | 'data___featuredImg___internal___contentFilePath'
+  | 'data___attachments___data'
+  | 'data___attachments___data___media_type'
+  | 'data___attachments___data___unshimmed_url'
+  | 'data___attachments___data___description'
+  | 'data___attachments___data___title'
+  | 'data___message'
+  | 'data___full_picture'
+  | 'data___picture'
+  | 'data___from___name'
+  | 'data___from___id'
+  | 'data___actions'
+  | 'data___actions___name'
+  | 'data___actions___link'
+  | 'data___created_time'
+  | 'data___status_type'
+  | 'data___updated_time'
+  | 'data___icon'
+  | 'data___type'
+  | 'data___link'
+  | 'data___full_res_picture'
+  | 'data___first_action___name'
+  | 'data___first_action___link'
+  | 'data___jsonId'
+  | 'data___description'
+  | 'data___story'
+  | 'data___fields___localFile'
+  | 'data___id'
+  | 'data___parent___id'
+  | 'data___parent___parent___id'
+  | 'data___parent___parent___children'
+  | 'data___parent___children'
+  | 'data___parent___children___id'
+  | 'data___parent___children___children'
+  | 'data___parent___internal___content'
+  | 'data___parent___internal___contentDigest'
+  | 'data___parent___internal___description'
+  | 'data___parent___internal___fieldOwners'
+  | 'data___parent___internal___ignoreType'
+  | 'data___parent___internal___mediaType'
+  | 'data___parent___internal___owner'
+  | 'data___parent___internal___type'
+  | 'data___parent___internal___contentFilePath'
+  | 'data___children'
+  | 'data___children___id'
+  | 'data___children___parent___id'
+  | 'data___children___parent___children'
+  | 'data___children___children'
+  | 'data___children___children___id'
+  | 'data___children___children___children'
+  | 'data___children___internal___content'
+  | 'data___children___internal___contentDigest'
+  | 'data___children___internal___description'
+  | 'data___children___internal___fieldOwners'
+  | 'data___children___internal___ignoreType'
+  | 'data___children___internal___mediaType'
+  | 'data___children___internal___owner'
+  | 'data___children___internal___type'
+  | 'data___children___internal___contentFilePath'
+  | 'data___internal___content'
+  | 'data___internal___contentDigest'
+  | 'data___internal___description'
+  | 'data___internal___fieldOwners'
+  | 'data___internal___ignoreType'
+  | 'data___internal___mediaType'
+  | 'data___internal___owner'
+  | 'data___internal___type'
+  | 'data___internal___contentFilePath'
+  | 'featuredImg___sourceInstanceName'
+  | 'featuredImg___absolutePath'
+  | 'featuredImg___relativePath'
+  | 'featuredImg___extension'
+  | 'featuredImg___size'
+  | 'featuredImg___prettySize'
+  | 'featuredImg___modifiedTime'
+  | 'featuredImg___accessTime'
+  | 'featuredImg___changeTime'
+  | 'featuredImg___birthTime'
+  | 'featuredImg___root'
+  | 'featuredImg___dir'
+  | 'featuredImg___base'
+  | 'featuredImg___ext'
+  | 'featuredImg___name'
+  | 'featuredImg___relativeDirectory'
+  | 'featuredImg___dev'
+  | 'featuredImg___mode'
+  | 'featuredImg___nlink'
+  | 'featuredImg___uid'
+  | 'featuredImg___gid'
+  | 'featuredImg___rdev'
+  | 'featuredImg___ino'
+  | 'featuredImg___atimeMs'
+  | 'featuredImg___mtimeMs'
+  | 'featuredImg___ctimeMs'
+  | 'featuredImg___atime'
+  | 'featuredImg___mtime'
+  | 'featuredImg___ctime'
+  | 'featuredImg___birthtime'
+  | 'featuredImg___birthtimeMs'
+  | 'featuredImg___blksize'
+  | 'featuredImg___blocks'
+  | 'featuredImg___url'
+  | 'featuredImg___publicURL'
+  | 'featuredImg___childrenImageSharp'
+  | 'featuredImg___childrenImageSharp___fixed___base64'
+  | 'featuredImg___childrenImageSharp___fixed___tracedSVG'
+  | 'featuredImg___childrenImageSharp___fixed___aspectRatio'
+  | 'featuredImg___childrenImageSharp___fixed___width'
+  | 'featuredImg___childrenImageSharp___fixed___height'
+  | 'featuredImg___childrenImageSharp___fixed___src'
+  | 'featuredImg___childrenImageSharp___fixed___srcSet'
+  | 'featuredImg___childrenImageSharp___fixed___srcWebp'
+  | 'featuredImg___childrenImageSharp___fixed___srcSetWebp'
+  | 'featuredImg___childrenImageSharp___fixed___originalName'
+  | 'featuredImg___childrenImageSharp___fluid___base64'
+  | 'featuredImg___childrenImageSharp___fluid___tracedSVG'
+  | 'featuredImg___childrenImageSharp___fluid___aspectRatio'
+  | 'featuredImg___childrenImageSharp___fluid___src'
+  | 'featuredImg___childrenImageSharp___fluid___srcSet'
+  | 'featuredImg___childrenImageSharp___fluid___srcWebp'
+  | 'featuredImg___childrenImageSharp___fluid___srcSetWebp'
+  | 'featuredImg___childrenImageSharp___fluid___sizes'
+  | 'featuredImg___childrenImageSharp___fluid___originalImg'
+  | 'featuredImg___childrenImageSharp___fluid___originalName'
+  | 'featuredImg___childrenImageSharp___fluid___presentationWidth'
+  | 'featuredImg___childrenImageSharp___fluid___presentationHeight'
+  | 'featuredImg___childrenImageSharp___gatsbyImageData'
+  | 'featuredImg___childrenImageSharp___original___width'
+  | 'featuredImg___childrenImageSharp___original___height'
+  | 'featuredImg___childrenImageSharp___original___src'
+  | 'featuredImg___childrenImageSharp___resize___src'
+  | 'featuredImg___childrenImageSharp___resize___tracedSVG'
+  | 'featuredImg___childrenImageSharp___resize___width'
+  | 'featuredImg___childrenImageSharp___resize___height'
+  | 'featuredImg___childrenImageSharp___resize___aspectRatio'
+  | 'featuredImg___childrenImageSharp___resize___originalName'
+  | 'featuredImg___childrenImageSharp___id'
+  | 'featuredImg___childrenImageSharp___parent___id'
+  | 'featuredImg___childrenImageSharp___parent___children'
+  | 'featuredImg___childrenImageSharp___children'
+  | 'featuredImg___childrenImageSharp___children___id'
+  | 'featuredImg___childrenImageSharp___children___children'
+  | 'featuredImg___childrenImageSharp___internal___content'
+  | 'featuredImg___childrenImageSharp___internal___contentDigest'
+  | 'featuredImg___childrenImageSharp___internal___description'
+  | 'featuredImg___childrenImageSharp___internal___fieldOwners'
+  | 'featuredImg___childrenImageSharp___internal___ignoreType'
+  | 'featuredImg___childrenImageSharp___internal___mediaType'
+  | 'featuredImg___childrenImageSharp___internal___owner'
+  | 'featuredImg___childrenImageSharp___internal___type'
+  | 'featuredImg___childrenImageSharp___internal___contentFilePath'
+  | 'featuredImg___childImageSharp___fixed___base64'
+  | 'featuredImg___childImageSharp___fixed___tracedSVG'
+  | 'featuredImg___childImageSharp___fixed___aspectRatio'
+  | 'featuredImg___childImageSharp___fixed___width'
+  | 'featuredImg___childImageSharp___fixed___height'
+  | 'featuredImg___childImageSharp___fixed___src'
+  | 'featuredImg___childImageSharp___fixed___srcSet'
+  | 'featuredImg___childImageSharp___fixed___srcWebp'
+  | 'featuredImg___childImageSharp___fixed___srcSetWebp'
+  | 'featuredImg___childImageSharp___fixed___originalName'
+  | 'featuredImg___childImageSharp___fluid___base64'
+  | 'featuredImg___childImageSharp___fluid___tracedSVG'
+  | 'featuredImg___childImageSharp___fluid___aspectRatio'
+  | 'featuredImg___childImageSharp___fluid___src'
+  | 'featuredImg___childImageSharp___fluid___srcSet'
+  | 'featuredImg___childImageSharp___fluid___srcWebp'
+  | 'featuredImg___childImageSharp___fluid___srcSetWebp'
+  | 'featuredImg___childImageSharp___fluid___sizes'
+  | 'featuredImg___childImageSharp___fluid___originalImg'
+  | 'featuredImg___childImageSharp___fluid___originalName'
+  | 'featuredImg___childImageSharp___fluid___presentationWidth'
+  | 'featuredImg___childImageSharp___fluid___presentationHeight'
+  | 'featuredImg___childImageSharp___gatsbyImageData'
+  | 'featuredImg___childImageSharp___original___width'
+  | 'featuredImg___childImageSharp___original___height'
+  | 'featuredImg___childImageSharp___original___src'
+  | 'featuredImg___childImageSharp___resize___src'
+  | 'featuredImg___childImageSharp___resize___tracedSVG'
+  | 'featuredImg___childImageSharp___resize___width'
+  | 'featuredImg___childImageSharp___resize___height'
+  | 'featuredImg___childImageSharp___resize___aspectRatio'
+  | 'featuredImg___childImageSharp___resize___originalName'
+  | 'featuredImg___childImageSharp___id'
+  | 'featuredImg___childImageSharp___parent___id'
+  | 'featuredImg___childImageSharp___parent___children'
+  | 'featuredImg___childImageSharp___children'
+  | 'featuredImg___childImageSharp___children___id'
+  | 'featuredImg___childImageSharp___children___children'
+  | 'featuredImg___childImageSharp___internal___content'
+  | 'featuredImg___childImageSharp___internal___contentDigest'
+  | 'featuredImg___childImageSharp___internal___description'
+  | 'featuredImg___childImageSharp___internal___fieldOwners'
+  | 'featuredImg___childImageSharp___internal___ignoreType'
+  | 'featuredImg___childImageSharp___internal___mediaType'
+  | 'featuredImg___childImageSharp___internal___owner'
+  | 'featuredImg___childImageSharp___internal___type'
+  | 'featuredImg___childImageSharp___internal___contentFilePath'
+  | 'featuredImg___childrenDataJson'
+  | 'featuredImg___childrenDataJson___data___message'
+  | 'featuredImg___childrenDataJson___data___full_picture'
+  | 'featuredImg___childrenDataJson___data___picture'
+  | 'featuredImg___childrenDataJson___data___actions'
+  | 'featuredImg___childrenDataJson___data___created_time'
+  | 'featuredImg___childrenDataJson___data___status_type'
+  | 'featuredImg___childrenDataJson___data___updated_time'
+  | 'featuredImg___childrenDataJson___data___icon'
+  | 'featuredImg___childrenDataJson___data___type'
+  | 'featuredImg___childrenDataJson___data___link'
+  | 'featuredImg___childrenDataJson___data___full_res_picture'
+  | 'featuredImg___childrenDataJson___data___jsonId'
+  | 'featuredImg___childrenDataJson___data___description'
+  | 'featuredImg___childrenDataJson___data___story'
+  | 'featuredImg___childrenDataJson___data___id'
+  | 'featuredImg___childrenDataJson___data___children'
+  | 'featuredImg___childrenDataJson___featuredImg___sourceInstanceName'
+  | 'featuredImg___childrenDataJson___featuredImg___absolutePath'
+  | 'featuredImg___childrenDataJson___featuredImg___relativePath'
+  | 'featuredImg___childrenDataJson___featuredImg___extension'
+  | 'featuredImg___childrenDataJson___featuredImg___size'
+  | 'featuredImg___childrenDataJson___featuredImg___prettySize'
+  | 'featuredImg___childrenDataJson___featuredImg___modifiedTime'
+  | 'featuredImg___childrenDataJson___featuredImg___accessTime'
+  | 'featuredImg___childrenDataJson___featuredImg___changeTime'
+  | 'featuredImg___childrenDataJson___featuredImg___birthTime'
+  | 'featuredImg___childrenDataJson___featuredImg___root'
+  | 'featuredImg___childrenDataJson___featuredImg___dir'
+  | 'featuredImg___childrenDataJson___featuredImg___base'
+  | 'featuredImg___childrenDataJson___featuredImg___ext'
+  | 'featuredImg___childrenDataJson___featuredImg___name'
+  | 'featuredImg___childrenDataJson___featuredImg___relativeDirectory'
+  | 'featuredImg___childrenDataJson___featuredImg___dev'
+  | 'featuredImg___childrenDataJson___featuredImg___mode'
+  | 'featuredImg___childrenDataJson___featuredImg___nlink'
+  | 'featuredImg___childrenDataJson___featuredImg___uid'
+  | 'featuredImg___childrenDataJson___featuredImg___gid'
+  | 'featuredImg___childrenDataJson___featuredImg___rdev'
+  | 'featuredImg___childrenDataJson___featuredImg___ino'
+  | 'featuredImg___childrenDataJson___featuredImg___atimeMs'
+  | 'featuredImg___childrenDataJson___featuredImg___mtimeMs'
+  | 'featuredImg___childrenDataJson___featuredImg___ctimeMs'
+  | 'featuredImg___childrenDataJson___featuredImg___atime'
+  | 'featuredImg___childrenDataJson___featuredImg___mtime'
+  | 'featuredImg___childrenDataJson___featuredImg___ctime'
+  | 'featuredImg___childrenDataJson___featuredImg___birthtime'
+  | 'featuredImg___childrenDataJson___featuredImg___birthtimeMs'
+  | 'featuredImg___childrenDataJson___featuredImg___blksize'
+  | 'featuredImg___childrenDataJson___featuredImg___blocks'
+  | 'featuredImg___childrenDataJson___featuredImg___url'
+  | 'featuredImg___childrenDataJson___featuredImg___publicURL'
+  | 'featuredImg___childrenDataJson___featuredImg___childrenImageSharp'
+  | 'featuredImg___childrenDataJson___featuredImg___childrenDataJson'
+  | 'featuredImg___childrenDataJson___featuredImg___id'
+  | 'featuredImg___childrenDataJson___featuredImg___children'
+  | 'featuredImg___childrenDataJson___attachments___data'
+  | 'featuredImg___childrenDataJson___message'
+  | 'featuredImg___childrenDataJson___full_picture'
+  | 'featuredImg___childrenDataJson___picture'
+  | 'featuredImg___childrenDataJson___from___name'
+  | 'featuredImg___childrenDataJson___from___id'
+  | 'featuredImg___childrenDataJson___actions'
+  | 'featuredImg___childrenDataJson___actions___name'
+  | 'featuredImg___childrenDataJson___actions___link'
+  | 'featuredImg___childrenDataJson___created_time'
+  | 'featuredImg___childrenDataJson___status_type'
+  | 'featuredImg___childrenDataJson___updated_time'
+  | 'featuredImg___childrenDataJson___icon'
+  | 'featuredImg___childrenDataJson___type'
+  | 'featuredImg___childrenDataJson___link'
+  | 'featuredImg___childrenDataJson___full_res_picture'
+  | 'featuredImg___childrenDataJson___first_action___name'
+  | 'featuredImg___childrenDataJson___first_action___link'
+  | 'featuredImg___childrenDataJson___jsonId'
+  | 'featuredImg___childrenDataJson___description'
+  | 'featuredImg___childrenDataJson___story'
+  | 'featuredImg___childrenDataJson___fields___localFile'
+  | 'featuredImg___childrenDataJson___id'
+  | 'featuredImg___childrenDataJson___parent___id'
+  | 'featuredImg___childrenDataJson___parent___children'
+  | 'featuredImg___childrenDataJson___children'
+  | 'featuredImg___childrenDataJson___children___id'
+  | 'featuredImg___childrenDataJson___children___children'
+  | 'featuredImg___childrenDataJson___internal___content'
+  | 'featuredImg___childrenDataJson___internal___contentDigest'
+  | 'featuredImg___childrenDataJson___internal___description'
+  | 'featuredImg___childrenDataJson___internal___fieldOwners'
+  | 'featuredImg___childrenDataJson___internal___ignoreType'
+  | 'featuredImg___childrenDataJson___internal___mediaType'
+  | 'featuredImg___childrenDataJson___internal___owner'
+  | 'featuredImg___childrenDataJson___internal___type'
+  | 'featuredImg___childrenDataJson___internal___contentFilePath'
+  | 'featuredImg___childDataJson___data___message'
+  | 'featuredImg___childDataJson___data___full_picture'
+  | 'featuredImg___childDataJson___data___picture'
+  | 'featuredImg___childDataJson___data___actions'
+  | 'featuredImg___childDataJson___data___created_time'
+  | 'featuredImg___childDataJson___data___status_type'
+  | 'featuredImg___childDataJson___data___updated_time'
+  | 'featuredImg___childDataJson___data___icon'
+  | 'featuredImg___childDataJson___data___type'
+  | 'featuredImg___childDataJson___data___link'
+  | 'featuredImg___childDataJson___data___full_res_picture'
+  | 'featuredImg___childDataJson___data___jsonId'
+  | 'featuredImg___childDataJson___data___description'
+  | 'featuredImg___childDataJson___data___story'
+  | 'featuredImg___childDataJson___data___id'
+  | 'featuredImg___childDataJson___data___children'
+  | 'featuredImg___childDataJson___featuredImg___sourceInstanceName'
+  | 'featuredImg___childDataJson___featuredImg___absolutePath'
+  | 'featuredImg___childDataJson___featuredImg___relativePath'
+  | 'featuredImg___childDataJson___featuredImg___extension'
+  | 'featuredImg___childDataJson___featuredImg___size'
+  | 'featuredImg___childDataJson___featuredImg___prettySize'
+  | 'featuredImg___childDataJson___featuredImg___modifiedTime'
+  | 'featuredImg___childDataJson___featuredImg___accessTime'
+  | 'featuredImg___childDataJson___featuredImg___changeTime'
+  | 'featuredImg___childDataJson___featuredImg___birthTime'
+  | 'featuredImg___childDataJson___featuredImg___root'
+  | 'featuredImg___childDataJson___featuredImg___dir'
+  | 'featuredImg___childDataJson___featuredImg___base'
+  | 'featuredImg___childDataJson___featuredImg___ext'
+  | 'featuredImg___childDataJson___featuredImg___name'
+  | 'featuredImg___childDataJson___featuredImg___relativeDirectory'
+  | 'featuredImg___childDataJson___featuredImg___dev'
+  | 'featuredImg___childDataJson___featuredImg___mode'
+  | 'featuredImg___childDataJson___featuredImg___nlink'
+  | 'featuredImg___childDataJson___featuredImg___uid'
+  | 'featuredImg___childDataJson___featuredImg___gid'
+  | 'featuredImg___childDataJson___featuredImg___rdev'
+  | 'featuredImg___childDataJson___featuredImg___ino'
+  | 'featuredImg___childDataJson___featuredImg___atimeMs'
+  | 'featuredImg___childDataJson___featuredImg___mtimeMs'
+  | 'featuredImg___childDataJson___featuredImg___ctimeMs'
+  | 'featuredImg___childDataJson___featuredImg___atime'
+  | 'featuredImg___childDataJson___featuredImg___mtime'
+  | 'featuredImg___childDataJson___featuredImg___ctime'
+  | 'featuredImg___childDataJson___featuredImg___birthtime'
+  | 'featuredImg___childDataJson___featuredImg___birthtimeMs'
+  | 'featuredImg___childDataJson___featuredImg___blksize'
+  | 'featuredImg___childDataJson___featuredImg___blocks'
+  | 'featuredImg___childDataJson___featuredImg___url'
+  | 'featuredImg___childDataJson___featuredImg___publicURL'
+  | 'featuredImg___childDataJson___featuredImg___childrenImageSharp'
+  | 'featuredImg___childDataJson___featuredImg___childrenDataJson'
+  | 'featuredImg___childDataJson___featuredImg___id'
+  | 'featuredImg___childDataJson___featuredImg___children'
+  | 'featuredImg___childDataJson___attachments___data'
+  | 'featuredImg___childDataJson___message'
+  | 'featuredImg___childDataJson___full_picture'
+  | 'featuredImg___childDataJson___picture'
+  | 'featuredImg___childDataJson___from___name'
+  | 'featuredImg___childDataJson___from___id'
+  | 'featuredImg___childDataJson___actions'
+  | 'featuredImg___childDataJson___actions___name'
+  | 'featuredImg___childDataJson___actions___link'
+  | 'featuredImg___childDataJson___created_time'
+  | 'featuredImg___childDataJson___status_type'
+  | 'featuredImg___childDataJson___updated_time'
+  | 'featuredImg___childDataJson___icon'
+  | 'featuredImg___childDataJson___type'
+  | 'featuredImg___childDataJson___link'
+  | 'featuredImg___childDataJson___full_res_picture'
+  | 'featuredImg___childDataJson___first_action___name'
+  | 'featuredImg___childDataJson___first_action___link'
+  | 'featuredImg___childDataJson___jsonId'
+  | 'featuredImg___childDataJson___description'
+  | 'featuredImg___childDataJson___story'
+  | 'featuredImg___childDataJson___fields___localFile'
+  | 'featuredImg___childDataJson___id'
+  | 'featuredImg___childDataJson___parent___id'
+  | 'featuredImg___childDataJson___parent___children'
+  | 'featuredImg___childDataJson___children'
+  | 'featuredImg___childDataJson___children___id'
+  | 'featuredImg___childDataJson___children___children'
+  | 'featuredImg___childDataJson___internal___content'
+  | 'featuredImg___childDataJson___internal___contentDigest'
+  | 'featuredImg___childDataJson___internal___description'
+  | 'featuredImg___childDataJson___internal___fieldOwners'
+  | 'featuredImg___childDataJson___internal___ignoreType'
+  | 'featuredImg___childDataJson___internal___mediaType'
+  | 'featuredImg___childDataJson___internal___owner'
+  | 'featuredImg___childDataJson___internal___type'
+  | 'featuredImg___childDataJson___internal___contentFilePath'
+  | 'featuredImg___id'
+  | 'featuredImg___parent___id'
+  | 'featuredImg___parent___parent___id'
+  | 'featuredImg___parent___parent___children'
+  | 'featuredImg___parent___children'
+  | 'featuredImg___parent___children___id'
+  | 'featuredImg___parent___children___children'
+  | 'featuredImg___parent___internal___content'
+  | 'featuredImg___parent___internal___contentDigest'
+  | 'featuredImg___parent___internal___description'
+  | 'featuredImg___parent___internal___fieldOwners'
+  | 'featuredImg___parent___internal___ignoreType'
+  | 'featuredImg___parent___internal___mediaType'
+  | 'featuredImg___parent___internal___owner'
+  | 'featuredImg___parent___internal___type'
+  | 'featuredImg___parent___internal___contentFilePath'
+  | 'featuredImg___children'
+  | 'featuredImg___children___id'
+  | 'featuredImg___children___parent___id'
+  | 'featuredImg___children___parent___children'
+  | 'featuredImg___children___children'
+  | 'featuredImg___children___children___id'
+  | 'featuredImg___children___children___children'
+  | 'featuredImg___children___internal___content'
+  | 'featuredImg___children___internal___contentDigest'
+  | 'featuredImg___children___internal___description'
+  | 'featuredImg___children___internal___fieldOwners'
+  | 'featuredImg___children___internal___ignoreType'
+  | 'featuredImg___children___internal___mediaType'
+  | 'featuredImg___children___internal___owner'
+  | 'featuredImg___children___internal___type'
+  | 'featuredImg___children___internal___contentFilePath'
+  | 'featuredImg___internal___content'
+  | 'featuredImg___internal___contentDigest'
+  | 'featuredImg___internal___description'
+  | 'featuredImg___internal___fieldOwners'
+  | 'featuredImg___internal___ignoreType'
+  | 'featuredImg___internal___mediaType'
+  | 'featuredImg___internal___owner'
+  | 'featuredImg___internal___type'
+  | 'featuredImg___internal___contentFilePath'
+  | 'attachments___data'
+  | 'attachments___data___media___source'
+  | 'attachments___data___media_type'
+  | 'attachments___data___target___id'
+  | 'attachments___data___target___url'
+  | 'attachments___data___unshimmed_url'
+  | 'attachments___data___description'
+  | 'attachments___data___title'
+  | 'message'
+  | 'full_picture'
+  | 'picture'
+  | 'from___name'
+  | 'from___id'
+  | 'actions'
+  | 'actions___name'
+  | 'actions___link'
+  | 'created_time'
+  | 'status_type'
+  | 'updated_time'
+  | 'icon'
+  | 'type'
+  | 'link'
+  | 'full_res_picture'
+  | 'first_action___name'
+  | 'first_action___link'
+  | 'jsonId'
+  | 'description'
+  | 'story'
+  | 'fields___localFile'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -3101,6 +4399,7 @@ export type FacebookFieldsEnum =
   | 'parent___parent___internal___mediaType'
   | 'parent___parent___internal___owner'
   | 'parent___parent___internal___type'
+  | 'parent___parent___internal___contentFilePath'
   | 'parent___children'
   | 'parent___children___id'
   | 'parent___children___parent___id'
@@ -3116,6 +4415,7 @@ export type FacebookFieldsEnum =
   | 'parent___children___internal___mediaType'
   | 'parent___children___internal___owner'
   | 'parent___children___internal___type'
+  | 'parent___children___internal___contentFilePath'
   | 'parent___internal___content'
   | 'parent___internal___contentDigest'
   | 'parent___internal___description'
@@ -3124,6 +4424,7 @@ export type FacebookFieldsEnum =
   | 'parent___internal___mediaType'
   | 'parent___internal___owner'
   | 'parent___internal___type'
+  | 'parent___internal___contentFilePath'
   | 'children'
   | 'children___id'
   | 'children___parent___id'
@@ -3140,6 +4441,7 @@ export type FacebookFieldsEnum =
   | 'children___parent___internal___mediaType'
   | 'children___parent___internal___owner'
   | 'children___parent___internal___type'
+  | 'children___parent___internal___contentFilePath'
   | 'children___children'
   | 'children___children___id'
   | 'children___children___parent___id'
@@ -3155,6 +4457,7 @@ export type FacebookFieldsEnum =
   | 'children___children___internal___mediaType'
   | 'children___children___internal___owner'
   | 'children___children___internal___type'
+  | 'children___children___internal___contentFilePath'
   | 'children___internal___content'
   | 'children___internal___contentDigest'
   | 'children___internal___description'
@@ -3163,6 +4466,7 @@ export type FacebookFieldsEnum =
   | 'children___internal___mediaType'
   | 'children___internal___owner'
   | 'children___internal___type'
+  | 'children___internal___contentFilePath'
   | 'internal___content'
   | 'internal___contentDigest'
   | 'internal___description'
@@ -3171,65 +4475,51 @@ export type FacebookFieldsEnum =
   | 'internal___mediaType'
   | 'internal___owner'
   | 'internal___type'
-  | 'posts___data'
-  | 'posts___data___attachments___data'
-  | 'posts___data___permalink_url'
-  | 'posts___data___id'
-  | 'posts___paging___cursors___before'
-  | 'posts___paging___cursors___after'
-  | 'posts___paging___next';
+  | 'internal___contentFilePath';
 
-export type FacebookGroupConnection = {
+export type DataJsonGroupConnection = {
   totalCount: Scalars['Int'];
-  edges: Array<FacebookEdge>;
-  nodes: Array<Facebook>;
+  edges: Array<DataJsonEdge>;
+  nodes: Array<DataJson>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
   max?: Maybe<Scalars['Float']>;
   min?: Maybe<Scalars['Float']>;
   sum?: Maybe<Scalars['Float']>;
-  group: Array<FacebookGroupConnection>;
+  group: Array<DataJsonGroupConnection>;
   field: Scalars['String'];
   fieldValue?: Maybe<Scalars['String']>;
 };
 
 
-export type FacebookGroupConnectionDistinctArgs = {
-  field: FacebookFieldsEnum;
+export type DataJsonGroupConnectionDistinctArgs = {
+  field: DataJsonFieldsEnum;
 };
 
 
-export type FacebookGroupConnectionMaxArgs = {
-  field: FacebookFieldsEnum;
+export type DataJsonGroupConnectionMaxArgs = {
+  field: DataJsonFieldsEnum;
 };
 
 
-export type FacebookGroupConnectionMinArgs = {
-  field: FacebookFieldsEnum;
+export type DataJsonGroupConnectionMinArgs = {
+  field: DataJsonFieldsEnum;
 };
 
 
-export type FacebookGroupConnectionSumArgs = {
-  field: FacebookFieldsEnum;
+export type DataJsonGroupConnectionSumArgs = {
+  field: DataJsonFieldsEnum;
 };
 
 
-export type FacebookGroupConnectionGroupArgs = {
+export type DataJsonGroupConnectionGroupArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;
-  field: FacebookFieldsEnum;
+  field: DataJsonFieldsEnum;
 };
 
-export type FacebookFilterInput = {
-  id?: InputMaybe<StringQueryOperatorInput>;
-  parent?: InputMaybe<NodeFilterInput>;
-  children?: InputMaybe<NodeFilterListInput>;
-  internal?: InputMaybe<InternalFilterInput>;
-  posts?: InputMaybe<FacebookPostsFilterInput>;
-};
-
-export type FacebookSortInput = {
-  fields?: InputMaybe<Array<InputMaybe<FacebookFieldsEnum>>>;
+export type DataJsonSortInput = {
+  fields?: InputMaybe<Array<InputMaybe<DataJsonFieldsEnum>>>;
   order?: InputMaybe<Array<InputMaybe<SortOrderEnum>>>;
 };
 
@@ -3238,10 +4528,10 @@ export type SiteTitleQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type SiteTitleQueryQuery = { site?: { siteMetadata?: { title?: string | null } | null } | null };
 
-export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
+export type NewsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_1_Query = { facebook?: { id: string, posts?: { data?: Array<{ id?: string | null, permalink_url?: string | null } | null> | null } | null } | null };
+export type NewsQuery = { allDataJson: { edges: Array<{ node: { id: string, message?: string | null, created_time?: any | null, first_action?: { link?: string | null } | null, featuredImg?: { childrenImageSharp?: Array<{ gatsbyImageData: any } | null> | null } | null } }> } };
 
 export type GatsbyImageSharpFixedFragment = { base64?: string | null, width: number, height: number, src: string, srcSet: string };
 

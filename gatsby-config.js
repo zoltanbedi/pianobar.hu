@@ -4,12 +4,12 @@ module.exports = {
     title: 'Fűzy Gábor',
   },
   plugins: [
-    'gatsby-plugin-react-helmet',
     'gatsby-plugin-sass',
     'gatsby-plugin-offline',
     'gatsby-plugin-image',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
+    'gatsby-plugin-netlify',
     'gatsby-plugin-graphql-codegen',
     {
       resolve: 'gatsby-plugin-react-svg',
@@ -20,17 +20,18 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-source-facebook-graphql`,
+      resolve: `gatsby-source-filesystem`,
       options: {
-        // Facebook account or page ID
-        pageId: 190825651114970,
-        params: {
-          fields: [
-            'posts.limit(3){attachments,permalink_url}'
-          ],
-        },
-        // Access Token from facebook
-        accessToken: process.env.GATSBY_FACEBOOK_GRAPH_TOKEN,
+        name: `data`,
+        path: `${__dirname}/src/data/`,
+        ignore: [`**/.*`], // ignore files starting with a dot
+      },
+    },
+    `gatsby-transformer-json`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `./src/data/`,
       },
     },
     {
