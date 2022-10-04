@@ -617,8 +617,9 @@ export type DataJson = Node & {
   full_res_picture?: Maybe<Scalars['String']>;
   first_action?: Maybe<DataJsonFirst_Action>;
   jsonId?: Maybe<Scalars['String']>;
-  fields?: Maybe<DataJsonFields>;
   description?: Maybe<Scalars['String']>;
+  story?: Maybe<Scalars['String']>;
+  fields?: Maybe<DataJsonFields>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -965,8 +966,9 @@ export type QueryDataJsonArgs = {
   full_res_picture?: InputMaybe<StringQueryOperatorInput>;
   first_action?: InputMaybe<DataJsonFirst_ActionFilterInput>;
   jsonId?: InputMaybe<StringQueryOperatorInput>;
-  fields?: InputMaybe<DataJsonFieldsFilterInput>;
   description?: InputMaybe<StringQueryOperatorInput>;
+  story?: InputMaybe<StringQueryOperatorInput>;
+  fields?: InputMaybe<DataJsonFieldsFilterInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -1141,8 +1143,9 @@ export type DataJsonFilterInput = {
   full_res_picture?: InputMaybe<StringQueryOperatorInput>;
   first_action?: InputMaybe<DataJsonFirst_ActionFilterInput>;
   jsonId?: InputMaybe<StringQueryOperatorInput>;
-  fields?: InputMaybe<DataJsonFieldsFilterInput>;
   description?: InputMaybe<StringQueryOperatorInput>;
+  story?: InputMaybe<StringQueryOperatorInput>;
+  fields?: InputMaybe<DataJsonFieldsFilterInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -1503,6 +1506,7 @@ export type FileFieldsEnum =
   | 'childrenDataJson___data___data___full_res_picture'
   | 'childrenDataJson___data___data___jsonId'
   | 'childrenDataJson___data___data___description'
+  | 'childrenDataJson___data___data___story'
   | 'childrenDataJson___data___data___id'
   | 'childrenDataJson___data___data___children'
   | 'childrenDataJson___data___featuredImg___sourceInstanceName'
@@ -1563,8 +1567,9 @@ export type FileFieldsEnum =
   | 'childrenDataJson___data___first_action___name'
   | 'childrenDataJson___data___first_action___link'
   | 'childrenDataJson___data___jsonId'
-  | 'childrenDataJson___data___fields___localFile'
   | 'childrenDataJson___data___description'
+  | 'childrenDataJson___data___story'
+  | 'childrenDataJson___data___fields___localFile'
   | 'childrenDataJson___data___id'
   | 'childrenDataJson___data___parent___id'
   | 'childrenDataJson___data___parent___children'
@@ -1636,6 +1641,7 @@ export type FileFieldsEnum =
   | 'childrenDataJson___featuredImg___childrenDataJson___full_res_picture'
   | 'childrenDataJson___featuredImg___childrenDataJson___jsonId'
   | 'childrenDataJson___featuredImg___childrenDataJson___description'
+  | 'childrenDataJson___featuredImg___childrenDataJson___story'
   | 'childrenDataJson___featuredImg___childrenDataJson___id'
   | 'childrenDataJson___featuredImg___childrenDataJson___children'
   | 'childrenDataJson___featuredImg___childDataJson___message'
@@ -1651,6 +1657,7 @@ export type FileFieldsEnum =
   | 'childrenDataJson___featuredImg___childDataJson___full_res_picture'
   | 'childrenDataJson___featuredImg___childDataJson___jsonId'
   | 'childrenDataJson___featuredImg___childDataJson___description'
+  | 'childrenDataJson___featuredImg___childDataJson___story'
   | 'childrenDataJson___featuredImg___childDataJson___id'
   | 'childrenDataJson___featuredImg___childDataJson___children'
   | 'childrenDataJson___featuredImg___id'
@@ -1691,8 +1698,9 @@ export type FileFieldsEnum =
   | 'childrenDataJson___first_action___name'
   | 'childrenDataJson___first_action___link'
   | 'childrenDataJson___jsonId'
-  | 'childrenDataJson___fields___localFile'
   | 'childrenDataJson___description'
+  | 'childrenDataJson___story'
+  | 'childrenDataJson___fields___localFile'
   | 'childrenDataJson___id'
   | 'childrenDataJson___parent___id'
   | 'childrenDataJson___parent___parent___id'
@@ -1747,6 +1755,7 @@ export type FileFieldsEnum =
   | 'childDataJson___data___data___full_res_picture'
   | 'childDataJson___data___data___jsonId'
   | 'childDataJson___data___data___description'
+  | 'childDataJson___data___data___story'
   | 'childDataJson___data___data___id'
   | 'childDataJson___data___data___children'
   | 'childDataJson___data___featuredImg___sourceInstanceName'
@@ -1807,8 +1816,9 @@ export type FileFieldsEnum =
   | 'childDataJson___data___first_action___name'
   | 'childDataJson___data___first_action___link'
   | 'childDataJson___data___jsonId'
-  | 'childDataJson___data___fields___localFile'
   | 'childDataJson___data___description'
+  | 'childDataJson___data___story'
+  | 'childDataJson___data___fields___localFile'
   | 'childDataJson___data___id'
   | 'childDataJson___data___parent___id'
   | 'childDataJson___data___parent___children'
@@ -1880,6 +1890,7 @@ export type FileFieldsEnum =
   | 'childDataJson___featuredImg___childrenDataJson___full_res_picture'
   | 'childDataJson___featuredImg___childrenDataJson___jsonId'
   | 'childDataJson___featuredImg___childrenDataJson___description'
+  | 'childDataJson___featuredImg___childrenDataJson___story'
   | 'childDataJson___featuredImg___childrenDataJson___id'
   | 'childDataJson___featuredImg___childrenDataJson___children'
   | 'childDataJson___featuredImg___childDataJson___message'
@@ -1895,6 +1906,7 @@ export type FileFieldsEnum =
   | 'childDataJson___featuredImg___childDataJson___full_res_picture'
   | 'childDataJson___featuredImg___childDataJson___jsonId'
   | 'childDataJson___featuredImg___childDataJson___description'
+  | 'childDataJson___featuredImg___childDataJson___story'
   | 'childDataJson___featuredImg___childDataJson___id'
   | 'childDataJson___featuredImg___childDataJson___children'
   | 'childDataJson___featuredImg___id'
@@ -1935,8 +1947,9 @@ export type FileFieldsEnum =
   | 'childDataJson___first_action___name'
   | 'childDataJson___first_action___link'
   | 'childDataJson___jsonId'
-  | 'childDataJson___fields___localFile'
   | 'childDataJson___description'
+  | 'childDataJson___story'
+  | 'childDataJson___fields___localFile'
   | 'childDataJson___id'
   | 'childDataJson___parent___id'
   | 'childDataJson___parent___parent___id'
@@ -3749,6 +3762,7 @@ export type DataJsonFieldsEnum =
   | 'data___data___data___full_res_picture'
   | 'data___data___data___jsonId'
   | 'data___data___data___description'
+  | 'data___data___data___story'
   | 'data___data___data___id'
   | 'data___data___data___children'
   | 'data___data___featuredImg___sourceInstanceName'
@@ -3809,8 +3823,9 @@ export type DataJsonFieldsEnum =
   | 'data___data___first_action___name'
   | 'data___data___first_action___link'
   | 'data___data___jsonId'
-  | 'data___data___fields___localFile'
   | 'data___data___description'
+  | 'data___data___story'
+  | 'data___data___fields___localFile'
   | 'data___data___id'
   | 'data___data___parent___id'
   | 'data___data___parent___children'
@@ -3882,6 +3897,7 @@ export type DataJsonFieldsEnum =
   | 'data___featuredImg___childrenDataJson___full_res_picture'
   | 'data___featuredImg___childrenDataJson___jsonId'
   | 'data___featuredImg___childrenDataJson___description'
+  | 'data___featuredImg___childrenDataJson___story'
   | 'data___featuredImg___childrenDataJson___id'
   | 'data___featuredImg___childrenDataJson___children'
   | 'data___featuredImg___childDataJson___message'
@@ -3897,6 +3913,7 @@ export type DataJsonFieldsEnum =
   | 'data___featuredImg___childDataJson___full_res_picture'
   | 'data___featuredImg___childDataJson___jsonId'
   | 'data___featuredImg___childDataJson___description'
+  | 'data___featuredImg___childDataJson___story'
   | 'data___featuredImg___childDataJson___id'
   | 'data___featuredImg___childDataJson___children'
   | 'data___featuredImg___id'
@@ -3937,8 +3954,9 @@ export type DataJsonFieldsEnum =
   | 'data___first_action___name'
   | 'data___first_action___link'
   | 'data___jsonId'
-  | 'data___fields___localFile'
   | 'data___description'
+  | 'data___story'
+  | 'data___fields___localFile'
   | 'data___id'
   | 'data___parent___id'
   | 'data___parent___parent___id'
@@ -4124,6 +4142,7 @@ export type DataJsonFieldsEnum =
   | 'featuredImg___childrenDataJson___data___full_res_picture'
   | 'featuredImg___childrenDataJson___data___jsonId'
   | 'featuredImg___childrenDataJson___data___description'
+  | 'featuredImg___childrenDataJson___data___story'
   | 'featuredImg___childrenDataJson___data___id'
   | 'featuredImg___childrenDataJson___data___children'
   | 'featuredImg___childrenDataJson___featuredImg___sourceInstanceName'
@@ -4184,8 +4203,9 @@ export type DataJsonFieldsEnum =
   | 'featuredImg___childrenDataJson___first_action___name'
   | 'featuredImg___childrenDataJson___first_action___link'
   | 'featuredImg___childrenDataJson___jsonId'
-  | 'featuredImg___childrenDataJson___fields___localFile'
   | 'featuredImg___childrenDataJson___description'
+  | 'featuredImg___childrenDataJson___story'
+  | 'featuredImg___childrenDataJson___fields___localFile'
   | 'featuredImg___childrenDataJson___id'
   | 'featuredImg___childrenDataJson___parent___id'
   | 'featuredImg___childrenDataJson___parent___children'
@@ -4214,6 +4234,7 @@ export type DataJsonFieldsEnum =
   | 'featuredImg___childDataJson___data___full_res_picture'
   | 'featuredImg___childDataJson___data___jsonId'
   | 'featuredImg___childDataJson___data___description'
+  | 'featuredImg___childDataJson___data___story'
   | 'featuredImg___childDataJson___data___id'
   | 'featuredImg___childDataJson___data___children'
   | 'featuredImg___childDataJson___featuredImg___sourceInstanceName'
@@ -4274,8 +4295,9 @@ export type DataJsonFieldsEnum =
   | 'featuredImg___childDataJson___first_action___name'
   | 'featuredImg___childDataJson___first_action___link'
   | 'featuredImg___childDataJson___jsonId'
-  | 'featuredImg___childDataJson___fields___localFile'
   | 'featuredImg___childDataJson___description'
+  | 'featuredImg___childDataJson___story'
+  | 'featuredImg___childDataJson___fields___localFile'
   | 'featuredImg___childDataJson___id'
   | 'featuredImg___childDataJson___parent___id'
   | 'featuredImg___childDataJson___parent___children'
@@ -4358,8 +4380,9 @@ export type DataJsonFieldsEnum =
   | 'first_action___name'
   | 'first_action___link'
   | 'jsonId'
-  | 'fields___localFile'
   | 'description'
+  | 'story'
+  | 'fields___localFile'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
