@@ -245,8 +245,6 @@ export type DirectoryCtimeArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
-  port?: Maybe<Scalars['Int']>;
-  host?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   jsxRuntime?: Maybe<Scalars['String']>;
@@ -602,12 +600,10 @@ export type ImageSharpResize = {
 export type DataJson = Node & {
   data?: Maybe<DataJson>;
   featuredImg?: Maybe<File>;
-  attachments?: Maybe<DataJsonAttachments>;
   message?: Maybe<Scalars['String']>;
   full_picture?: Maybe<Scalars['String']>;
   picture?: Maybe<Scalars['String']>;
   from?: Maybe<DataJsonFrom>;
-  actions?: Maybe<Array<Maybe<DataJsonActions>>>;
   created_time?: Maybe<Scalars['Date']>;
   status_type?: Maybe<Scalars['String']>;
   updated_time?: Maybe<Scalars['Date']>;
@@ -642,43 +638,9 @@ export type DataJsonUpdated_TimeArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
-export type DataJsonAttachments = {
-  data?: Maybe<Array<Maybe<DataJsonAttachmentsData>>>;
-};
-
-export type DataJsonAttachmentsData = {
-  media?: Maybe<DataJsonAttachmentsDataMedia>;
-  media_type?: Maybe<Scalars['String']>;
-  target?: Maybe<DataJsonAttachmentsDataTarget>;
-  unshimmed_url?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-};
-
-export type DataJsonAttachmentsDataMedia = {
-  image?: Maybe<DataJsonAttachmentsDataMediaImage>;
-  source?: Maybe<Scalars['String']>;
-};
-
-export type DataJsonAttachmentsDataMediaImage = {
-  height?: Maybe<Scalars['Int']>;
-  src?: Maybe<Scalars['String']>;
-  width?: Maybe<Scalars['Int']>;
-};
-
-export type DataJsonAttachmentsDataTarget = {
-  id?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-};
-
 export type DataJsonFrom = {
   name?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
-};
-
-export type DataJsonActions = {
-  name?: Maybe<Scalars['String']>;
-  link?: Maybe<Scalars['String']>;
 };
 
 export type DataJsonFirst_Action = {
@@ -817,8 +779,6 @@ export type QueryAllDirectoryArgs = {
 export type QuerySiteArgs = {
   buildTime?: InputMaybe<DateQueryOperatorInput>;
   siteMetadata?: InputMaybe<SiteSiteMetadataFilterInput>;
-  port?: InputMaybe<IntQueryOperatorInput>;
-  host?: InputMaybe<StringQueryOperatorInput>;
   polyfill?: InputMaybe<BooleanQueryOperatorInput>;
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
@@ -951,12 +911,10 @@ export type QueryAllImageSharpArgs = {
 export type QueryDataJsonArgs = {
   data?: InputMaybe<DataJsonFilterInput>;
   featuredImg?: InputMaybe<FileFilterInput>;
-  attachments?: InputMaybe<DataJsonAttachmentsFilterInput>;
   message?: InputMaybe<StringQueryOperatorInput>;
   full_picture?: InputMaybe<StringQueryOperatorInput>;
   picture?: InputMaybe<StringQueryOperatorInput>;
   from?: InputMaybe<DataJsonFromFilterInput>;
-  actions?: InputMaybe<DataJsonActionsFilterListInput>;
   created_time?: InputMaybe<DateQueryOperatorInput>;
   status_type?: InputMaybe<StringQueryOperatorInput>;
   updated_time?: InputMaybe<DateQueryOperatorInput>;
@@ -1128,12 +1086,10 @@ export type DataJsonFilterListInput = {
 export type DataJsonFilterInput = {
   data?: InputMaybe<DataJsonFilterInput>;
   featuredImg?: InputMaybe<FileFilterInput>;
-  attachments?: InputMaybe<DataJsonAttachmentsFilterInput>;
   message?: InputMaybe<StringQueryOperatorInput>;
   full_picture?: InputMaybe<StringQueryOperatorInput>;
   picture?: InputMaybe<StringQueryOperatorInput>;
   from?: InputMaybe<DataJsonFromFilterInput>;
-  actions?: InputMaybe<DataJsonActionsFilterListInput>;
   created_time?: InputMaybe<DateQueryOperatorInput>;
   status_type?: InputMaybe<StringQueryOperatorInput>;
   updated_time?: InputMaybe<DateQueryOperatorInput>;
@@ -1198,51 +1154,9 @@ export type FileFilterInput = {
   internal?: InputMaybe<InternalFilterInput>;
 };
 
-export type DataJsonAttachmentsFilterInput = {
-  data?: InputMaybe<DataJsonAttachmentsDataFilterListInput>;
-};
-
-export type DataJsonAttachmentsDataFilterListInput = {
-  elemMatch?: InputMaybe<DataJsonAttachmentsDataFilterInput>;
-};
-
-export type DataJsonAttachmentsDataFilterInput = {
-  media?: InputMaybe<DataJsonAttachmentsDataMediaFilterInput>;
-  media_type?: InputMaybe<StringQueryOperatorInput>;
-  target?: InputMaybe<DataJsonAttachmentsDataTargetFilterInput>;
-  unshimmed_url?: InputMaybe<StringQueryOperatorInput>;
-  description?: InputMaybe<StringQueryOperatorInput>;
-  title?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type DataJsonAttachmentsDataMediaFilterInput = {
-  image?: InputMaybe<DataJsonAttachmentsDataMediaImageFilterInput>;
-  source?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type DataJsonAttachmentsDataMediaImageFilterInput = {
-  height?: InputMaybe<IntQueryOperatorInput>;
-  src?: InputMaybe<StringQueryOperatorInput>;
-  width?: InputMaybe<IntQueryOperatorInput>;
-};
-
-export type DataJsonAttachmentsDataTargetFilterInput = {
-  id?: InputMaybe<StringQueryOperatorInput>;
-  url?: InputMaybe<StringQueryOperatorInput>;
-};
-
 export type DataJsonFromFilterInput = {
   name?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type DataJsonActionsFilterListInput = {
-  elemMatch?: InputMaybe<DataJsonActionsFilterInput>;
-};
-
-export type DataJsonActionsFilterInput = {
-  name?: InputMaybe<StringQueryOperatorInput>;
-  link?: InputMaybe<StringQueryOperatorInput>;
 };
 
 export type DataJsonFirst_ActionFilterInput = {
@@ -1496,7 +1410,6 @@ export type FileFieldsEnum =
   | 'childrenDataJson___data___data___message'
   | 'childrenDataJson___data___data___full_picture'
   | 'childrenDataJson___data___data___picture'
-  | 'childrenDataJson___data___data___actions'
   | 'childrenDataJson___data___data___created_time'
   | 'childrenDataJson___data___data___status_type'
   | 'childrenDataJson___data___data___updated_time'
@@ -1548,15 +1461,11 @@ export type FileFieldsEnum =
   | 'childrenDataJson___data___featuredImg___childrenDataJson'
   | 'childrenDataJson___data___featuredImg___id'
   | 'childrenDataJson___data___featuredImg___children'
-  | 'childrenDataJson___data___attachments___data'
   | 'childrenDataJson___data___message'
   | 'childrenDataJson___data___full_picture'
   | 'childrenDataJson___data___picture'
   | 'childrenDataJson___data___from___name'
   | 'childrenDataJson___data___from___id'
-  | 'childrenDataJson___data___actions'
-  | 'childrenDataJson___data___actions___name'
-  | 'childrenDataJson___data___actions___link'
   | 'childrenDataJson___data___created_time'
   | 'childrenDataJson___data___status_type'
   | 'childrenDataJson___data___updated_time'
@@ -1631,7 +1540,6 @@ export type FileFieldsEnum =
   | 'childrenDataJson___featuredImg___childrenDataJson___message'
   | 'childrenDataJson___featuredImg___childrenDataJson___full_picture'
   | 'childrenDataJson___featuredImg___childrenDataJson___picture'
-  | 'childrenDataJson___featuredImg___childrenDataJson___actions'
   | 'childrenDataJson___featuredImg___childrenDataJson___created_time'
   | 'childrenDataJson___featuredImg___childrenDataJson___status_type'
   | 'childrenDataJson___featuredImg___childrenDataJson___updated_time'
@@ -1647,7 +1555,6 @@ export type FileFieldsEnum =
   | 'childrenDataJson___featuredImg___childDataJson___message'
   | 'childrenDataJson___featuredImg___childDataJson___full_picture'
   | 'childrenDataJson___featuredImg___childDataJson___picture'
-  | 'childrenDataJson___featuredImg___childDataJson___actions'
   | 'childrenDataJson___featuredImg___childDataJson___created_time'
   | 'childrenDataJson___featuredImg___childDataJson___status_type'
   | 'childrenDataJson___featuredImg___childDataJson___updated_time'
@@ -1675,19 +1582,11 @@ export type FileFieldsEnum =
   | 'childrenDataJson___featuredImg___internal___owner'
   | 'childrenDataJson___featuredImg___internal___type'
   | 'childrenDataJson___featuredImg___internal___contentFilePath'
-  | 'childrenDataJson___attachments___data'
-  | 'childrenDataJson___attachments___data___media_type'
-  | 'childrenDataJson___attachments___data___unshimmed_url'
-  | 'childrenDataJson___attachments___data___description'
-  | 'childrenDataJson___attachments___data___title'
   | 'childrenDataJson___message'
   | 'childrenDataJson___full_picture'
   | 'childrenDataJson___picture'
   | 'childrenDataJson___from___name'
   | 'childrenDataJson___from___id'
-  | 'childrenDataJson___actions'
-  | 'childrenDataJson___actions___name'
-  | 'childrenDataJson___actions___link'
   | 'childrenDataJson___created_time'
   | 'childrenDataJson___status_type'
   | 'childrenDataJson___updated_time'
@@ -1745,7 +1644,6 @@ export type FileFieldsEnum =
   | 'childDataJson___data___data___message'
   | 'childDataJson___data___data___full_picture'
   | 'childDataJson___data___data___picture'
-  | 'childDataJson___data___data___actions'
   | 'childDataJson___data___data___created_time'
   | 'childDataJson___data___data___status_type'
   | 'childDataJson___data___data___updated_time'
@@ -1797,15 +1695,11 @@ export type FileFieldsEnum =
   | 'childDataJson___data___featuredImg___childrenDataJson'
   | 'childDataJson___data___featuredImg___id'
   | 'childDataJson___data___featuredImg___children'
-  | 'childDataJson___data___attachments___data'
   | 'childDataJson___data___message'
   | 'childDataJson___data___full_picture'
   | 'childDataJson___data___picture'
   | 'childDataJson___data___from___name'
   | 'childDataJson___data___from___id'
-  | 'childDataJson___data___actions'
-  | 'childDataJson___data___actions___name'
-  | 'childDataJson___data___actions___link'
   | 'childDataJson___data___created_time'
   | 'childDataJson___data___status_type'
   | 'childDataJson___data___updated_time'
@@ -1880,7 +1774,6 @@ export type FileFieldsEnum =
   | 'childDataJson___featuredImg___childrenDataJson___message'
   | 'childDataJson___featuredImg___childrenDataJson___full_picture'
   | 'childDataJson___featuredImg___childrenDataJson___picture'
-  | 'childDataJson___featuredImg___childrenDataJson___actions'
   | 'childDataJson___featuredImg___childrenDataJson___created_time'
   | 'childDataJson___featuredImg___childrenDataJson___status_type'
   | 'childDataJson___featuredImg___childrenDataJson___updated_time'
@@ -1896,7 +1789,6 @@ export type FileFieldsEnum =
   | 'childDataJson___featuredImg___childDataJson___message'
   | 'childDataJson___featuredImg___childDataJson___full_picture'
   | 'childDataJson___featuredImg___childDataJson___picture'
-  | 'childDataJson___featuredImg___childDataJson___actions'
   | 'childDataJson___featuredImg___childDataJson___created_time'
   | 'childDataJson___featuredImg___childDataJson___status_type'
   | 'childDataJson___featuredImg___childDataJson___updated_time'
@@ -1924,19 +1816,11 @@ export type FileFieldsEnum =
   | 'childDataJson___featuredImg___internal___owner'
   | 'childDataJson___featuredImg___internal___type'
   | 'childDataJson___featuredImg___internal___contentFilePath'
-  | 'childDataJson___attachments___data'
-  | 'childDataJson___attachments___data___media_type'
-  | 'childDataJson___attachments___data___unshimmed_url'
-  | 'childDataJson___attachments___data___description'
-  | 'childDataJson___attachments___data___title'
   | 'childDataJson___message'
   | 'childDataJson___full_picture'
   | 'childDataJson___picture'
   | 'childDataJson___from___name'
   | 'childDataJson___from___id'
-  | 'childDataJson___actions'
-  | 'childDataJson___actions___name'
-  | 'childDataJson___actions___link'
   | 'childDataJson___created_time'
   | 'childDataJson___status_type'
   | 'childDataJson___updated_time'
@@ -2444,8 +2328,6 @@ export type SiteFieldsEnum =
   | 'buildTime'
   | 'siteMetadata___title'
   | 'siteMetadata___description'
-  | 'port'
-  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'jsxRuntime'
@@ -2589,8 +2471,6 @@ export type SiteGroupConnectionGroupArgs = {
 export type SiteFilterInput = {
   buildTime?: InputMaybe<DateQueryOperatorInput>;
   siteMetadata?: InputMaybe<SiteSiteMetadataFilterInput>;
-  port?: InputMaybe<IntQueryOperatorInput>;
-  host?: InputMaybe<StringQueryOperatorInput>;
   polyfill?: InputMaybe<BooleanQueryOperatorInput>;
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
@@ -3752,7 +3632,6 @@ export type DataJsonFieldsEnum =
   | 'data___data___data___message'
   | 'data___data___data___full_picture'
   | 'data___data___data___picture'
-  | 'data___data___data___actions'
   | 'data___data___data___created_time'
   | 'data___data___data___status_type'
   | 'data___data___data___updated_time'
@@ -3804,15 +3683,11 @@ export type DataJsonFieldsEnum =
   | 'data___data___featuredImg___childrenDataJson'
   | 'data___data___featuredImg___id'
   | 'data___data___featuredImg___children'
-  | 'data___data___attachments___data'
   | 'data___data___message'
   | 'data___data___full_picture'
   | 'data___data___picture'
   | 'data___data___from___name'
   | 'data___data___from___id'
-  | 'data___data___actions'
-  | 'data___data___actions___name'
-  | 'data___data___actions___link'
   | 'data___data___created_time'
   | 'data___data___status_type'
   | 'data___data___updated_time'
@@ -3887,7 +3762,6 @@ export type DataJsonFieldsEnum =
   | 'data___featuredImg___childrenDataJson___message'
   | 'data___featuredImg___childrenDataJson___full_picture'
   | 'data___featuredImg___childrenDataJson___picture'
-  | 'data___featuredImg___childrenDataJson___actions'
   | 'data___featuredImg___childrenDataJson___created_time'
   | 'data___featuredImg___childrenDataJson___status_type'
   | 'data___featuredImg___childrenDataJson___updated_time'
@@ -3903,7 +3777,6 @@ export type DataJsonFieldsEnum =
   | 'data___featuredImg___childDataJson___message'
   | 'data___featuredImg___childDataJson___full_picture'
   | 'data___featuredImg___childDataJson___picture'
-  | 'data___featuredImg___childDataJson___actions'
   | 'data___featuredImg___childDataJson___created_time'
   | 'data___featuredImg___childDataJson___status_type'
   | 'data___featuredImg___childDataJson___updated_time'
@@ -3931,19 +3804,11 @@ export type DataJsonFieldsEnum =
   | 'data___featuredImg___internal___owner'
   | 'data___featuredImg___internal___type'
   | 'data___featuredImg___internal___contentFilePath'
-  | 'data___attachments___data'
-  | 'data___attachments___data___media_type'
-  | 'data___attachments___data___unshimmed_url'
-  | 'data___attachments___data___description'
-  | 'data___attachments___data___title'
   | 'data___message'
   | 'data___full_picture'
   | 'data___picture'
   | 'data___from___name'
   | 'data___from___id'
-  | 'data___actions'
-  | 'data___actions___name'
-  | 'data___actions___link'
   | 'data___created_time'
   | 'data___status_type'
   | 'data___updated_time'
@@ -4132,7 +3997,6 @@ export type DataJsonFieldsEnum =
   | 'featuredImg___childrenDataJson___data___message'
   | 'featuredImg___childrenDataJson___data___full_picture'
   | 'featuredImg___childrenDataJson___data___picture'
-  | 'featuredImg___childrenDataJson___data___actions'
   | 'featuredImg___childrenDataJson___data___created_time'
   | 'featuredImg___childrenDataJson___data___status_type'
   | 'featuredImg___childrenDataJson___data___updated_time'
@@ -4184,15 +4048,11 @@ export type DataJsonFieldsEnum =
   | 'featuredImg___childrenDataJson___featuredImg___childrenDataJson'
   | 'featuredImg___childrenDataJson___featuredImg___id'
   | 'featuredImg___childrenDataJson___featuredImg___children'
-  | 'featuredImg___childrenDataJson___attachments___data'
   | 'featuredImg___childrenDataJson___message'
   | 'featuredImg___childrenDataJson___full_picture'
   | 'featuredImg___childrenDataJson___picture'
   | 'featuredImg___childrenDataJson___from___name'
   | 'featuredImg___childrenDataJson___from___id'
-  | 'featuredImg___childrenDataJson___actions'
-  | 'featuredImg___childrenDataJson___actions___name'
-  | 'featuredImg___childrenDataJson___actions___link'
   | 'featuredImg___childrenDataJson___created_time'
   | 'featuredImg___childrenDataJson___status_type'
   | 'featuredImg___childrenDataJson___updated_time'
@@ -4224,7 +4084,6 @@ export type DataJsonFieldsEnum =
   | 'featuredImg___childDataJson___data___message'
   | 'featuredImg___childDataJson___data___full_picture'
   | 'featuredImg___childDataJson___data___picture'
-  | 'featuredImg___childDataJson___data___actions'
   | 'featuredImg___childDataJson___data___created_time'
   | 'featuredImg___childDataJson___data___status_type'
   | 'featuredImg___childDataJson___data___updated_time'
@@ -4276,15 +4135,11 @@ export type DataJsonFieldsEnum =
   | 'featuredImg___childDataJson___featuredImg___childrenDataJson'
   | 'featuredImg___childDataJson___featuredImg___id'
   | 'featuredImg___childDataJson___featuredImg___children'
-  | 'featuredImg___childDataJson___attachments___data'
   | 'featuredImg___childDataJson___message'
   | 'featuredImg___childDataJson___full_picture'
   | 'featuredImg___childDataJson___picture'
   | 'featuredImg___childDataJson___from___name'
   | 'featuredImg___childDataJson___from___id'
-  | 'featuredImg___childDataJson___actions'
-  | 'featuredImg___childDataJson___actions___name'
-  | 'featuredImg___childDataJson___actions___link'
   | 'featuredImg___childDataJson___created_time'
   | 'featuredImg___childDataJson___status_type'
   | 'featuredImg___childDataJson___updated_time'
@@ -4354,22 +4209,11 @@ export type DataJsonFieldsEnum =
   | 'featuredImg___internal___owner'
   | 'featuredImg___internal___type'
   | 'featuredImg___internal___contentFilePath'
-  | 'attachments___data'
-  | 'attachments___data___media___source'
-  | 'attachments___data___media_type'
-  | 'attachments___data___target___id'
-  | 'attachments___data___target___url'
-  | 'attachments___data___unshimmed_url'
-  | 'attachments___data___description'
-  | 'attachments___data___title'
   | 'message'
   | 'full_picture'
   | 'picture'
   | 'from___name'
   | 'from___id'
-  | 'actions'
-  | 'actions___name'
-  | 'actions___link'
   | 'created_time'
   | 'status_type'
   | 'updated_time'
