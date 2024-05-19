@@ -7,7 +7,7 @@ import Banner from './Banner'
 export default function News() {
   const { allDataJson } = useStaticQuery<NewsQuery>(graphql`
     query News {
-      allDataJson(sort: { order: DESC, fields: created_time }, limit: 5) {
+      allDataJson(sort: { created_time: DESC }, limit: 5) {
         edges {
           node {
             id
@@ -53,9 +53,9 @@ export default function News() {
               <p>{new Date(edge.node.created_time).toLocaleString()}</p>
               <ul className="actions stacked">
                 <li>
-                  <a href={edge.node.first_action?.link!} target="_blank" className="button" rel="noreferrer">
+                  <a href={edge.node.first_action?.link ?? ''} target="_blank" className="button" rel="noreferrer">
                     Tovább a Facebook posthoz
-                  </a> 
+                  </a>
                 </li>
               </ul>
             </header>

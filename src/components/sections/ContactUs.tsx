@@ -53,6 +53,7 @@ export default function ContactUs() {
                 <input
                   required
                   type="text"
+                  autoComplete="on"
                   name="name"
                   id="name"
                   value={name}
@@ -65,6 +66,7 @@ export default function ContactUs() {
                 Email
                 <input
                   required
+                  autoComplete="email"
                   type="email"
                   name="email"
                   id="email"

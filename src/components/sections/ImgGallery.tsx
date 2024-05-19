@@ -1,6 +1,9 @@
 import { StaticImage } from 'gatsby-plugin-image'
-import Carousel from 'nuka-carousel'
-import React, { useEffect, useState } from 'react'
+import Carousel from 'react-slick'
+import React, { CSSProperties, PropsWithChildren, useEffect, useState } from 'react'
+
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 export default function ImgGallery() {
   const [width, setWidth] = useState(0)
@@ -44,45 +47,68 @@ export default function ImgGallery() {
     }
   }, [])
 
-  const imageStyles = width > 700 ? { display: 'inline-block', width: '600px' } : undefined
+  const imageStyles: CSSProperties = { objectFit: 'contain' }
 
   return (
     <section className="wrapper style1 align-center color1 invert">
       <Carousel
         adaptiveHeight
-        pauseOnHover={false}
-        enableKeyboardControls={false}
         autoplay={isInViewport}
-        wrapAround
-        speed={1000}
-        renderCenterLeftControls={({ previousSlide }) => (
-          <button type="button" onClick={previousSlide}>
-            Előző
-          </button>
-        )}
-        renderCenterRightControls={({ nextSlide }) => (
-          <button type="button" onClick={nextSlide}>
-            Következő
-          </button>
-        )}
-        renderBottomCenterControls={() => null}
+        prevArrow={<Arrow isPrev={true}>Előző</Arrow>}
+        nextArrow={<Arrow>Következő</Arrow>}
       >
         <StaticImage
-          style={imageStyles}
+          imgStyle={imageStyles}
+          height={500}
           src="../../images/barban.jpeg"
           alt="Gabi bácsi a Piros Pezsgő pianó bárban a zongora mögött"
         />
-        <StaticImage style={imageStyles} src="../../images/profil.jpeg" alt="Közeli kép Gabi bácsiról" />
-        <StaticImage style={imageStyles} src="../../images/zongora-mogott.jpeg" alt="Rendezvényen a zongora mögött" />
-        <StaticImage style={imageStyles} src="../../images/gallery1.jpg" alt="Fűzy Gábor fehér zongorán játszik" />
         <StaticImage
-          style={imageStyles}
+          height={500}
+          imgStyle={imageStyles}
+          src="../../images/profil.jpeg"
+          alt="Közeli kép Gabi bácsiról"
+        />
+        <StaticImage
+          imgStyle={imageStyles}
+          height={500}
+          src="../../images/zongora-mogott.jpeg"
+          alt="Rendezvényen a zongora mögött"
+        />
+        <StaticImage
+          height={500}
+          imgStyle={imageStyles}
+          src="../../images/gallery1.jpg"
+          alt="Fűzy Gábor fehér zongorán játszik"
+        />
+        <StaticImage
+          imgStyle={imageStyles}
+          height={500}
           src="../../images/gallery2.jpg"
           alt="Fűzy Gábor egy szőke hölgy társaságában"
         />
-        <StaticImage style={imageStyles} src="../../images/gallery3.jpg" alt="Gabi bácsi rajongókkal" />
-        <StaticImage style={imageStyles} src="../../images/gallery4.jpg" alt="Gabi bácsi az indexes videóból" />
+        <StaticImage height={500} imgStyle={imageStyles} src="../../images/gallery3.jpg" alt="Gabi bácsi rajongókkal" />
+        <StaticImage
+          height={500}
+          imgStyle={imageStyles}
+          src="../../images/gallery4.jpg"
+          alt="Gabi bácsi az indexes videóból"
+        />
       </Carousel>
     </section>
+  )
+}
+
+function Arrow(props: PropsWithChildren<{ onClick?: () => void; isPrev?: boolean }>) {
+  const { onClick, children, isPrev } = props
+  const side = isPrev ? 'left' : 'right'
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      style={{ display: 'block', position: 'absolute', top: '50%', [side]: '10px', zIndex: 10 }}
+    >
+      {children}
+    </button>
   )
 }
