@@ -99,7 +99,7 @@ export default function ImgGallery() {
   )
 }
 
-function Arrow(props: any) {
+function Arrow(props: PropsWithChildren<{ onClick?: () => void; isPrev?: boolean }>) {
   const { onClick, children, isPrev } = props
   const side = isPrev ? 'left' : 'right'
   return (

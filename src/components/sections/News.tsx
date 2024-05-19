@@ -53,7 +53,7 @@ export default function News() {
               <p>{new Date(edge.node.created_time).toLocaleString()}</p>
               <ul className="actions stacked">
                 <li>
-                  <a href={edge.node.first_action?.link!} target="_blank" className="button" rel="noreferrer">
+                  <a href={edge.node.first_action?.link ?? ''} target="_blank" className="button" rel="noreferrer">
                     Tovább a Facebook posthoz
                   </a>
                 </li>

@@ -1,5 +1,6 @@
-/** @type {import('gatsby').GatsbyConfig} */
-module.exports = {
+import type { GatsbyConfig } from 'gatsby'
+
+const config: GatsbyConfig = {
   siteMetadata: {
     title: 'Fűzy Gábor',
   },
@@ -58,3 +59,5 @@ module.exports = {
     },
   ],
 }
+
+export default config

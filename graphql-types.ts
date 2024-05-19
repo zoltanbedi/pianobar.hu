@@ -607,27 +607,23 @@ export type ImageSharpResize = {
 export type DataJson = Node & {
   data?: Maybe<DataJson>;
   featuredImg?: Maybe<File>;
+  actions?: Maybe<Scalars['String']>;
+  attachments?: Maybe<DataJsonAttachments>;
   created_time?: Maybe<Scalars['Date']>;
+  description?: Maybe<Scalars['String']>;
   first_action?: Maybe<DataJsonFirst_Action>;
   from?: Maybe<DataJsonFrom>;
   full_picture?: Maybe<Scalars['String']>;
-  icon?: Maybe<Scalars['String']>;
+  full_res_picture?: Maybe<Scalars['String']>;
   link?: Maybe<Scalars['String']>;
+  message?: Maybe<Scalars['String']>;
   picture?: Maybe<Scalars['String']>;
   status_type?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
   updated_time?: Maybe<Scalars['Date']>;
   jsonId?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  full_res_picture?: Maybe<Scalars['String']>;
-  message?: Maybe<Scalars['String']>;
-  story?: Maybe<Scalars['String']>;
   fields?: Maybe<DataJsonFields>;
-  description_megalkotta?: Maybe<Scalars['String']>;
-  description_rta?: Maybe<Scalars['String']>;
-  message_megalkotta?: Maybe<Scalars['String']>;
-  message_rta?: Maybe<Scalars['String']>;
-  description_bertSmink?: Maybe<Scalars['String']>;
+  icon?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -648,6 +644,10 @@ export type DataJsonUpdated_TimeArgs = {
   fromNow?: InputMaybe<Scalars['Boolean']>;
   difference?: InputMaybe<Scalars['String']>;
   locale?: InputMaybe<Scalars['String']>;
+};
+
+export type DataJsonAttachments = {
+  data?: Maybe<Scalars['String']>;
 };
 
 export type DataJsonFirst_Action = {
@@ -925,27 +925,23 @@ export type QueryAllImageSharpArgs = {
 export type QueryDataJsonArgs = {
   data?: InputMaybe<DataJsonFilterInput>;
   featuredImg?: InputMaybe<FileFilterInput>;
+  actions?: InputMaybe<StringQueryOperatorInput>;
+  attachments?: InputMaybe<DataJsonAttachmentsFilterInput>;
   created_time?: InputMaybe<DateQueryOperatorInput>;
+  description?: InputMaybe<StringQueryOperatorInput>;
   first_action?: InputMaybe<DataJsonFirst_ActionFilterInput>;
   from?: InputMaybe<DataJsonFromFilterInput>;
   full_picture?: InputMaybe<StringQueryOperatorInput>;
-  icon?: InputMaybe<StringQueryOperatorInput>;
+  full_res_picture?: InputMaybe<StringQueryOperatorInput>;
   link?: InputMaybe<StringQueryOperatorInput>;
+  message?: InputMaybe<StringQueryOperatorInput>;
   picture?: InputMaybe<StringQueryOperatorInput>;
   status_type?: InputMaybe<StringQueryOperatorInput>;
   type?: InputMaybe<StringQueryOperatorInput>;
   updated_time?: InputMaybe<DateQueryOperatorInput>;
   jsonId?: InputMaybe<StringQueryOperatorInput>;
-  description?: InputMaybe<StringQueryOperatorInput>;
-  full_res_picture?: InputMaybe<StringQueryOperatorInput>;
-  message?: InputMaybe<StringQueryOperatorInput>;
-  story?: InputMaybe<StringQueryOperatorInput>;
   fields?: InputMaybe<DataJsonFieldsFilterInput>;
-  description_megalkotta?: InputMaybe<StringQueryOperatorInput>;
-  description_rta?: InputMaybe<StringQueryOperatorInput>;
-  message_megalkotta?: InputMaybe<StringQueryOperatorInput>;
-  message_rta?: InputMaybe<StringQueryOperatorInput>;
-  description_bertSmink?: InputMaybe<StringQueryOperatorInput>;
+  icon?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -1105,27 +1101,23 @@ export type DataJsonFilterListInput = {
 export type DataJsonFilterInput = {
   data?: InputMaybe<DataJsonFilterInput>;
   featuredImg?: InputMaybe<FileFilterInput>;
+  actions?: InputMaybe<StringQueryOperatorInput>;
+  attachments?: InputMaybe<DataJsonAttachmentsFilterInput>;
   created_time?: InputMaybe<DateQueryOperatorInput>;
+  description?: InputMaybe<StringQueryOperatorInput>;
   first_action?: InputMaybe<DataJsonFirst_ActionFilterInput>;
   from?: InputMaybe<DataJsonFromFilterInput>;
   full_picture?: InputMaybe<StringQueryOperatorInput>;
-  icon?: InputMaybe<StringQueryOperatorInput>;
+  full_res_picture?: InputMaybe<StringQueryOperatorInput>;
   link?: InputMaybe<StringQueryOperatorInput>;
+  message?: InputMaybe<StringQueryOperatorInput>;
   picture?: InputMaybe<StringQueryOperatorInput>;
   status_type?: InputMaybe<StringQueryOperatorInput>;
   type?: InputMaybe<StringQueryOperatorInput>;
   updated_time?: InputMaybe<DateQueryOperatorInput>;
   jsonId?: InputMaybe<StringQueryOperatorInput>;
-  description?: InputMaybe<StringQueryOperatorInput>;
-  full_res_picture?: InputMaybe<StringQueryOperatorInput>;
-  message?: InputMaybe<StringQueryOperatorInput>;
-  story?: InputMaybe<StringQueryOperatorInput>;
   fields?: InputMaybe<DataJsonFieldsFilterInput>;
-  description_megalkotta?: InputMaybe<StringQueryOperatorInput>;
-  description_rta?: InputMaybe<StringQueryOperatorInput>;
-  message_megalkotta?: InputMaybe<StringQueryOperatorInput>;
-  message_rta?: InputMaybe<StringQueryOperatorInput>;
-  description_bertSmink?: InputMaybe<StringQueryOperatorInput>;
+  icon?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -1176,6 +1168,10 @@ export type FileFilterInput = {
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
   internal?: InputMaybe<InternalFilterInput>;
+};
+
+export type DataJsonAttachmentsFilterInput = {
+  data?: InputMaybe<StringQueryOperatorInput>;
 };
 
 export type DataJsonFirst_ActionFilterInput = {
@@ -1373,31 +1369,31 @@ export type InternalFieldSelector = {
 export type DataJsonFieldSelector = {
   data?: InputMaybe<DataJsonFieldSelector>;
   featuredImg?: InputMaybe<FileFieldSelector>;
+  actions?: InputMaybe<FieldSelectorEnum>;
+  attachments?: InputMaybe<DataJsonAttachmentsFieldSelector>;
   created_time?: InputMaybe<FieldSelectorEnum>;
+  description?: InputMaybe<FieldSelectorEnum>;
   first_action?: InputMaybe<DataJsonFirst_ActionFieldSelector>;
   from?: InputMaybe<DataJsonFromFieldSelector>;
   full_picture?: InputMaybe<FieldSelectorEnum>;
-  icon?: InputMaybe<FieldSelectorEnum>;
+  full_res_picture?: InputMaybe<FieldSelectorEnum>;
   link?: InputMaybe<FieldSelectorEnum>;
+  message?: InputMaybe<FieldSelectorEnum>;
   picture?: InputMaybe<FieldSelectorEnum>;
   status_type?: InputMaybe<FieldSelectorEnum>;
   type?: InputMaybe<FieldSelectorEnum>;
   updated_time?: InputMaybe<FieldSelectorEnum>;
   jsonId?: InputMaybe<FieldSelectorEnum>;
-  description?: InputMaybe<FieldSelectorEnum>;
-  full_res_picture?: InputMaybe<FieldSelectorEnum>;
-  message?: InputMaybe<FieldSelectorEnum>;
-  story?: InputMaybe<FieldSelectorEnum>;
   fields?: InputMaybe<DataJsonFieldsFieldSelector>;
-  description_megalkotta?: InputMaybe<FieldSelectorEnum>;
-  description_rta?: InputMaybe<FieldSelectorEnum>;
-  message_megalkotta?: InputMaybe<FieldSelectorEnum>;
-  message_rta?: InputMaybe<FieldSelectorEnum>;
-  description_bertSmink?: InputMaybe<FieldSelectorEnum>;
+  icon?: InputMaybe<FieldSelectorEnum>;
   id?: InputMaybe<FieldSelectorEnum>;
   parent?: InputMaybe<NodeFieldSelector>;
   children?: InputMaybe<NodeFieldSelector>;
   internal?: InputMaybe<InternalFieldSelector>;
+};
+
+export type DataJsonAttachmentsFieldSelector = {
+  data?: InputMaybe<FieldSelectorEnum>;
 };
 
 export type DataJsonFirst_ActionFieldSelector = {
@@ -1582,31 +1578,31 @@ export type InternalSortInput = {
 export type DataJsonSortInput = {
   data?: InputMaybe<DataJsonSortInput>;
   featuredImg?: InputMaybe<FileSortInput>;
+  actions?: InputMaybe<SortOrderEnum>;
+  attachments?: InputMaybe<DataJsonAttachmentsSortInput>;
   created_time?: InputMaybe<SortOrderEnum>;
+  description?: InputMaybe<SortOrderEnum>;
   first_action?: InputMaybe<DataJsonFirst_ActionSortInput>;
   from?: InputMaybe<DataJsonFromSortInput>;
   full_picture?: InputMaybe<SortOrderEnum>;
-  icon?: InputMaybe<SortOrderEnum>;
+  full_res_picture?: InputMaybe<SortOrderEnum>;
   link?: InputMaybe<SortOrderEnum>;
+  message?: InputMaybe<SortOrderEnum>;
   picture?: InputMaybe<SortOrderEnum>;
   status_type?: InputMaybe<SortOrderEnum>;
   type?: InputMaybe<SortOrderEnum>;
   updated_time?: InputMaybe<SortOrderEnum>;
   jsonId?: InputMaybe<SortOrderEnum>;
-  description?: InputMaybe<SortOrderEnum>;
-  full_res_picture?: InputMaybe<SortOrderEnum>;
-  message?: InputMaybe<SortOrderEnum>;
-  story?: InputMaybe<SortOrderEnum>;
   fields?: InputMaybe<DataJsonFieldsSortInput>;
-  description_megalkotta?: InputMaybe<SortOrderEnum>;
-  description_rta?: InputMaybe<SortOrderEnum>;
-  message_megalkotta?: InputMaybe<SortOrderEnum>;
-  message_rta?: InputMaybe<SortOrderEnum>;
-  description_bertSmink?: InputMaybe<SortOrderEnum>;
+  icon?: InputMaybe<SortOrderEnum>;
   id?: InputMaybe<SortOrderEnum>;
   parent?: InputMaybe<NodeSortInput>;
   children?: InputMaybe<NodeSortInput>;
   internal?: InputMaybe<InternalSortInput>;
+};
+
+export type DataJsonAttachmentsSortInput = {
+  data?: InputMaybe<SortOrderEnum>;
 };
 
 export type DataJsonFirst_ActionSortInput = {

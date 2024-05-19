@@ -1,7 +1,8 @@
-/* eslint-disable no-console */
-const { createRemoteFileNode } = require('gatsby-source-filesystem')
+import type { GatsbyNode } from 'gatsby'
+import { DataJson } from './graphql-types'
+import { createRemoteFileNode } from 'gatsby-source-filesystem'
 
-exports.createSchemaCustomization = ({ actions }) => {
+export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = ({ actions }) => {
   const { createTypes } = actions
 
   createTypes(`
@@ -12,7 +13,12 @@ exports.createSchemaCustomization = ({ actions }) => {
   `)
 }
 
-exports.onCreateNode = async ({ node, actions: { createNode, createNodeField }, createNodeId, getCache }) => {
+export const onCreateNode: GatsbyNode<DataJson>['onCreateNode'] = async ({
+  node,
+  actions: { createNode, createNodeField },
+  createNodeId,
+  getCache,
+}) => {
   if (node.internal.type === 'DataJson' && node?.full_picture != null) {
     try {
       const fileNode = await createRemoteFileNode({
