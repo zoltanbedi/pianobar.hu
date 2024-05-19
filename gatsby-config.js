@@ -3,6 +3,7 @@ module.exports = {
   siteMetadata: {
     title: 'Fűzy Gábor',
   },
+  trailingSlash: 'always',
   plugins: [
     'gatsby-plugin-sass',
     'gatsby-plugin-offline',
@@ -12,7 +13,7 @@ module.exports = {
     'gatsby-plugin-netlify',
     'gatsby-plugin-graphql-codegen',
     {
-      resolve: 'gatsby-plugin-react-svg',
+      resolve: 'gatsby-plugin-svgr-loader',
       options: {
         rule: {
           include: /assets/,
