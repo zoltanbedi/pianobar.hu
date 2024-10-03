@@ -615,6 +615,7 @@ export type DataJson = Node & {
   from?: Maybe<DataJsonFrom>;
   full_picture?: Maybe<Scalars['String']>;
   full_res_picture?: Maybe<Scalars['String']>;
+  icon?: Maybe<Scalars['String']>;
   link?: Maybe<Scalars['String']>;
   message?: Maybe<Scalars['String']>;
   picture?: Maybe<Scalars['String']>;
@@ -622,8 +623,8 @@ export type DataJson = Node & {
   type?: Maybe<Scalars['String']>;
   updated_time?: Maybe<Scalars['Date']>;
   jsonId?: Maybe<Scalars['String']>;
+  story?: Maybe<Scalars['String']>;
   fields?: Maybe<DataJsonFields>;
-  icon?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -664,6 +665,109 @@ export type DataJsonFields = {
   localFile?: Maybe<Scalars['String']>;
 };
 
+export type StaticImage = Node & {
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  sourceInstanceName?: Maybe<Scalars['String']>;
+  relativePath?: Maybe<Scalars['String']>;
+  extension?: Maybe<Scalars['String']>;
+  prettySize?: Maybe<Scalars['String']>;
+  modifiedTime?: Maybe<Scalars['Date']>;
+  accessTime?: Maybe<Scalars['Date']>;
+  changeTime?: Maybe<Scalars['Date']>;
+  birthTime?: Maybe<Scalars['Date']>;
+  root?: Maybe<Scalars['String']>;
+  dir?: Maybe<Scalars['String']>;
+  base?: Maybe<Scalars['String']>;
+  ext?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  absolutePath?: Maybe<Scalars['String']>;
+  relativeDirectory?: Maybe<Scalars['String']>;
+  dev?: Maybe<Scalars['Int']>;
+  mode?: Maybe<Scalars['Int']>;
+  nlink?: Maybe<Scalars['Int']>;
+  uid?: Maybe<Scalars['Int']>;
+  rdev?: Maybe<Scalars['Int']>;
+  blksize?: Maybe<Scalars['Int']>;
+  ino?: Maybe<Scalars['Int']>;
+  size?: Maybe<Scalars['Int']>;
+  blocks?: Maybe<Scalars['Int']>;
+  atimeMs?: Maybe<Scalars['Float']>;
+  mtimeMs?: Maybe<Scalars['Float']>;
+  ctimeMs?: Maybe<Scalars['Float']>;
+  birthtimeMs?: Maybe<Scalars['Float']>;
+  atime?: Maybe<Scalars['Date']>;
+  mtime?: Maybe<Scalars['Date']>;
+  ctime?: Maybe<Scalars['Date']>;
+  birthtime?: Maybe<Scalars['Date']>;
+};
+
+
+export type StaticImageModifiedTimeArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+export type StaticImageAccessTimeArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+export type StaticImageChangeTimeArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+export type StaticImageBirthTimeArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+export type StaticImageAtimeArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+export type StaticImageMtimeArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+export type StaticImageCtimeArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+export type StaticImageBirthtimeArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
 export type Query = {
   file?: Maybe<File>;
   allFile: FileConnection;
@@ -683,6 +787,8 @@ export type Query = {
   allImageSharp: ImageSharpConnection;
   dataJson?: Maybe<DataJson>;
   allDataJson: DataJsonConnection;
+  staticImage?: Maybe<StaticImage>;
+  allStaticImage: StaticImageConnection;
 };
 
 
@@ -933,6 +1039,7 @@ export type QueryDataJsonArgs = {
   from?: InputMaybe<DataJsonFromFilterInput>;
   full_picture?: InputMaybe<StringQueryOperatorInput>;
   full_res_picture?: InputMaybe<StringQueryOperatorInput>;
+  icon?: InputMaybe<StringQueryOperatorInput>;
   link?: InputMaybe<StringQueryOperatorInput>;
   message?: InputMaybe<StringQueryOperatorInput>;
   picture?: InputMaybe<StringQueryOperatorInput>;
@@ -940,8 +1047,8 @@ export type QueryDataJsonArgs = {
   type?: InputMaybe<StringQueryOperatorInput>;
   updated_time?: InputMaybe<DateQueryOperatorInput>;
   jsonId?: InputMaybe<StringQueryOperatorInput>;
+  story?: InputMaybe<StringQueryOperatorInput>;
   fields?: InputMaybe<DataJsonFieldsFilterInput>;
-  icon?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -952,6 +1059,54 @@ export type QueryDataJsonArgs = {
 export type QueryAllDataJsonArgs = {
   filter?: InputMaybe<DataJsonFilterInput>;
   sort?: InputMaybe<Array<InputMaybe<DataJsonSortInput>>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryStaticImageArgs = {
+  id?: InputMaybe<StringQueryOperatorInput>;
+  parent?: InputMaybe<NodeFilterInput>;
+  children?: InputMaybe<NodeFilterListInput>;
+  internal?: InputMaybe<InternalFilterInput>;
+  sourceInstanceName?: InputMaybe<StringQueryOperatorInput>;
+  relativePath?: InputMaybe<StringQueryOperatorInput>;
+  extension?: InputMaybe<StringQueryOperatorInput>;
+  prettySize?: InputMaybe<StringQueryOperatorInput>;
+  modifiedTime?: InputMaybe<DateQueryOperatorInput>;
+  accessTime?: InputMaybe<DateQueryOperatorInput>;
+  changeTime?: InputMaybe<DateQueryOperatorInput>;
+  birthTime?: InputMaybe<DateQueryOperatorInput>;
+  root?: InputMaybe<StringQueryOperatorInput>;
+  dir?: InputMaybe<StringQueryOperatorInput>;
+  base?: InputMaybe<StringQueryOperatorInput>;
+  ext?: InputMaybe<StringQueryOperatorInput>;
+  name?: InputMaybe<StringQueryOperatorInput>;
+  absolutePath?: InputMaybe<StringQueryOperatorInput>;
+  relativeDirectory?: InputMaybe<StringQueryOperatorInput>;
+  dev?: InputMaybe<IntQueryOperatorInput>;
+  mode?: InputMaybe<IntQueryOperatorInput>;
+  nlink?: InputMaybe<IntQueryOperatorInput>;
+  uid?: InputMaybe<IntQueryOperatorInput>;
+  rdev?: InputMaybe<IntQueryOperatorInput>;
+  blksize?: InputMaybe<IntQueryOperatorInput>;
+  ino?: InputMaybe<IntQueryOperatorInput>;
+  size?: InputMaybe<IntQueryOperatorInput>;
+  blocks?: InputMaybe<IntQueryOperatorInput>;
+  atimeMs?: InputMaybe<FloatQueryOperatorInput>;
+  mtimeMs?: InputMaybe<FloatQueryOperatorInput>;
+  ctimeMs?: InputMaybe<FloatQueryOperatorInput>;
+  birthtimeMs?: InputMaybe<FloatQueryOperatorInput>;
+  atime?: InputMaybe<DateQueryOperatorInput>;
+  mtime?: InputMaybe<DateQueryOperatorInput>;
+  ctime?: InputMaybe<DateQueryOperatorInput>;
+  birthtime?: InputMaybe<DateQueryOperatorInput>;
+};
+
+
+export type QueryAllStaticImageArgs = {
+  filter?: InputMaybe<StaticImageFilterInput>;
+  sort?: InputMaybe<Array<InputMaybe<StaticImageSortInput>>>;
   skip?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;
 };
@@ -1109,6 +1264,7 @@ export type DataJsonFilterInput = {
   from?: InputMaybe<DataJsonFromFilterInput>;
   full_picture?: InputMaybe<StringQueryOperatorInput>;
   full_res_picture?: InputMaybe<StringQueryOperatorInput>;
+  icon?: InputMaybe<StringQueryOperatorInput>;
   link?: InputMaybe<StringQueryOperatorInput>;
   message?: InputMaybe<StringQueryOperatorInput>;
   picture?: InputMaybe<StringQueryOperatorInput>;
@@ -1116,8 +1272,8 @@ export type DataJsonFilterInput = {
   type?: InputMaybe<StringQueryOperatorInput>;
   updated_time?: InputMaybe<DateQueryOperatorInput>;
   jsonId?: InputMaybe<StringQueryOperatorInput>;
+  story?: InputMaybe<StringQueryOperatorInput>;
   fields?: InputMaybe<DataJsonFieldsFilterInput>;
-  icon?: InputMaybe<StringQueryOperatorInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
   parent?: InputMaybe<NodeFilterInput>;
   children?: InputMaybe<NodeFilterListInput>;
@@ -1377,6 +1533,7 @@ export type DataJsonFieldSelector = {
   from?: InputMaybe<DataJsonFromFieldSelector>;
   full_picture?: InputMaybe<FieldSelectorEnum>;
   full_res_picture?: InputMaybe<FieldSelectorEnum>;
+  icon?: InputMaybe<FieldSelectorEnum>;
   link?: InputMaybe<FieldSelectorEnum>;
   message?: InputMaybe<FieldSelectorEnum>;
   picture?: InputMaybe<FieldSelectorEnum>;
@@ -1384,8 +1541,8 @@ export type DataJsonFieldSelector = {
   type?: InputMaybe<FieldSelectorEnum>;
   updated_time?: InputMaybe<FieldSelectorEnum>;
   jsonId?: InputMaybe<FieldSelectorEnum>;
+  story?: InputMaybe<FieldSelectorEnum>;
   fields?: InputMaybe<DataJsonFieldsFieldSelector>;
-  icon?: InputMaybe<FieldSelectorEnum>;
   id?: InputMaybe<FieldSelectorEnum>;
   parent?: InputMaybe<NodeFieldSelector>;
   children?: InputMaybe<NodeFieldSelector>;
@@ -1586,6 +1743,7 @@ export type DataJsonSortInput = {
   from?: InputMaybe<DataJsonFromSortInput>;
   full_picture?: InputMaybe<SortOrderEnum>;
   full_res_picture?: InputMaybe<SortOrderEnum>;
+  icon?: InputMaybe<SortOrderEnum>;
   link?: InputMaybe<SortOrderEnum>;
   message?: InputMaybe<SortOrderEnum>;
   picture?: InputMaybe<SortOrderEnum>;
@@ -1593,8 +1751,8 @@ export type DataJsonSortInput = {
   type?: InputMaybe<SortOrderEnum>;
   updated_time?: InputMaybe<SortOrderEnum>;
   jsonId?: InputMaybe<SortOrderEnum>;
+  story?: InputMaybe<SortOrderEnum>;
   fields?: InputMaybe<DataJsonFieldsSortInput>;
-  icon?: InputMaybe<SortOrderEnum>;
   id?: InputMaybe<SortOrderEnum>;
   parent?: InputMaybe<NodeSortInput>;
   children?: InputMaybe<NodeSortInput>;
@@ -2647,6 +2805,209 @@ export type DataJsonGroupConnectionGroupArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;
   field: DataJsonFieldSelector;
+};
+
+export type StaticImageConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<StaticImageEdge>;
+  nodes: Array<StaticImage>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<StaticImageGroupConnection>;
+};
+
+
+export type StaticImageConnectionDistinctArgs = {
+  field: StaticImageFieldSelector;
+};
+
+
+export type StaticImageConnectionMaxArgs = {
+  field: StaticImageFieldSelector;
+};
+
+
+export type StaticImageConnectionMinArgs = {
+  field: StaticImageFieldSelector;
+};
+
+
+export type StaticImageConnectionSumArgs = {
+  field: StaticImageFieldSelector;
+};
+
+
+export type StaticImageConnectionGroupArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  field: StaticImageFieldSelector;
+};
+
+export type StaticImageEdge = {
+  next?: Maybe<StaticImage>;
+  node: StaticImage;
+  previous?: Maybe<StaticImage>;
+};
+
+export type StaticImageFieldSelector = {
+  id?: InputMaybe<FieldSelectorEnum>;
+  parent?: InputMaybe<NodeFieldSelector>;
+  children?: InputMaybe<NodeFieldSelector>;
+  internal?: InputMaybe<InternalFieldSelector>;
+  sourceInstanceName?: InputMaybe<FieldSelectorEnum>;
+  relativePath?: InputMaybe<FieldSelectorEnum>;
+  extension?: InputMaybe<FieldSelectorEnum>;
+  prettySize?: InputMaybe<FieldSelectorEnum>;
+  modifiedTime?: InputMaybe<FieldSelectorEnum>;
+  accessTime?: InputMaybe<FieldSelectorEnum>;
+  changeTime?: InputMaybe<FieldSelectorEnum>;
+  birthTime?: InputMaybe<FieldSelectorEnum>;
+  root?: InputMaybe<FieldSelectorEnum>;
+  dir?: InputMaybe<FieldSelectorEnum>;
+  base?: InputMaybe<FieldSelectorEnum>;
+  ext?: InputMaybe<FieldSelectorEnum>;
+  name?: InputMaybe<FieldSelectorEnum>;
+  absolutePath?: InputMaybe<FieldSelectorEnum>;
+  relativeDirectory?: InputMaybe<FieldSelectorEnum>;
+  dev?: InputMaybe<FieldSelectorEnum>;
+  mode?: InputMaybe<FieldSelectorEnum>;
+  nlink?: InputMaybe<FieldSelectorEnum>;
+  uid?: InputMaybe<FieldSelectorEnum>;
+  rdev?: InputMaybe<FieldSelectorEnum>;
+  blksize?: InputMaybe<FieldSelectorEnum>;
+  ino?: InputMaybe<FieldSelectorEnum>;
+  size?: InputMaybe<FieldSelectorEnum>;
+  blocks?: InputMaybe<FieldSelectorEnum>;
+  atimeMs?: InputMaybe<FieldSelectorEnum>;
+  mtimeMs?: InputMaybe<FieldSelectorEnum>;
+  ctimeMs?: InputMaybe<FieldSelectorEnum>;
+  birthtimeMs?: InputMaybe<FieldSelectorEnum>;
+  atime?: InputMaybe<FieldSelectorEnum>;
+  mtime?: InputMaybe<FieldSelectorEnum>;
+  ctime?: InputMaybe<FieldSelectorEnum>;
+  birthtime?: InputMaybe<FieldSelectorEnum>;
+};
+
+export type StaticImageGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<StaticImageEdge>;
+  nodes: Array<StaticImage>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<StaticImageGroupConnection>;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+
+export type StaticImageGroupConnectionDistinctArgs = {
+  field: StaticImageFieldSelector;
+};
+
+
+export type StaticImageGroupConnectionMaxArgs = {
+  field: StaticImageFieldSelector;
+};
+
+
+export type StaticImageGroupConnectionMinArgs = {
+  field: StaticImageFieldSelector;
+};
+
+
+export type StaticImageGroupConnectionSumArgs = {
+  field: StaticImageFieldSelector;
+};
+
+
+export type StaticImageGroupConnectionGroupArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  field: StaticImageFieldSelector;
+};
+
+export type StaticImageFilterInput = {
+  id?: InputMaybe<StringQueryOperatorInput>;
+  parent?: InputMaybe<NodeFilterInput>;
+  children?: InputMaybe<NodeFilterListInput>;
+  internal?: InputMaybe<InternalFilterInput>;
+  sourceInstanceName?: InputMaybe<StringQueryOperatorInput>;
+  relativePath?: InputMaybe<StringQueryOperatorInput>;
+  extension?: InputMaybe<StringQueryOperatorInput>;
+  prettySize?: InputMaybe<StringQueryOperatorInput>;
+  modifiedTime?: InputMaybe<DateQueryOperatorInput>;
+  accessTime?: InputMaybe<DateQueryOperatorInput>;
+  changeTime?: InputMaybe<DateQueryOperatorInput>;
+  birthTime?: InputMaybe<DateQueryOperatorInput>;
+  root?: InputMaybe<StringQueryOperatorInput>;
+  dir?: InputMaybe<StringQueryOperatorInput>;
+  base?: InputMaybe<StringQueryOperatorInput>;
+  ext?: InputMaybe<StringQueryOperatorInput>;
+  name?: InputMaybe<StringQueryOperatorInput>;
+  absolutePath?: InputMaybe<StringQueryOperatorInput>;
+  relativeDirectory?: InputMaybe<StringQueryOperatorInput>;
+  dev?: InputMaybe<IntQueryOperatorInput>;
+  mode?: InputMaybe<IntQueryOperatorInput>;
+  nlink?: InputMaybe<IntQueryOperatorInput>;
+  uid?: InputMaybe<IntQueryOperatorInput>;
+  rdev?: InputMaybe<IntQueryOperatorInput>;
+  blksize?: InputMaybe<IntQueryOperatorInput>;
+  ino?: InputMaybe<IntQueryOperatorInput>;
+  size?: InputMaybe<IntQueryOperatorInput>;
+  blocks?: InputMaybe<IntQueryOperatorInput>;
+  atimeMs?: InputMaybe<FloatQueryOperatorInput>;
+  mtimeMs?: InputMaybe<FloatQueryOperatorInput>;
+  ctimeMs?: InputMaybe<FloatQueryOperatorInput>;
+  birthtimeMs?: InputMaybe<FloatQueryOperatorInput>;
+  atime?: InputMaybe<DateQueryOperatorInput>;
+  mtime?: InputMaybe<DateQueryOperatorInput>;
+  ctime?: InputMaybe<DateQueryOperatorInput>;
+  birthtime?: InputMaybe<DateQueryOperatorInput>;
+};
+
+export type StaticImageSortInput = {
+  id?: InputMaybe<SortOrderEnum>;
+  parent?: InputMaybe<NodeSortInput>;
+  children?: InputMaybe<NodeSortInput>;
+  internal?: InputMaybe<InternalSortInput>;
+  sourceInstanceName?: InputMaybe<SortOrderEnum>;
+  relativePath?: InputMaybe<SortOrderEnum>;
+  extension?: InputMaybe<SortOrderEnum>;
+  prettySize?: InputMaybe<SortOrderEnum>;
+  modifiedTime?: InputMaybe<SortOrderEnum>;
+  accessTime?: InputMaybe<SortOrderEnum>;
+  changeTime?: InputMaybe<SortOrderEnum>;
+  birthTime?: InputMaybe<SortOrderEnum>;
+  root?: InputMaybe<SortOrderEnum>;
+  dir?: InputMaybe<SortOrderEnum>;
+  base?: InputMaybe<SortOrderEnum>;
+  ext?: InputMaybe<SortOrderEnum>;
+  name?: InputMaybe<SortOrderEnum>;
+  absolutePath?: InputMaybe<SortOrderEnum>;
+  relativeDirectory?: InputMaybe<SortOrderEnum>;
+  dev?: InputMaybe<SortOrderEnum>;
+  mode?: InputMaybe<SortOrderEnum>;
+  nlink?: InputMaybe<SortOrderEnum>;
+  uid?: InputMaybe<SortOrderEnum>;
+  rdev?: InputMaybe<SortOrderEnum>;
+  blksize?: InputMaybe<SortOrderEnum>;
+  ino?: InputMaybe<SortOrderEnum>;
+  size?: InputMaybe<SortOrderEnum>;
+  blocks?: InputMaybe<SortOrderEnum>;
+  atimeMs?: InputMaybe<SortOrderEnum>;
+  mtimeMs?: InputMaybe<SortOrderEnum>;
+  ctimeMs?: InputMaybe<SortOrderEnum>;
+  birthtimeMs?: InputMaybe<SortOrderEnum>;
+  atime?: InputMaybe<SortOrderEnum>;
+  mtime?: InputMaybe<SortOrderEnum>;
+  ctime?: InputMaybe<SortOrderEnum>;
+  birthtime?: InputMaybe<SortOrderEnum>;
 };
 
 export type SiteTitleQueryQueryVariables = Exact<{ [key: string]: never; }>;
